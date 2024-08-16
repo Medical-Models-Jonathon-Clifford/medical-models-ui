@@ -1,0 +1,16 @@
+{
+  "name": "rust-src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/rust-src",
+  "tags": [],
+  "implicitDependencies": [],
+  "// targets": "to see all targets run: nx show project medical-models-ui-e2e --web",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "wasm-pack build --target bundler libs/rust-src"
+      }
+    }
+  }
+}
