@@ -1,0 +1,9 @@
+{
+  "name": "medical-models-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/medical-models-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["medical-models"],
+  "// targets": "to see all targets run: nx show project medical-models-e2e --web",
+  "targets": {}
+}

@@ -180,7 +180,7 @@ export default function Dashboard() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+              {/* Recent Recent */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{

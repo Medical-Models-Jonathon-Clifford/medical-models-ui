@@ -1,5 +1,8 @@
 use wasm_bindgen::prelude::*;
 
+mod multiplymodule;
+use multiplymodule::good_multiply;
+
 #[wasm_bindgen]
 extern {
     pub fn alert(s: &str);
@@ -36,4 +39,9 @@ pub fn multiply(a: i32, b: i32) -> i32 {
 #[wasm_bindgen]
 pub fn floor_num(input: f32) -> i32 {
   input.floor() as i32
+}
+
+#[wasm_bindgen]
+pub fn multiple_then_double(x: i32, y: i32) -> i32 {
+  return good_multiply(x, y) * 2;
 }

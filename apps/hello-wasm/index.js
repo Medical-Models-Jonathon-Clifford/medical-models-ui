@@ -38,24 +38,42 @@ floorButton.addEventListener('click', () => {
 })
 
 
-const response = await fetch('http://localhost:8081/hello')
-console.log(response);
-const responseJson = await response.json();
-console.log(responseJson);
 
-document.getElementById('name').innerText = responseJson.name;
-document.getElementById('species').innerText = responseJson.species;
-
-const postResponse = await fetch('http://localhost:8081/hello', {
-  method: 'POST',
-  body: JSON.stringify({
-    name: 'Sticky',
-    species: 'Stick insect'
-  }),
-  headers: {
-    'Content-Type': 'application/json'
-  }
+const goodMultiplyButton = document.getElementById('good-multiply-number');
+goodMultiplyButton.addEventListener('click', () => {
+  favNumSpan.innerText = String(wasm.multiple_then_double(76, 13));
 })
 
-const postResponseStatus = postResponse.status;
-console.log(postResponseStatus);
+// const response = await fetch('http://localhost:8081/hello')
+// console.log(response);
+// const responseJson = await response.json();
+// console.log(responseJson);
+//
+// document.getElementById('name').innerText = responseJson.name;
+// document.getElementById('species').innerText = responseJson.species;
+//
+// const postResponse = await fetch('http://localhost:8081/hello', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     name: 'Sticky',
+//     species: 'Stick insect'
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// })
+//
+// const postResponseStatus = postResponse.status;
+// console.log(postResponseStatus);
+
+const canvas = document.getElementById("first-canvas");
+const ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "black";
+ctx.fillRect(0, 0, 170, 120);
+
+ctx.fillStyle = "green";
+ctx.fillRect(10, 10, 150, 100);
+
+
+

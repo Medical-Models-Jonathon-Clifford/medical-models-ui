@@ -1,0 +1,13 @@
+{
+  "name": "medical-models",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/medical-models",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project medical-models --web",
+  "targets": {
+    "deploy": {
+      "command": "node ./apps/medical-models/upload-to-s3.js"
+    }
+  }
+}

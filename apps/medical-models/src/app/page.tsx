@@ -19,10 +19,16 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
+import { mainListItems } from './listItems';
+import NewModelSelection from './NewModelSelection';
+import Recent from './Recent';
 import Orders from './Orders';
+import axios from 'axios';
+import { faker } from '@faker-js/faker';
+import { formatRFC3339 } from 'date-fns';
+import {useEffect, useState} from "react";
+import {Button} from "@mui/material";
+import {MEDICAL_MODELS_SERVICE_BASE_URL} from "./constants";
 
 function Copyright(props: any) {
   return (
@@ -89,20 +95,50 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+
+type User = {
+  email: string;
+  profilePicture: string;
+  name: string;
+  created_date: string;
+  password: string;
+  state: 'ACTIVE' | 'LOCKED' | 'ARCHIVED';
+}
+
+const newFakeUser: User = {
+  email: faker.internet.email(),
+  profilePicture: '',
+  name: faker.person.fullName(),
+  created_date: formatRFC3339(new Date()),
+  password: 'fakepassword123',
+  state: 'ACTIVE'
+};
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const [fakeUser, setFakeUser] = useState<User | null>(null);
+  const [returnedUser, setReturnedUser] = useState(null);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const handleNewUser = () => {
+    axios.post(`${MEDICAL_MODELS_SERVICE_BASE_URL}/user`, fakeUser)
+      .then((response) => {
+        console.log(response.data);
+        return axios.get(`${MEDICAL_MODELS_SERVICE_BASE_URL}/users/${response.data.id}`)
+      }).then((response) => {
+
+    })
+  };
+
+  useEffect(() => {
+    setFakeUser(newFakeUser);
+  }, []);
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -130,7 +166,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Medical Models
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -152,11 +188,8 @@ export default function Dashboard() {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
           <List component="nav">
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -181,10 +214,21 @@ export default function Dashboard() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 450,
                   }}
                 >
-                  <Chart />
+                  <NewModelSelection />
+                  {fakeUser &&
+                    <>
+                      <p>Fake user name: {fakeUser.name}</p>
+                      <p>Fake user email: {fakeUser.email}</p>
+                      <p>Fake user created date: {fakeUser.created_date}</p>
+                      <p>Fake user profile picture: {fakeUser.profilePicture}</p>
+                      <p>Fake user password: {fakeUser.password}</p>
+                      <p>Fake user state: {fakeUser.state}</p>
+                      <Button onClick={handleNewUser}>New User</Button>
+                    </>
+                  }
                 </Paper>
               </Grid>
               {/* Recent Recent */}
@@ -194,20 +238,13 @@ export default function Dashboard() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 450,
                   }}
                 >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <Recent />
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
