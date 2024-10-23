@@ -11,6 +11,7 @@ pipeline {
                 sh 'echo helloworld'
                 sh 'node -v'
                 sh 'npm -v'
+                sh 'nvm --version'
 //                 sh 'nx run medical-models:build'
 //                 sh 'nx run medical-models:deploy'
             }
