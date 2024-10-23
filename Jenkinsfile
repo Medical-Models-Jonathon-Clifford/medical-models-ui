@@ -8,9 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
-                sh 'nx run medical-models:build'
-                sh 'nx run medical-models:deploy'
+                sh 'echo helloworld'
+//                 sh 'nx run medical-models:build'
+//                 sh 'nx run medical-models:deploy'
             }
         }
     }
