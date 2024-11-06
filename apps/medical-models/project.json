@@ -8,6 +8,12 @@
   "targets": {
     "deploy": {
       "command": "node ./apps/medical-models/upload-to-s3.js"
+    },
+    "dockerbuild": {
+      "command": "docker build . -t jonathonclifford/mm-ui"
+    },
+    "dockerpush": {
+      "command": "docker push jonathonclifford/mm-ui"
     }
   }
 }
