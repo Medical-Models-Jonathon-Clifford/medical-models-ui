@@ -12,7 +12,7 @@ import { faker } from '@faker-js/faker';
 import { formatRFC3339 } from 'date-fns';
 import { MEDICAL_MODELS_SERVICE_BASE_URL } from './constants';
 
-import { User } from '../models/User';
+import { User } from '../models/user';
 
 const newFakeUser: User = {
   email: faker.internet.email(),

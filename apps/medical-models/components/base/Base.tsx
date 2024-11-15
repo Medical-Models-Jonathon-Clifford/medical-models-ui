@@ -20,7 +20,7 @@ export default function Base({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
         <TopAppBar toggleDrawer={toggleDrawer} open={open}></TopAppBar>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Title from '../title/Title';
 import DielectricPropsBodyTissues from '../dielectric/DielectricPropsBodyTissues';
 import DrugHalfLife from '../drug-half-life/DrugHalfLife';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
