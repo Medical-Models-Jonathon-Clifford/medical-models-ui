@@ -12,15 +12,18 @@
     "@mui/x-charts": "^7.13.0",
     "@mui/x-data-grid": "^7.16.0",
     "@mui/x-date-pickers": "^7.20.0",
+    "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
+    "chart.js": "^4.4.6",
     "date-fns": "^4.1.0",
+    "mathjs": "^13.2.1",
+    "mime": "^3.0.0",
     "next": "14.2.3",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "rust-src": "file:libs/rust-src/pkg",
-    "tslib": "^2.3.0",
-    "aws-sdk": "^2.1691.0",
-    "mime": "^3.0.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
