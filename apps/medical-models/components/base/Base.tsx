@@ -13,7 +13,7 @@ import TopAppBar from './TopAppBar';
 const defaultTheme = createTheme();
 
 export default function Base({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const toggleDrawer: () => void = () => {
     setOpen(!open);
