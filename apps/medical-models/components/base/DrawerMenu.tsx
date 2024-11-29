@@ -5,12 +5,28 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import GrainIcon from '@mui/icons-material/Grain';
 import ListItemText from '@mui/material/ListItemText';
-import ShareIcon from '@mui/icons-material/Share';
+import HomeIcon from '@mui/icons-material/Home';
+import AddIcon from '@mui/icons-material/Add';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { DocumentNode, NavTreeDocInfo, NavTreeDocItem } from './NavTreeDocItem';
+import { stubNavTreeDocs } from './stub-docs';
+import axios from 'axios';
 
-export default function DrawerMenu({toggleDrawer, open}: {toggleDrawer: () => void, open: boolean}) {
+
+export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () => void, open: boolean }) {
+  const [navTreeDocs, setNavTreeDocs] = useState<DocumentNode[]>(stubNavTreeDocs);
+  const router = useRouter();
+
+  useEffect(() => {
+    axios.get('http://localhost:8081/documents/all/navigation')
+      .then(r => {
+        console.log(r.data);
+        setNavTreeDocs(r.data);
+      })
+  }, []);
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -27,17 +43,19 @@ export default function DrawerMenu({toggleDrawer, open}: {toggleDrawer: () => vo
         </IconButton>
       </Toolbar>
       <List component="nav">
-        <ListItemButton>
+        <ListItemButton onClick={() => router.push('/')}>
           <ListItemIcon>
-            <GrainIcon />
+            <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="My Models" />
+          <ListItemText primary="Home" />
         </ListItemButton>
+        {navTreeDocs.map((docInfo) =>
+          <NavTreeDocItem key={docInfo.document.id} docInfo={docInfo}></NavTreeDocItem>)}
         <ListItemButton>
           <ListItemIcon>
-            <ShareIcon />
+            <AddIcon />
           </ListItemIcon>
-          <ListItemText primary="Shared with Me" />
+          <ListItemText primary="Create new document" />
         </ListItemButton>
       </List>
     </Drawer>

@@ -21,7 +21,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { DEFAULT_DOSE, getConcentrations, getTimePoints } from './half-life-service';
 import { halfLifeData, options } from './half-life-chart';
-import { DEFAULT_DRUG, DRUG_HALF_LIVES, drugFromName } from './drugs';
+import { DEFAULT_DRUG, Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
 import { useState } from 'react';
 import { Stack } from '@mui/material';
 
@@ -66,7 +66,7 @@ export default function DrugHalfLife() {
               label="Drug"
               onChange={handleChange}
             >
-              {DRUG_HALF_LIVES.map((h: any) => (
+              {DRUG_HALF_LIVES.map((h: Drug) => (
                 <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
               ))}
             </Select>

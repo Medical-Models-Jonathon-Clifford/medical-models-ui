@@ -7,7 +7,7 @@ const { composePlugins, withNx } = require('@nx/next');
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  output: 'export',
+  // output: 'export', output: export compiles the next js app into static files that can run on a simple web server.
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr

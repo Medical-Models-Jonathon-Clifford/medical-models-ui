@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { MouseEventHandler } from 'react';
+import { FormEventHandler, MouseEventHandler } from 'react';
 
 type DocNameState = 'Not Set' | 'Editing' | 'Display';
 
@@ -11,7 +11,7 @@ export default function DocumentName() {
   const [documentName, setDocumentName] = React.useState('');
   const [docNameState, setDocNameState] = React.useState<DocNameState>('Not Set');
 
-  const onDocNameSubmit = (event: any) => {
+  const onDocNameSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     setDocNameState('Display');
   };

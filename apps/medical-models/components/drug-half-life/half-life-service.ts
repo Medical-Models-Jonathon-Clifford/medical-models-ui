@@ -18,7 +18,7 @@ function intervals(end: number, start: number): number {
 }
 
 function linearSpace(start: number, end: number): number[] {
-  let array = range(start, end, intervals(end, start), true).toArray();
+  const array = range(start, end, intervals(end, start), true).toArray();
   if (isMathNumericTypeArray(array) && isNumberArray(array)) {
     return array;
   } else {
@@ -40,7 +40,6 @@ function isNumber(n: MathNumericType): n is number {
 
 function concentrationDecay(defaultDose: number, eliminationConstant: number, time_points: number[]): number[] {
   return time_points.map((time: number) => {
-    // @ts-ignore
     return defaultDose * exp(multiply(-eliminationConstant, time));
   });
 }

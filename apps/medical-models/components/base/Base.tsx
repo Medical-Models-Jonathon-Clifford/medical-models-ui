@@ -8,12 +8,13 @@ import Box from '@mui/material/Box';
 import MainStage from './MainStage';
 import DrawerMenu from './DrawerMenu';
 import TopAppBar from './TopAppBar';
+import { useState } from 'react';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Base({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
 
   const toggleDrawer: () => void = () => {
     setOpen(!open);

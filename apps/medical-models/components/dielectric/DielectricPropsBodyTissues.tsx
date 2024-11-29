@@ -22,7 +22,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Stack } from '@mui/material';
-import { DEFAULT_TISSUE, tissueFromName, TISSUES } from './tissues';
+import { DEFAULT_TISSUE, Tissue, tissueFromName, TISSUES } from './tissues';
 import { getProperties, getFrequencies } from './dielectric';
 import { chartConductivityData, chartOptions, chartPermittivityData } from './dielectric-chart';
 
@@ -67,7 +67,7 @@ export default function DielectricPropsBodyTissues() {
             label="Tissue"
             onChange={handleChange}
           >
-            {TISSUES.map((h: any) => (
+            {TISSUES.map((h: Tissue) => (
               <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
             ))}
           </Select>

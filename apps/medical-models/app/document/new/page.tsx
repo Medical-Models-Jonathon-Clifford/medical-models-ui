@@ -111,7 +111,7 @@ export default function NewDocument() {
   const [comments, setComments] = React.useState<CommentNode[]>([]);
   const [newCommentText, setNewCommentText]: [string, (value: (((prevState: string) => string) | string)) => void] = useState('');
   const [replyParent, setReplyParent] = React.useState<CommentNode | null>(null);
-  const [wholeCommentsState, setWholeCommentsState]: [string, (value: (((prevState: string) => string) | string)) => void] = useState('TopLevelComment');
+  const [wholeCommentsState, setWholeCommentsState]: [string, (value: (((prevState: string) => string) | string)) => void] = useState<WholeCommentState>('TopLevelComment');
 
   const newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCommentText(event.target.value);
@@ -145,7 +145,7 @@ export default function NewDocument() {
     setComments((prevState) => {
       console.log('prevState');
       console.log(prevState);
-      let newCommentNodes = addReplyToCommentNodes(newCommentText, parentComment, prevState);
+      const newCommentNodes = addReplyToCommentNodes(newCommentText, parentComment, prevState);
       console.log('newCommentNodes');
       console.log(newCommentNodes);
       return newCommentNodes;
