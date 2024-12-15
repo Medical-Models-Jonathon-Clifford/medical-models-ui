@@ -12,8 +12,8 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
-import DrugHalfLife from '../../components/drug-half-life/DrugHalfLife';
-import DielectricPropsBodyTissues from '../../components/dielectric/DielectricPropsBodyTissues';
+import DrugHalfLife from '../../components/blocks/drug-half-life/DrugHalfLife';
+import DielectricPropsBodyTissues from '../../components/blocks/dielectric/DielectricPropsBodyTissues';
 
 ChartJS.register(
   CategoryScale,

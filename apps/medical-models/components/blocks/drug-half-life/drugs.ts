@@ -11,7 +11,19 @@ export const DRUG_HALF_LIVES: Drug[] = [
   { name: 'Phenylephrine Hydrochloride', halfLife: 24 },
   { name: 'Benzydamine Hydrochloride', halfLife: 50 },
   { name: 'Esomeprazole Magnesium', halfLife: 30 },
-  { name: 'Diclofenac', halfLife: 8 }
+  { name: 'Diclofenac', halfLife: 8 },
+  { name: 'Ventolin', halfLife: 0.5 },
+  { name: 'Sudocrem', halfLife: 6 },
+  { name: 'Minoxidil', halfLife: 3 },
+  { name: 'Finasteride', halfLife: 40 },
+  { name: 'Testosterone Cipionate', halfLife: 38 },
+  { name: 'Human Growth Hormone', halfLife: 27 },
+  { name: 'Ozempic', halfLife: 14 },
+  { name: 'Cisplatin', halfLife: 23 },
+  { name: 'Nicotine', halfLife: 2 },
+  { name: 'Germolene', halfLife: 5 },
+  { name: 'Lysergic acid diethylamide', halfLife: 3.6 },
+  { name: 'Zoledronic acid', halfLife: 6 },
 ];
 
 export function drugFromName(name: string) {

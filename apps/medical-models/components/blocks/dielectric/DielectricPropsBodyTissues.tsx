@@ -46,7 +46,7 @@ export default function DielectricPropsBodyTissues() {
   };
 
   const frequencies = getFrequencies();
-  const {epsilonReal, conductivity} = getProperties(tissue);
+  const { epsilonReal, conductivity } = getProperties(tissue);
 
   const conductivityOptions = chartOptions('Conductivity vs Frequency') as ChartOptions<'line'>;
   const permittivityOptions = chartOptions('Real Part of Permittivity vs Frequency') as ChartOptions<'line'>;
@@ -88,5 +88,40 @@ export default function DielectricPropsBodyTissues() {
         </Stack>
       </Box>
     </>
+  );
+}
+
+// type DielectricBlockType = {};
+
+export function ViewDielectric({tissueName}: {tissueName: string}) {
+
+  const tissue = tissueFromName(tissueName);
+
+  const frequencies = getFrequencies();
+  const { epsilonReal, conductivity } = getProperties(tissue);
+
+  const conductivityOptions = chartOptions('Conductivity vs Frequency') as ChartOptions<'line'>;
+  const permittivityOptions = chartOptions('Real Part of Permittivity vs Frequency') as ChartOptions<'line'>;
+  const permittivityData = chartPermittivityData(frequencies, epsilonReal);
+  const conductivityData = chartConductivityData(frequencies, conductivity);
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <p>Dielectric Properties of: {tissue.name}</p>
+      <Stack direction="row" width={'100%'} spacing={'10px'}>
+        <div className="chart-container" style={{ width: '50%', height: '300px' }}>
+          <Line
+            options={permittivityOptions}
+            data={permittivityData}
+          />
+        </div>
+        <div className="chart-container" style={{ width: '50%', height: '300px' }}>
+          <Line
+            options={conductivityOptions}
+            data={conductivityData}
+          />
+        </div>
+      </Stack>
+    </Box>
   );
 }

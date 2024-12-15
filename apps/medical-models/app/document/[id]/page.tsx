@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { ViewText } from '../../../components/blocks/text/Text';
+import Typography from '@mui/material/Typography';
+import { BlockTypes, ValidTypes } from '../../../models/blocks';
+import { ViewDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { ViewDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 
 type Document = {
   id: string;
@@ -12,7 +17,7 @@ type Document = {
   state: string;
 };
 
-export default async function Page({params}: {params: Promise<{ id: string }>}) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const solidParams = await params;
   const id = solidParams.id;
@@ -24,22 +29,39 @@ export default async function Page({params}: {params: Promise<{ id: string }>}) 
   console.log(data);
 
 
-
   console.log('solidParams');
   console.log(solidParams);
   console.log('slug');
   console.log(id);
 
+  const Body = ({ body }: { body: string }) => {
+
+    const blocks: BlockTypes[] = JSON.parse(body);
+    console.log('blocks');
+    console.log(blocks);
+
+    const typedBlocks = blocks.map((block: any) => {
+      if (block.type === 'text') {
+        return <ViewText text={block.text}></ViewText>;
+      } else if (block.type === 'dielectric') {
+        return <ViewDielectric tissueName={block.tissue}></ViewDielectric>;
+      } else if (block.type === 'half-life') {
+        return <ViewDrugHalfLife drugName={block.drug} dose={block.dose}></ViewDrugHalfLife>
+      }
+    })
+
+    return (
+      <>
+        {typedBlocks}
+      </>
+    );
+  };
+
   return (
     <>
-      <p>Document Id: {id}</p>
-      <p>{data.id}</p>
-      <p>{data.title}</p>
-      <p>{data.createdDate}</p>
-      <p>{data.modifiedDate}</p>
-      <p>{data.body}</p>
-      <p>{data.creator}</p>
-      <p>{data.state}</p>
+      <Typography variant="h2">{data.title}</Typography>
+      <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
+      <Body body={data.body}></Body>
     </>
   );
 }

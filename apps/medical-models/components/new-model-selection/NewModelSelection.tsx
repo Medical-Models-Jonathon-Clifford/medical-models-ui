@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Title from '../title/Title';
-import DielectricPropsBodyTissues from '../dielectric/DielectricPropsBodyTissues';
-import DrugHalfLife from '../drug-half-life/DrugHalfLife';
+import DielectricPropsBodyTissues from '../blocks/dielectric/DielectricPropsBodyTissues';
+import DrugHalfLife from '../blocks/drug-half-life/DrugHalfLife';
 import { User } from '../../models/user';
 import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -28,17 +28,17 @@ export default function NewModelSelection({ fakeUser, handleNewUser }: {
             <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
             <DrugHalfLife></DrugHalfLife>
           </div>
-          {fakeUser &&
-            <>
-              <p>Fake user name: {fakeUser.name}</p>
-              <p>Fake user email: {fakeUser.email}</p>
-              <p>Fake user created date: {fakeUser.created_date}</p>
-              <p>Fake user profile picture: {fakeUser.profilePicture}</p>
-              <p>Fake user password: {fakeUser.password}</p>
-              <p>Fake user state: {fakeUser.state}</p>
-              <Button onClick={handleNewUser}>New User</Button>
-            </>
-          }
+          {/*{fakeUser &&*/}
+          {/*  <>*/}
+          {/*    <p>Fake user name: {fakeUser.name}</p>*/}
+          {/*    <p>Fake user email: {fakeUser.email}</p>*/}
+          {/*    <p>Fake user created date: {fakeUser.created_date}</p>*/}
+          {/*    <p>Fake user profile picture: {fakeUser.profilePicture}</p>*/}
+          {/*    <p>Fake user password: {fakeUser.password}</p>*/}
+          {/*    <p>Fake user state: {fakeUser.state}</p>*/}
+          {/*    <Button onClick={handleNewUser}>New User</Button>*/}
+          {/*  </>*/}
+          {/*}*/}
         </Paper>
       </Grid>
     </>

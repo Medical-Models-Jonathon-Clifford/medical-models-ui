@@ -92,3 +92,23 @@ export default function DrugHalfLife() {
     </>
   );
 }
+
+export function ViewDrugHalfLife({drugName, dose}: {drugName: string, dose: number}) {
+
+  const drug = drugFromName(drugName);
+
+  const timePoints: number[] = getTimePoints(drug);
+  const concentrations: number[] = getConcentrations(drug, timePoints, dose);
+
+  return (
+    <>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <p>{drug.name} Half Life: {drug.halfLife}</p>
+        <Line
+          options={options(drug.halfLife) as ChartOptions<'line'>}
+          data={halfLifeData(timePoints, concentrations, drug, dose)}
+        />
+      </Box>
+    </>
+  );
+}

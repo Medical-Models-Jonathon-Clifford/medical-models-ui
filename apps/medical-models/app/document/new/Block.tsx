@@ -5,8 +5,8 @@ import * as React from 'react';
 import { TextField } from '@mui/material';
 import { MouseEventHandler, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import DielectricPropsBodyTissues from '../../../components/dielectric/DielectricPropsBodyTissues';
-import DrugHalfLife from '../../../components/drug-half-life/DrugHalfLife';
+import DielectricPropsBodyTissues from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import DrugHalfLife from '../../../components/blocks/drug-half-life/DrugHalfLife';
 
 type BlockState =
   'Choose Block'
