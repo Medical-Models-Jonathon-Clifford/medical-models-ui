@@ -15,7 +15,7 @@ type BlockState =
   | 'New Dielectric Block'
   | 'New Half Life Block';
 
-export default function Block({clickNewBlock}: {clickNewBlock: () => void}) {
+export default function Block({ clickNewBlock }: { clickNewBlock: () => void }) {
   const [blockState, setBlockState] = useState<BlockState>('Choose Block');
   const [blockText, setBlockText] = useState('');
 
@@ -78,14 +78,10 @@ export default function Block({clickNewBlock}: {clickNewBlock: () => void}) {
         </Paper>
       )}
       {blockState === 'New Dielectric Block' && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
-        </Paper>
+        <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
       )}
       {blockState === 'New Half Life Block' && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <DrugHalfLife></DrugHalfLife>
-        </Paper>
+        <DrugHalfLife></DrugHalfLife>
       )}
     </>
   );

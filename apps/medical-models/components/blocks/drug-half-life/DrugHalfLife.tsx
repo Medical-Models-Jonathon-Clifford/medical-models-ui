@@ -24,6 +24,7 @@ import { halfLifeData, options } from './half-life-chart';
 import { DEFAULT_DRUG, Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
 import { useState } from 'react';
 import { Stack } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 ChartJS.register(
   CategoryScale,
@@ -53,47 +54,49 @@ export default function DrugHalfLife() {
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <p>Document page</p>
-        <Stack direction="row">
-          <FormControl>
-            <InputLabel id="drug-select-label">Drug</InputLabel>
-            <Select
-              variant={'filled'}
-              labelId="drug-select-label"
-              id="drug-select"
-              value={drug.name}
-              label="Drug"
-              onChange={handleChange}
-            >
-              {DRUG_HALF_LIVES.map((h: Drug) => (
-                <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+      <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <p>Document page</p>
+          <Stack direction="row">
+            <FormControl>
+              <InputLabel id="drug-select-label">Drug</InputLabel>
+              <Select
+                variant={'filled'}
+                labelId="drug-select-label"
+                id="drug-select"
+                value={drug.name}
+                label="Drug"
+                onChange={handleChange}
+              >
+                {DRUG_HALF_LIVES.map((h: Drug) => (
+                  <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-          <FormControl>
-            <input
-              type="number"
-              id="dose-input"
-              value={dose}
-              onChange={handleDoseChange}
-              style={{ padding: '12px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
-            />
-          </FormControl>
-        </Stack>
+            <FormControl>
+              <input
+                type="number"
+                id="dose-input"
+                value={dose}
+                onChange={handleDoseChange}
+                style={{ padding: '12px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
+              />
+            </FormControl>
+          </Stack>
 
-        <p>{drug.name} Half Life: {drug.halfLife}</p>
-        <Line
-          options={options(drug.halfLife) as ChartOptions<'line'>}
-          data={halfLifeData(timePoints, concentrations, drug, dose)}
-        />
-      </Box>
+          <p>{drug.name} Half Life: {drug.halfLife}</p>
+          <Line
+            options={options(drug.halfLife) as ChartOptions<'line'>}
+            data={halfLifeData(timePoints, concentrations, drug, dose)}
+          />
+        </Box>
+      </Paper>
     </>
   );
 }
 
-export function ViewDrugHalfLife({drugName, dose}: {drugName: string, dose: number}) {
+export function ViewDrugHalfLife({ drugName, dose }: { drugName: string, dose: number }) {
 
   const drug = drugFromName(drugName);
 
@@ -102,13 +105,15 @@ export function ViewDrugHalfLife({drugName, dose}: {drugName: string, dose: numb
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <p>{drug.name} Half Life: {drug.halfLife}</p>
-        <Line
-          options={options(drug.halfLife) as ChartOptions<'line'>}
-          data={halfLifeData(timePoints, concentrations, drug, dose)}
-        />
-      </Box>
+      <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <p>{drug.name} Half Life: {drug.halfLife}</p>
+          <Line
+            options={options(drug.halfLife) as ChartOptions<'line'>}
+            data={halfLifeData(timePoints, concentrations, drug, dose)}
+          />
+        </Box>
+      </Paper>
     </>
   );
 }

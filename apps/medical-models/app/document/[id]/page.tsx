@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { ViewText } from '../../../components/blocks/text/Text';
+import { ReadOnlyText } from '../../../components/blocks/text/Text';
 import Typography from '@mui/material/Typography';
 import { BlockTypes, ValidTypes } from '../../../models/blocks';
-import { ViewDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { ViewDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 
 type Document = {
@@ -42,9 +42,9 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
     const typedBlocks = blocks.map((block: any) => {
       if (block.type === 'text') {
-        return <ViewText text={block.text}></ViewText>;
+        return <ReadOnlyText text={block.text}></ReadOnlyText>;
       } else if (block.type === 'dielectric') {
-        return <ViewDielectric tissueName={block.tissue}></ViewDielectric>;
+        return <ReadOnlyDielectric tissueName={block.tissue}></ReadOnlyDielectric>;
       } else if (block.type === 'half-life') {
         return <ViewDrugHalfLife drugName={block.drug} dose={block.dose}></ViewDrugHalfLife>
       }
