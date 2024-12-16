@@ -9,6 +9,7 @@ import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/Dielec
 import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import { ReadOnlyDocumentName } from '../../../components/blocks/document-name/DocumentName';
 
 type Document = {
   id: string;
@@ -62,7 +63,7 @@ export default function Page({ params }: { params: { id: string } }) {
       {viewDocState === 'loading' && <p>Loading...</p>}
       {viewDocState === 'loaded' && data &&
         <>
-          <Typography variant="h2">{data.title}</Typography>
+          <ReadOnlyDocumentName documentName={data.title}></ReadOnlyDocumentName>
           <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
           <Button href={`/document/${params.id}/edit`}>Edit Page</Button>
           <Body body={data.body}></Body>

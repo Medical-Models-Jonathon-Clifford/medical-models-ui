@@ -13,7 +13,8 @@ import { EditDrugHalfLife, ReadOnlyDrugHalfLife } from '../../../../components/b
 import axios from 'axios';
 import { Tissue } from '../../../../components/blocks/dielectric/tissues';
 import { Drug } from '../../../../components/blocks/drug-half-life/drugs';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
+import { EditDocumentName } from '../../../../components/blocks/document-name/DocumentName';
 
 type Document = {
   id: string;
@@ -31,7 +32,7 @@ type ViewDocState = 'loading' | 'loaded';
 const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (newBody: string) => void }) => {
   const getBlocks = () => {
     return JSON.parse(body);
-  }
+  };
 
   const saveTextChanges = (id: number, newBody: string) => {
     const blocks = getBlocks();
@@ -61,11 +62,14 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     <>
       {getBlocks().map((block: any, index: number) => {
         if (block.type === 'text') {
-          return <EditText key={index} value={block.text} saveChanges={(newBody) => saveTextChanges(index, newBody)}></EditText>;
+          return <EditText key={index} value={block.text}
+                           saveChanges={(newBody) => saveTextChanges(index, newBody)}></EditText>;
         } else if (block.type === 'dielectric') {
-          return <EditDielectric key={index} tissueName={block.tissue} saveChanges={(newTissue) => saveDielectricChanges(index, newTissue)}></EditDielectric>;
+          return <EditDielectric key={index} tissueName={block.tissue}
+                                 saveChanges={(newTissue) => saveDielectricChanges(index, newTissue)}></EditDielectric>;
         } else if (block.type === 'half-life') {
-          return <EditDrugHalfLife key={index} drugName={block.drug} dose={block.dose} saveChanges={(newDrug, newDose) => saveHalfLifeChanges(index, newDrug, newDose)}></EditDrugHalfLife>;
+          return <EditDrugHalfLife key={index} drugName={block.drug} dose={block.dose}
+                                   saveChanges={(newDrug, newDose) => saveHalfLifeChanges(index, newDrug, newDose)}></EditDrugHalfLife>;
         }
       })}
     </>
@@ -97,12 +101,27 @@ export default function Page({ params }: { params: { id: string } }) {
       });
   };
 
+  const saveDocumentNameChanges = (newName: string) => {
+    axios.put(`http://localhost:8081/documents/${params.id}`, {
+      id: params.id,
+      title: newName,
+      body: data!.body,
+      state: 'ACTIVE'
+    })
+      .then(response => {
+        setData(response.data);
+        setViewDocState('loaded');
+      });
+  };
+
   return (
     <>
       {viewDocState === 'loading' && <p>Loading...</p>}
       {viewDocState === 'loaded' && data &&
         <>
-          <Typography variant="h2">{data.title}</Typography>
+          <Stack>
+            <EditDocumentName documentName={data.title} saveChanges={saveDocumentNameChanges}></EditDocumentName>
+          </Stack>
           <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
           <Button href={`/document/${params.id}`}>Publish Page</Button>
           <EditBody body={data.body} saveBodyChanges={saveBodyChanges}></EditBody>
