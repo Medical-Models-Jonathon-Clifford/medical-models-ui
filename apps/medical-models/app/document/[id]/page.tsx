@@ -6,8 +6,9 @@ import { ReadOnlyText } from '../../../components/blocks/text/Text';
 import Typography from '@mui/material/Typography';
 import { BlockTypes } from '../../../models/blocks';
 import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
-import { ViewDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
+import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 type Document = {
   id: string;
@@ -29,13 +30,13 @@ const Body = ({ body }: { body: string }) => {
 
   return (
     <>
-      {blocks.map((block: any) => {
+      {blocks.map((block: any, index: number) => {
         if (block.type === 'text') {
-          return <ReadOnlyText key={block.id} text={block.text}></ReadOnlyText>;
+          return <ReadOnlyText key={index} text={block.text}></ReadOnlyText>;
         } else if (block.type === 'dielectric') {
-          return <ReadOnlyDielectric key={block.id} tissueName={block.tissue}></ReadOnlyDielectric>;
+          return <ReadOnlyDielectric key={index} tissueName={block.tissue}></ReadOnlyDielectric>;
         } else if (block.type === 'half-life') {
-          return <ViewDrugHalfLife key={block.id} drugName={block.drug} dose={block.dose}></ViewDrugHalfLife>;
+          return <ReadOnlyDrugHalfLife key={index} drugName={block.drug} dose={block.dose}></ReadOnlyDrugHalfLife>;
         }
       })}
     </>
@@ -63,6 +64,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <>
           <Typography variant="h2">{data.title}</Typography>
           <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
+          <Button href={`/document/${params.id}/edit`}>Edit Page</Button>
           <Body body={data.body}></Body>
         </>
       }

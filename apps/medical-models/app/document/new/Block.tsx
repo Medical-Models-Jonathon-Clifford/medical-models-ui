@@ -5,8 +5,8 @@ import * as React from 'react';
 import { TextField } from '@mui/material';
 import { MouseEventHandler, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import DielectricPropsBodyTissues from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
-import DrugHalfLife from '../../../components/blocks/drug-half-life/DrugHalfLife';
+import { EditDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { EditDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 
 type BlockState =
   'Choose Block'
@@ -78,10 +78,11 @@ export default function Block({ clickNewBlock }: { clickNewBlock: () => void }) 
         </Paper>
       )}
       {blockState === 'New Dielectric Block' && (
-        <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
+        <p>Edit Dielectric commented out...</p>
+        // <EditDielectric></EditDielectric>
       )}
       {blockState === 'New Half Life Block' && (
-        <DrugHalfLife></DrugHalfLife>
+        <EditDrugHalfLife></EditDrugHalfLife>
       )}
     </>
   );

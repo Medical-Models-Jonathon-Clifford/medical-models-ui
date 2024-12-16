@@ -12,8 +12,9 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
-import DrugHalfLife from '../../components/blocks/drug-half-life/DrugHalfLife';
-import DielectricPropsBodyTissues from '../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { EditDrugHalfLife } from '../../components/blocks/drug-half-life/DrugHalfLife';
+import { EditDielectric, ReadOnlyDielectric } from '../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { DEFAULT_TISSUE } from '../../components/blocks/dielectric/tissues';
 
 ChartJS.register(
   CategoryScale,
@@ -30,8 +31,8 @@ export default function Document() {
 
   return (
     <>
-      <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
-      <DrugHalfLife></DrugHalfLife>
+      <ReadOnlyDielectric tissueName={DEFAULT_TISSUE.name}></ReadOnlyDielectric>
+      <EditDrugHalfLife></EditDrugHalfLife>
     </>
   );
 }

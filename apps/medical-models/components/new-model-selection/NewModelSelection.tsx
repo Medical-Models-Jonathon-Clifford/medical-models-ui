@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Title from '../title/Title';
-import DielectricPropsBodyTissues from '../blocks/dielectric/DielectricPropsBodyTissues';
-import DrugHalfLife from '../blocks/drug-half-life/DrugHalfLife';
+import { EditDielectric } from '../blocks/dielectric/DielectricPropsBodyTissues';
+import { EditDrugHalfLife } from '../blocks/drug-half-life/DrugHalfLife';
 import { User } from '../../models/user';
 import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -25,8 +25,8 @@ export default function NewModelSelection({ fakeUser, handleNewUser }: {
         >
           <Title>New Model</Title>
           <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
-            <DielectricPropsBodyTissues></DielectricPropsBodyTissues>
-            <DrugHalfLife></DrugHalfLife>
+            <EditDielectric></EditDielectric>
+            <EditDrugHalfLife></EditDrugHalfLife>
           </div>
           {/*{fakeUser &&*/}
           {/*  <>*/}

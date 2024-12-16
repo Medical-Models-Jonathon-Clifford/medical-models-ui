@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import {
   CategoryScale,
@@ -19,12 +20,12 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_DOSE, getConcentrations, getTimePoints } from './half-life-service';
+import { getConcentrations, getTimePoints } from './half-life-service';
 import { halfLifeData, options } from './half-life-chart';
-import { DEFAULT_DRUG, Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
-import { useState } from 'react';
-import { Stack } from '@mui/material';
+import { Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
+import { Button, Stack } from '@mui/material';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 ChartJS.register(
   CategoryScale,
@@ -37,26 +38,100 @@ ChartJS.register(
   Legend
 );
 
-export default function DrugHalfLife() {
-  const [drug, setDrug] = useState(DEFAULT_DRUG);
-  const [dose, setDose] = useState(DEFAULT_DOSE);
+type EditDrugHalfLifeState = 'Loading' | 'Editing' | 'Viewing';
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setDrug(drugFromName(event.target.value));
-  };
+function halfLifeTitle(drug: Drug) {
+  return `${drug.name} Half Life: ${drug.halfLife}`;
+}
 
-  const handleDoseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDose(Number(e.target.value));
-  };
+function HalfLifeBox({ children }: { children: React.ReactNode }) {
+  return (
+    <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        {children}
+      </Box>
+    </Paper>
+  );
+}
 
+function HalfLifeChart({ drug, dose }: { drug: Drug, dose: number }) {
   const timePoints: number[] = getTimePoints(drug);
   const concentrations: number[] = getConcentrations(drug, timePoints, dose);
 
   return (
+    <Line
+      options={options(drug.halfLife) as ChartOptions<'line'>}
+      data={halfLifeData(timePoints, concentrations, drug, dose)}
+    />
+  );
+}
+
+export function ReadOnlyDrugHalfLife({ drugName, dose }: { drugName: string, dose: number }) {
+  const drug = drugFromName(drugName);
+
+  return (
+    <HalfLifeBox>
+      <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
+      <Typography variant="body1">Dose: {dose}</Typography>
+      <HalfLifeChart drug={drug} dose={dose}></HalfLifeChart>
+    </HalfLifeBox>
+  );
+}
+
+export function EditDrugHalfLife({ drugName, dose, saveChanges }: {
+  drugName: string,
+  dose: number,
+  saveChanges: (newDrug: Drug, newDose: number) => void
+}) {
+  const drug = drugFromName(drugName);
+
+  const [state, setState] = useState<EditDrugHalfLifeState>('Loading');
+  const [inputDrug, setInputDrug] = useState(drug);
+  const [inputDose, setInputDose] = useState(dose);
+
+  useEffect(() => {
+    if (drugName && dose) {
+      setState('Viewing');
+    } else {
+      setState('Editing');
+    }
+  }, []);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setInputDrug(drugFromName(event.target.value));
+  };
+
+  const handleDoseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputDose(Number(e.target.value));
+  };
+
+  const clickEditHalfLife = () => {
+    setState('Editing');
+  };
+
+  const clickSaveHalfLife = () => {
+    saveChanges(inputDrug, inputDose);
+    setState('Viewing');
+  };
+
+  return (
     <>
-      <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <p>Document page</p>
+      {state === 'Loading' && (
+        <HalfLifeBox>
+          <Typography variant="body1">Half life...</Typography>
+        </HalfLifeBox>
+      )}
+      {state === 'Viewing' && (
+        <HalfLifeBox>
+          <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
+          <Typography variant="body1">Dose: {dose}</Typography>
+          <Button onClick={clickEditHalfLife}>Edit</Button>
+          <HalfLifeChart drug={drug} dose={dose}></HalfLifeChart>
+        </HalfLifeBox>
+      )}
+      {state === 'Editing' && (
+        <HalfLifeBox>
+          <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
           <Stack direction="row">
             <FormControl>
               <InputLabel id="drug-select-label">Drug</InputLabel>
@@ -64,7 +139,7 @@ export default function DrugHalfLife() {
                 variant={'filled'}
                 labelId="drug-select-label"
                 id="drug-select"
-                value={drug.name}
+                value={inputDrug.name}
                 label="Drug"
                 onChange={handleChange}
               >
@@ -78,42 +153,16 @@ export default function DrugHalfLife() {
               <input
                 type="number"
                 id="dose-input"
-                value={dose}
+                value={inputDose}
                 onChange={handleDoseChange}
                 style={{ padding: '12px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
               />
             </FormControl>
           </Stack>
-
-          <p>{drug.name} Half Life: {drug.halfLife}</p>
-          <Line
-            options={options(drug.halfLife) as ChartOptions<'line'>}
-            data={halfLifeData(timePoints, concentrations, drug, dose)}
-          />
-        </Box>
-      </Paper>
-    </>
-  );
-}
-
-export function ViewDrugHalfLife({ drugName, dose }: { drugName: string, dose: number }) {
-
-  const drug = drugFromName(drugName);
-
-  const timePoints: number[] = getTimePoints(drug);
-  const concentrations: number[] = getConcentrations(drug, timePoints, dose);
-
-  return (
-    <>
-      <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <p>{drug.name} Half Life: {drug.halfLife}</p>
-          <Line
-            options={options(drug.halfLife) as ChartOptions<'line'>}
-            data={halfLifeData(timePoints, concentrations, drug, dose)}
-          />
-        </Box>
-      </Paper>
+          <Button onClick={clickSaveHalfLife}>Save</Button>
+          <HalfLifeChart drug={inputDrug} dose={inputDose}></HalfLifeChart>
+        </HalfLifeBox>
+      )}
     </>
   );
 }
