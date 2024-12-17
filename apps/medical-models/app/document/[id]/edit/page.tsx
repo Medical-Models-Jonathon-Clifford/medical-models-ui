@@ -1,20 +1,19 @@
 'use client';
 
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { EditText, ReadOnlyText } from '../../../../components/blocks/text/Text';
-import Typography from '@mui/material/Typography';
+import { MouseEventHandler, useEffect, useState } from 'react';
+import { EditText } from '../../../../components/blocks/text/Text';
 import { BlockTypes } from '../../../../models/blocks';
-import {
-  EditDielectric,
-  ReadOnlyDielectric
-} from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
-import { EditDrugHalfLife, ReadOnlyDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
+import { EditDielectric } from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
+import { EditDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
 import axios from 'axios';
-import { Tissue } from '../../../../components/blocks/dielectric/tissues';
-import { Drug } from '../../../../components/blocks/drug-half-life/drugs';
+import { DEFAULT_TISSUE, Tissue } from '../../../../components/blocks/dielectric/tissues';
+import { DEFAULT_DRUG, Drug } from '../../../../components/blocks/drug-half-life/drugs';
 import { Button, Stack } from '@mui/material';
 import { EditDocumentName } from '../../../../components/blocks/document-name/DocumentName';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { DEFAULT_DOSE } from '../../../../components/blocks/drug-half-life/half-life-service';
 
 type Document = {
   id: string;
@@ -27,9 +26,21 @@ type Document = {
   state: string;
 };
 
-type ViewDocState = 'loading' | 'loaded';
+type EditDocState = 'loading' | 'loaded';
+
+type EditBodyState = 'Loading' | 'NoBody' | 'HasBody';
 
 const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (newBody: string) => void }) => {
+  const [editBodyState, setEditBodyState] = useState<EditBodyState>('Loading');
+
+  useEffect(() => {
+    if (body) {
+      setEditBodyState('HasBody');
+    } else {
+      setEditBodyState('NoBody');
+    }
+  }, []);
+
   const getBlocks = () => {
     return JSON.parse(body);
   };
@@ -58,9 +69,52 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     saveBodyChanges(blocksString);
   };
 
+  const clickText: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const newBlock = {
+      type: 'text',
+      text: ''
+    };
+    saveNewBlock(newBlock);
+  };
+
+  const clickDielectric: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const newBlock = {
+      type: 'dielectric',
+      tissue: DEFAULT_TISSUE.name
+    };
+    saveNewBlock(newBlock);
+  };
+
+  const clickHalfLife: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const newBlock = {
+      type: 'half-life',
+      drug: DEFAULT_DRUG.name,
+      dose: DEFAULT_DOSE
+    };
+    saveNewBlock(newBlock);
+  };
+
+  const saveNewBlock = (newBody: BlockTypes) => {
+    if (body) {
+      const blocks = getBlocks();
+      blocks.push(newBody);
+      saveBlocks(blocks);
+    } else {
+      saveBlocks([newBody]);
+      setEditBodyState('HasBody');
+    }
+  }
+
   return (
     <>
-      {getBlocks().map((block: any, index: number) => {
+      {editBodyState === 'Loading' && <p>Loading...</p>}
+      {editBodyState === 'NoBody' && (
+        <>
+          <p>Start solving problems by choosing a block below</p>
+        </>
+
+      )}
+      {editBodyState === 'HasBody' && getBlocks() && getBlocks().map((block: any, index: number) => {
         if (block.type === 'text') {
           return <EditText key={index} value={block.text}
                            saveChanges={(newBody) => saveTextChanges(index, newBody)}></EditText>;
@@ -72,13 +126,22 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
                                    saveChanges={(newDrug, newDose) => saveHalfLifeChanges(index, newDrug, newDose)}></EditDrugHalfLife>;
         }
       })}
+      <>
+        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+          <Box sx={{ display: 'flex', gap: '8px' }}>
+            <Button variant="contained" onClick={clickText}>Text</Button>
+            <Button variant="contained" onClick={clickDielectric}>Dielectric Properties</Button>
+            <Button variant="contained" onClick={clickHalfLife}>Drug Half Lives</Button>
+          </Box>
+        </Paper>
+      </>
     </>
   );
 };
 
 export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<Document | undefined>(undefined);
-  const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
+  const [viewDocState, setViewDocState] = useState<EditDocState>('loading');
 
   useEffect(() => {
     axios<Document>(`http://localhost:8081/documents/${params.id}`)

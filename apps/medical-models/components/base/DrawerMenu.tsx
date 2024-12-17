@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocInfo, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
@@ -27,6 +27,18 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
         setNavTreeDocs(r.data);
       })
   }, []);
+
+  const clickCreateNewDocument: MouseEventHandler<HTMLDivElement> = () => {
+    console.log('Clicked create new document');
+    axios.post('http://localhost:8081/documents/new')
+      .then(r => {
+        console.log(r.data);
+        router.push('/document/' + r.data.id + '/edit');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -51,7 +63,7 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
         </ListItemButton>
         {navTreeDocs.map((docInfo) =>
           <NavTreeDocItem key={docInfo.document.id} docInfo={docInfo}></NavTreeDocItem>)}
-        <ListItemButton>
+        <ListItemButton onClick={clickCreateNewDocument}>
           <ListItemIcon>
             <AddIcon />
           </ListItemIcon>
