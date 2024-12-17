@@ -9,6 +9,8 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Typography from '@mui/material/Typography';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export type NavTreeDocInfo = {
   id: string;
@@ -26,6 +28,7 @@ export function NavTreeDocItem({ docInfo }: {
   docInfo: DocumentNode
 }) {
   const [folderOpen, setFolderOpen] = React.useState(true);
+  const router = useRouter();
 
   function isFolder() {
     return docInfo.childDocs.length > 0;
@@ -36,9 +39,35 @@ export function NavTreeDocItem({ docInfo }: {
   };
 
   const openFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (event) => {
-    setFolderOpen(true);
     event.preventDefault();
+    event.stopPropagation();
+    setFolderOpen(true);
   };
+
+  const closeFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setFolderOpen(false);
+  };
+
+  const clickAddChild: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('clicked add child')
+    createNewDocument();
+  };
+
+  const createNewDocument = () => {
+    console.log('Clicked create new document');
+    axios.post(`http://localhost:8081/documents/new?parentId=${docInfo.document.id}`)
+      .then(r => {
+        console.log(r.data);
+        router.push('/document/' + r.data.id + '/edit');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   return (
     <>
@@ -50,7 +79,7 @@ export function NavTreeDocItem({ docInfo }: {
             </IconButton>
           }
           {isFolder() && folderOpen && (
-            <IconButton onClick={() => console.log('clicked')}>
+            <IconButton onClick={closeFolderArrowClicked}>
               <KeyboardArrowDownIcon />
             </IconButton>
           )}
@@ -63,7 +92,7 @@ export function NavTreeDocItem({ docInfo }: {
           <IconButton onClick={() => console.log('clicked')}>
             <MoreHorizIcon />
           </IconButton>
-          <IconButton onClick={() => console.log('clicked')}>
+          <IconButton onClick={clickAddChild}>
             <AddIcon />
           </IconButton>
         </Button>
