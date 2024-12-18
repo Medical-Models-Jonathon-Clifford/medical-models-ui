@@ -83,7 +83,7 @@ function CommentThread({
         </>
       )}
       {replyParent === commentNode && (
-        <Box>
+        <Box sx={{marginLeft: '20px'}}>
           <TextField
             id="outlined-multiline-flexible"
             label="Comment"
