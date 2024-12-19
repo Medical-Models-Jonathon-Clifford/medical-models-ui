@@ -1,17 +1,12 @@
 import Paper from '@mui/material/Paper';
-import {
-  addReplyToCommentNodes,
-  CommentNode,
-  countComments,
-  deleteCommentNode,
-  editCommentNode
-} from '../../usecases/comments';
+import { CommentNode, countComments, deleteCommentNode } from '../../usecases/comments';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import * as React from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { MouseEventHandler, useState } from 'react';
+import axios from 'axios';
 
 type CommentState = 'View' | 'Edit';
 
@@ -41,6 +36,7 @@ function CommentThread({
   const [commentState, setCommentState] = useState<CommentState>('View');
 
   const clickEdit = () => {
+    setNewCommentText(commentNode.comment.body);
     setCommentState('Edit');
     setWholeCommentsState('Editing');
   };
@@ -50,20 +46,24 @@ function CommentThread({
     setCommentState('View');
     setNewCommentText('');
     setWholeCommentsState('TopLevelComment');
-  }
+  };
 
   const clickDelete = () => {
     deleteComment(commentNode);
   };
 
   return (
-    <Box key={commentNode.uuid}>
+    <Box key={commentNode.comment.id}>
       {commentState === 'View' && (
         <>
-          <Typography>{commentNode.text}</Typography>
-          <Button onClick={() => clickReply(commentNode)}>Reply</Button>
-          <Button onClick={clickEdit}>Edit</Button>
-          <Button onClick={clickDelete}>Delete</Button>
+          <Typography>{commentNode.comment.body}</Typography>
+          <Typography variant="caption">Created: {String(commentNode.comment.createdDate)},
+            Edited: {commentNode.comment.modifiedDate.toString()}</Typography>
+          <Stack direction="row" spacing={1}>
+            <Button onClick={() => clickReply(commentNode)}>Reply</Button>
+            <Button onClick={clickEdit}>Edit</Button>
+            <Button onClick={clickDelete}>Delete</Button>
+          </Stack>
         </>
       )}
       {commentState == 'Edit' && (
@@ -83,7 +83,7 @@ function CommentThread({
         </>
       )}
       {replyParent === commentNode && (
-        <Box sx={{marginLeft: '20px'}}>
+        <Box sx={{ marginLeft: '20px' }}>
           <TextField
             id="outlined-multiline-flexible"
             label="Comment"
@@ -95,11 +95,15 @@ function CommentThread({
           <Button onClick={() => clickSaveNewReply(commentNode)}>Save</Button>
         </Box>
       )}
-      <Box sx={{marginLeft: '20px'}}>
-        {commentNode.replies.map((replyCommentNode) => {
-          return <CommentThread key={replyCommentNode.uuid} commentNode={replyCommentNode} replyParent={replyParent}
+      <Box sx={{ marginLeft: '20px' }}>
+        {commentNode.childComments.map((replyCommentNode) => {
+          return <CommentThread key={replyCommentNode.comment.id} commentNode={replyCommentNode}
+                                replyParent={replyParent}
                                 clickReply={clickReply} clickSaveNewReply={clickSaveNewReply}
-                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange} setNewCommentText={setNewCommentText} editComment={editComment} setWholeCommentsState={setWholeCommentsState} deleteComment={deleteComment}></CommentThread>;
+                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange}
+                                setNewCommentText={setNewCommentText} editComment={editComment}
+                                setWholeCommentsState={setWholeCommentsState}
+                                deleteComment={deleteComment}></CommentThread>;
         })}
       </Box>
     </Box>
@@ -108,29 +112,36 @@ function CommentThread({
 
 type WholeCommentState = 'TopLevelComment' | 'Editing';
 
-export function Comments() {
+export function Comments({ documentId }: { documentId: string }) {
 
   const [comments, setComments] = React.useState<CommentNode[]>([]);
   const [newCommentText, setNewCommentText]: [string, (value: (((prevState: string) => string) | string)) => void] = useState('');
   const [replyParent, setReplyParent] = React.useState<CommentNode | null>(null);
   const [wholeCommentsState, setWholeCommentsState]: [WholeCommentState, (value: (((prevState: WholeCommentState) => WholeCommentState) | WholeCommentState)) => void] = useState<WholeCommentState>('TopLevelComment');
 
+  useEffect(() => {
+    axios.get(`http://localhost:8081/comments/${documentId}`)
+      .then(response => {
+        setComments(response.data);
+      });
+  }, []);
+
   const newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCommentText(event.target.value);
   };
 
   const clickSaveNewComment: MouseEventHandler<HTMLButtonElement> = (event) => {
-    setComments((prevState) => {
-      return [...prevState, {
-        uuid: crypto.randomUUID(),
-        text: newCommentText,
-        author: 'User',
-        dateTimeAdded: new Date(),
-        dateTimeUpdated: new Date(),
-        replies: []
-      }];
+    axios.post('http://localhost:8081/comment', {
+      documentId: documentId,
+      body: newCommentText,
+      creator: '1'
+    })
+      .then(response => {
+        return axios.get(`http://localhost:8081/comments/${documentId}`);
+      }).then(response => {
+      setComments(response.data);
+      setNewCommentText('');
     });
-    setNewCommentText('');
   };
 
   const getCommentCount = () => {
@@ -142,42 +153,64 @@ export function Comments() {
   };
 
   const clickSaveNewReply: (parentComment: CommentNode) => void = (parentComment: CommentNode) => {
-    console.log('newCommentText');
-    console.log(newCommentText);
-    setComments((prevState) => {
-      console.log('prevState');
-      console.log(prevState);
-      const newCommentNodes = addReplyToCommentNodes(newCommentText, parentComment, prevState);
-      console.log('newCommentNodes');
-      console.log(newCommentNodes);
-      return newCommentNodes;
+    axios.post('http://localhost:8081/comment', {
+      documentId: documentId,
+      body: newCommentText,
+      creator: '1',
+      parentCommentId: parentComment.comment.id
+    })
+      .then(response => {
+        return axios.get(`http://localhost:8081/comments/${documentId}`);
+      }).then(response => {
+      setComments(response.data);
+      setNewCommentText('');
+      setReplyParent(null);
     });
-    setNewCommentText('');
-    setReplyParent(null);
   };
 
   const editComment: (comment: CommentNode, newText: string) => void = (comment: CommentNode, newText: string) => {
-    setComments((prevState) => {
-      return editCommentNode(newText, comment, prevState);
+    axios.put(`http://localhost:8081/comments/${comment.comment.id}`, {
+      body: newText
+    })
+      .then(response => {
+        return axios.get(`http://localhost:8081/comments/${documentId}`);
+      }).then(response => {
+      setComments(response.data);
+      setNewCommentText('');
     });
   };
 
   const deleteComment: (toDelete: CommentNode) => void = (toDelete: CommentNode) => {
-    setComments((prevState) => {
-      return deleteCommentNode(toDelete, prevState);
+    axios.delete(`http://localhost:8081/comments/${toDelete.comment.id}`)
+      .then(response => {
+        return axios.get(`http://localhost:8081/comments/${documentId}`);
+      }).then(response => {
+      setComments(response.data);
+      setNewCommentText('');
     });
   };
 
-
+  const compareComments = (a: CommentNode, b: CommentNode): number => {
+    if (a.comment.createdDate < b.comment.createdDate) {
+      return -1;
+    } else if (a.comment.createdDate > b.comment.createdDate) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 
   return (
     <>
       <Typography>{getCommentCount()} document comments</Typography>
       <Paper variant="outlined" sx={{ padding: '8px' }}>
-        {comments.map((comment: CommentNode) => {
-          return <CommentThread key={comment.uuid} commentNode={comment} replyParent={replyParent}
+        {comments.sort(compareComments).map((comment: CommentNode) => {
+          return <CommentThread key={comment.comment.id} commentNode={comment} replyParent={replyParent}
                                 clickReply={clickReply} clickSaveNewReply={clickSaveNewReply}
-                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange} setNewCommentText={setNewCommentText} editComment={editComment} setWholeCommentsState={setWholeCommentsState} deleteComment={deleteComment}></CommentThread>;
+                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange}
+                                setNewCommentText={setNewCommentText} editComment={editComment}
+                                setWholeCommentsState={setWholeCommentsState}
+                                deleteComment={deleteComment}></CommentThread>;
         })}
         {replyParent === null && wholeCommentsState === 'TopLevelComment' &&
           <Box>

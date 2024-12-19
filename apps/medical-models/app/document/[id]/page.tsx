@@ -10,6 +10,8 @@ import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../components/blocks/document-name/DocumentName';
+import Divider from '@mui/material/Divider';
+import { Comments } from '../../../components/comments/Comments';
 
 type Document = {
   id: string;
@@ -67,6 +69,8 @@ export default function Page({ params }: { params: { id: string } }) {
           <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
           <Button href={`/document/${params.id}/edit`}>Edit Page</Button>
           <Body body={data.body}></Body>
+          <Divider></Divider>
+          <Comments documentId={params.id}></Comments>
         </>
       }
     </>
