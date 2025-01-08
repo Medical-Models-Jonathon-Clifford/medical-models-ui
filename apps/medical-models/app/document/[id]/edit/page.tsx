@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { EditText } from '../../../../components/blocks/text/Text';
-import { BlockTypes } from '../../../../models/blocks';
+import { BlockTypes, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../../models/blocks';
 import { EditDielectric } from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { EditDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
 import axios from 'axios';
@@ -41,30 +41,40 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     }
   }, []);
 
-  const getBlocks = () => {
+  const getBlocks = (): BlockTypes[] => {
+    console.log('body');
+    console.log(body);
     return JSON.parse(body);
   };
 
   const saveTextChanges = (id: number, newBody: string) => {
     const blocks = getBlocks();
-    blocks[id].text = newBody;
-    saveBlocks(blocks);
+    if (isTextBlockType(blocks[id])) {
+      blocks[id].text = newBody;
+      saveBlocks(blocks);
+    } else {
+      throw new Error('Received a new block that is not a text block. This should not happen.');
+    }
   };
 
   const saveDielectricChanges = (id: number, newTissue: Tissue) => {
     const blocks = getBlocks();
-    blocks[id].tissue = newTissue.name;
-    saveBlocks(blocks);
+    if (isDielectricBlockType(blocks[id])) {
+      blocks[id].tissue = newTissue.name;
+      saveBlocks(blocks);
+    }
   };
 
   const saveHalfLifeChanges = (index: number, newDrug: Drug, newDose: number) => {
     const blocks = getBlocks();
-    blocks[index].drug = newDrug.name;
-    blocks[index].dose = newDose;
-    saveBlocks(blocks);
+    if (isHalfLifeBlockType(blocks[index])) {
+      blocks[index].drug = newDrug.name;
+      blocks[index].dose = newDose;
+      saveBlocks(blocks);
+    }
   };
 
-  const saveBlocks = (blocks) => {
+  const saveBlocks = (blocks: BlockTypes[]) => {
     let blocksString = JSON.stringify(blocks);
     saveBodyChanges(blocksString);
   };
@@ -103,7 +113,7 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
       saveBlocks([newBody]);
       setEditBodyState('HasBody');
     }
-  }
+  };
 
   return (
     <>
