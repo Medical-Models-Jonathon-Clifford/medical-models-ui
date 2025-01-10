@@ -120,7 +120,7 @@ export function Comments({ documentId }: { documentId: string }) {
   const [wholeCommentsState, setWholeCommentsState]: [WholeCommentState, (value: (((prevState: WholeCommentState) => WholeCommentState) | WholeCommentState)) => void] = useState<WholeCommentState>('TopLevelComment');
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/comments/${documentId}`)
+    axios.get(`http://localhost:8081/comments/documents/${documentId}`)
       .then(response => {
         setComments(response.data);
       });
@@ -131,13 +131,13 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const clickSaveNewComment: MouseEventHandler<HTMLButtonElement> = (event) => {
-    axios.post('http://localhost:8081/comment', {
+    axios.post('http://localhost:8081/comments', {
       documentId: documentId,
       body: newCommentText,
       creator: '1'
     })
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/${documentId}`);
+        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -153,14 +153,14 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const clickSaveNewReply: (parentComment: CommentNode) => void = (parentComment: CommentNode) => {
-    axios.post('http://localhost:8081/comment', {
+    axios.post('http://localhost:8081/comments', {
       documentId: documentId,
       body: newCommentText,
       creator: '1',
       parentCommentId: parentComment.comment.id
     })
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/${documentId}`);
+        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -173,7 +173,7 @@ export function Comments({ documentId }: { documentId: string }) {
       body: newText
     })
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/${documentId}`);
+        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -183,7 +183,7 @@ export function Comments({ documentId }: { documentId: string }) {
   const deleteComment: (toDelete: CommentNode) => void = (toDelete: CommentNode) => {
     axios.delete(`http://localhost:8081/comments/${toDelete.comment.id}`)
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/${documentId}`);
+        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');

@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import * as React from 'react';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { DocumentNode, NavTreeDocInfo, NavTreeDocItem } from './NavTreeDocItem';
+import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import axios from 'axios';
 
@@ -62,7 +62,7 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
           <ListItemText primary="Home" />
         </ListItemButton>
         {navTreeDocs.map((docInfo) =>
-          <NavTreeDocItem key={docInfo.document.id} docInfo={docInfo}></NavTreeDocItem>)}
+          <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>)}
         <ListItemButton onClick={clickCreateNewDocument}>
           <ListItemIcon>
             <AddIcon />

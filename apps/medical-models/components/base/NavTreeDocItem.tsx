@@ -12,15 +12,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-export type NavTreeDocInfo = {
+export type DocumentNode = {
   id: string;
   title: string;
   createdDate: Date;
   modifiedDate: Date;
-}
-
-export type DocumentNode = {
-  document: NavTreeDocInfo;
   childDocs: DocumentNode[];
 }
 
@@ -35,7 +31,7 @@ export function NavTreeDocItem({ docInfo }: {
   }
 
   const href = () => {
-    return `/document/${docInfo.document.id}`;
+    return `/document/${docInfo.id}`;
   };
 
   const openFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -59,7 +55,7 @@ export function NavTreeDocItem({ docInfo }: {
 
   const createNewDocument = () => {
     console.log('Clicked create new document');
-    axios.post(`http://localhost:8081/documents/new?parentId=${docInfo.document.id}`)
+    axios.post(`http://localhost:8081/documents/new?parentId=${docInfo.id}`)
       .then(r => {
         console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
@@ -88,7 +84,7 @@ export function NavTreeDocItem({ docInfo }: {
               <KeyboardArrowRightIcon />
             </IconButton>
           )}
-          <Typography variant="body1">{docInfo.document.title}</Typography>
+          <Typography variant="body1">{docInfo.title}</Typography>
           <IconButton onClick={() => console.log('clicked')}>
             <MoreHorizIcon />
           </IconButton>
@@ -99,7 +95,7 @@ export function NavTreeDocItem({ docInfo }: {
       </Box>
       {folderOpen && docInfo.childDocs.map((docInfo: DocumentNode) => {
         return (
-          <Box key={docInfo.document.id} sx={{ marginLeft: '12px' }}>
+          <Box key={docInfo.id} sx={{ marginLeft: '12px' }}>
             <NavTreeDocItem docInfo={docInfo}></NavTreeDocItem>
           </Box>
         );
