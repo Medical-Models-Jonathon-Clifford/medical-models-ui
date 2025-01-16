@@ -6,7 +6,6 @@ import { EditText } from '../../../../components/blocks/text/Text';
 import { BlockTypes, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../../models/blocks';
 import { EditDielectric } from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { EditDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
-import axios from 'axios';
 import { DEFAULT_TISSUE, Tissue } from '../../../../components/blocks/dielectric/tissues';
 import { DEFAULT_DRUG, Drug } from '../../../../components/blocks/drug-half-life/drugs';
 import { Button, Stack } from '@mui/material';
@@ -14,6 +13,7 @@ import { EditDocumentName } from '../../../../components/blocks/document-name/Do
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { DEFAULT_DOSE } from '../../../../components/blocks/drug-half-life/half-life-service';
+import { getDocument, updateDocument } from '../../../../client/medical-models-client';
 
 type Document = {
   id: string;
@@ -154,7 +154,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const [viewDocState, setViewDocState] = useState<EditDocState>('loading');
 
   useEffect(() => {
-    axios<Document>(`http://localhost:8081/documents/${params.id}`)
+    getDocument(params.id)
       .then(response => {
         setData(response.data);
         setViewDocState('loaded');
@@ -162,12 +162,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }, []);
 
   const saveBodyChanges = (newBody: string) => {
-    axios.put(`http://localhost:8081/documents/${params.id}`, {
-      id: params.id,
-      title: data!.title,
-      body: newBody,
-      state: 'ACTIVE'
-    })
+    updateDocument(params.id, data!.title, newBody, 'ACTIVE')
       .then(response => {
         setData(response.data);
         setViewDocState('loaded');
@@ -175,12 +170,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const saveDocumentNameChanges = (newName: string) => {
-    axios.put(`http://localhost:8081/documents/${params.id}`, {
-      id: params.id,
-      title: newName,
-      body: data!.body,
-      state: 'ACTIVE'
-    })
+    updateDocument(params.id, newName, data!.body, 'ACTIVE')
       .then(response => {
         setData(response.data);
         setViewDocState('loaded');

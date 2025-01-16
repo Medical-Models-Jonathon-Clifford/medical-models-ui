@@ -1,12 +1,18 @@
 import Paper from '@mui/material/Paper';
-import { CommentNode, countComments, deleteCommentNode } from '../../usecases/comments';
+import { CommentNode, countComments } from '../../usecases/comments';
 import Box from '@mui/material/Box';
 import { Stack, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import * as React from 'react';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import {
+  deleteCommentById,
+  editCommentById,
+  getCommentsForDocument,
+  saveNewComment,
+  saveNewReplyComment
+} from '../../client/medical-models-client';
 
 type CommentState = 'View' | 'Edit';
 
@@ -96,7 +102,7 @@ function CommentThread({
         </Box>
       )}
       <Box sx={{ marginLeft: '20px' }}>
-        {commentNode.childComments.map((replyCommentNode) => {
+        {commentNode.children.map((replyCommentNode) => {
           return <CommentThread key={replyCommentNode.comment.id} commentNode={replyCommentNode}
                                 replyParent={replyParent}
                                 clickReply={clickReply} clickSaveNewReply={clickSaveNewReply}
@@ -120,7 +126,7 @@ export function Comments({ documentId }: { documentId: string }) {
   const [wholeCommentsState, setWholeCommentsState]: [WholeCommentState, (value: (((prevState: WholeCommentState) => WholeCommentState) | WholeCommentState)) => void] = useState<WholeCommentState>('TopLevelComment');
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/comments/documents/${documentId}`)
+    getCommentsForDocument(documentId)
       .then(response => {
         setComments(response.data);
       });
@@ -131,13 +137,9 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const clickSaveNewComment: MouseEventHandler<HTMLButtonElement> = (event) => {
-    axios.post('http://localhost:8081/comments', {
-      documentId: documentId,
-      body: newCommentText,
-      creator: '1'
-    })
+    saveNewComment(documentId, newCommentText)
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
+        return getCommentsForDocument(documentId);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -153,14 +155,9 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const clickSaveNewReply: (parentComment: CommentNode) => void = (parentComment: CommentNode) => {
-    axios.post('http://localhost:8081/comments', {
-      documentId: documentId,
-      body: newCommentText,
-      creator: '1',
-      parentCommentId: parentComment.comment.id
-    })
+    saveNewReplyComment(documentId, newCommentText, parentComment.comment.id)
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
+        return getCommentsForDocument(documentId);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -169,11 +166,9 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const editComment: (comment: CommentNode, newText: string) => void = (comment: CommentNode, newText: string) => {
-    axios.put(`http://localhost:8081/comments/${comment.comment.id}`, {
-      body: newText
-    })
+    editCommentById(comment.comment.id, newText)
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
+        return getCommentsForDocument(documentId);
       }).then(response => {
       setComments(response.data);
       setNewCommentText('');
@@ -181,10 +176,11 @@ export function Comments({ documentId }: { documentId: string }) {
   };
 
   const deleteComment: (toDelete: CommentNode) => void = (toDelete: CommentNode) => {
-    axios.delete(`http://localhost:8081/comments/${toDelete.comment.id}`)
+    deleteCommentById(toDelete.comment.id)
       .then(response => {
-        return axios.get(`http://localhost:8081/comments/documents/${documentId}`);
-      }).then(response => {
+        return getCommentsForDocument(documentId);
+      })
+      .then(response => {
       setComments(response.data);
       setNewCommentText('');
     });

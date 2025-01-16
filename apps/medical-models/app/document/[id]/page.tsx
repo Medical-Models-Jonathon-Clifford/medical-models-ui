@@ -3,15 +3,16 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { ReadOnlyText } from '../../../components/blocks/text/Text';
-import Typography from '@mui/material/Typography';
 import { BlockTypes } from '../../../models/blocks';
 import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
-import axios from 'axios';
 import { Button } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../components/blocks/document-name/DocumentName';
 import Divider from '@mui/material/Divider';
 import { Comments } from '../../../components/comments/Comments';
+import { getDocument } from '../../../client/medical-models-client';
+import Typography from '@mui/material/Typography';
+import styles from './page.module.scss';
 
 type Document = {
   id: string;
@@ -27,13 +28,12 @@ type Document = {
 type ViewDocState = 'loading' | 'loaded';
 
 const Body = ({ body }: { body: string }) => {
-  console.log('body');
-  console.log(body);
   const blocks: BlockTypes[] = JSON.parse(body);
 
   return (
     <>
-      {blocks.map((block: any, index: number) => {
+      {!blocks && <Typography className={styles.Placeholder}>The test for Addison's is always inconclusive. - Dr Gregory House</Typography>}
+      {blocks && blocks.map((block: any, index: number) => {
         if (block.type === 'text') {
           return <ReadOnlyText key={index} text={block.text}></ReadOnlyText>;
         } else if (block.type === 'dielectric') {
@@ -51,10 +51,8 @@ export default function Page({ params }: { params: { id: string } }) {
   const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
 
   useEffect(() => {
-    axios<Document>(`http://localhost:8081/documents/${(params.id)}`)
+    getDocument(params.id)
       .then(response => {
-        console.log('response');
-        console.log(response);
         setData(response.data);
         setViewDocState('loaded');
       });

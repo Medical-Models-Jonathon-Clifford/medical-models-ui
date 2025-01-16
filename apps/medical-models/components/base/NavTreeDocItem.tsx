@@ -10,14 +10,14 @@ import Typography from '@mui/material/Typography';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { newDocumentWithParent } from '../../client/medical-models-client';
 
 export type DocumentNode = {
   id: string;
   title: string;
   createdDate: Date;
   modifiedDate: Date;
-  childDocs: DocumentNode[];
+  children: DocumentNode[];
 }
 
 export function NavTreeDocItem({ docInfo }: {
@@ -27,7 +27,7 @@ export function NavTreeDocItem({ docInfo }: {
   const router = useRouter();
 
   function isFolder() {
-    return docInfo.childDocs.length > 0;
+    return docInfo.children.length > 0;
   }
 
   const href = () => {
@@ -55,7 +55,7 @@ export function NavTreeDocItem({ docInfo }: {
 
   const createNewDocument = () => {
     console.log('Clicked create new document');
-    axios.post(`http://localhost:8081/documents/new?parentId=${docInfo.id}`)
+    newDocumentWithParent(docInfo.id)
       .then(r => {
         console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
@@ -93,10 +93,10 @@ export function NavTreeDocItem({ docInfo }: {
           </IconButton>
         </Button>
       </Box>
-      {folderOpen && docInfo.childDocs.map((docInfo: DocumentNode) => {
+      {folderOpen && docInfo.children.map((childDocInfo: DocumentNode) => {
         return (
-          <Box key={docInfo.id} sx={{ marginLeft: '12px' }}>
-            <NavTreeDocItem docInfo={docInfo}></NavTreeDocItem>
+          <Box key={childDocInfo.id} sx={{ marginLeft: '12px' }}>
+            <NavTreeDocItem docInfo={childDocInfo}></NavTreeDocItem>
           </Box>
         );
       })}

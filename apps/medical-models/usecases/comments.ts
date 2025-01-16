@@ -1,4 +1,3 @@
-// The dateTimeUpdated field is important because comments will be editable
 export type CommentNodeData = {
   id: string;
   document_id: string;
@@ -9,7 +8,7 @@ export type CommentNodeData = {
 
 export type CommentNode = {
   comment: CommentNodeData;
-  childComments: CommentNode[];
+  children: CommentNode[];
 }
 
 export function countComments(comments: CommentNode[]): number {
@@ -17,7 +16,7 @@ export function countComments(comments: CommentNode[]): number {
 }
 
 function countCommentsReducer(previousValue: number, currentValue: CommentNode): number {
-  return previousValue + 1 + countComments(currentValue.childComments);
+  return previousValue + 1 + countComments(currentValue.children);
 }
 
 export function deleteCommentNode(toDelete: CommentNode, comments: CommentNode[]): CommentNode[] {
@@ -27,7 +26,7 @@ export function deleteCommentNode(toDelete: CommentNode, comments: CommentNode[]
   if (startingLen === filteredLen) {
     // recurse
     initialFiltered = initialFiltered.map(filtered => {
-      filtered.childComments = deleteCommentNode(toDelete, filtered.childComments);
+      filtered.children = deleteCommentNode(toDelete, filtered.children);
       return filtered;
     });
     return initialFiltered

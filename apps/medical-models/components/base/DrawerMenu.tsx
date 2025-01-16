@@ -13,7 +13,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
-import axios from 'axios';
+import { getAllNavigation, newDocument } from '../../client/medical-models-client';
 
 
 export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () => void, open: boolean }) {
@@ -21,7 +21,7 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
   const router = useRouter();
 
   useEffect(() => {
-    axios.get('http://localhost:8081/documents/all/navigation')
+    getAllNavigation()
       .then(r => {
         console.log(r.data);
         setNavTreeDocs(r.data);
@@ -30,7 +30,7 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
 
   const clickCreateNewDocument: MouseEventHandler<HTMLDivElement> = () => {
     console.log('Clicked create new document');
-    axios.post('http://localhost:8081/documents/new')
+    newDocument()
       .then(r => {
         console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');

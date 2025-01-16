@@ -9,7 +9,6 @@ import DrawerMenu from './DrawerMenu';
 import TopAppBar from './TopAppBar';
 import { useState } from 'react';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Base({ children }: { children: React.ReactNode }) {
