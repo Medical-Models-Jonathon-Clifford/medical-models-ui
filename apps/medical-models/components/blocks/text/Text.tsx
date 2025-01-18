@@ -3,9 +3,9 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { MouseEventHandler, useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
-import { MouseEventHandler, useEffect, useState } from 'react';
 
 type EditTextState = 'Loading' | 'Editing' | 'Viewing';
 
@@ -21,15 +21,7 @@ export function ReadOnlyText({ text }: ViewTextProps) {
 
 export function EditText({ value, saveChanges }: { value: string, saveChanges: (value: string) => void }) {
   const [inputText, setInputText] = useState(value);
-  const [state, setState] = useState<EditTextState>('Loading');
-
-  useEffect(() => {
-    if (value) {
-      setState('Viewing');
-    } else {
-      setState('Editing');
-    }
-  }, []);
+  const [state, setState] = useState<EditTextState>(value ? 'Viewing' : 'Editing');
 
   const clickEditTextBlock: MouseEventHandler<HTMLButtonElement> = (event) => {
     setState('Editing');

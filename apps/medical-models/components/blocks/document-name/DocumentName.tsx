@@ -1,11 +1,11 @@
 import { Stack, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import * as React from 'react';
+import { FormEventHandler, MouseEventHandler } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { FormEventHandler, MouseEventHandler, useEffect } from 'react';
 
-type DocNameState = 'Not Set' | 'Editing' | 'Viewing';
+type DocNameState = 'Editing' | 'Viewing';
 
 export function ReadOnlyDocumentName({ documentName }: { documentName: string }) {
   return (
@@ -18,15 +18,7 @@ export function EditDocumentName({ documentName, saveChanges }: {
   saveChanges: (newName: string) => void
 }) {
   const [inputDocumentName, setInputDocumentName] = React.useState(documentName);
-  const [docNameState, setDocNameState] = React.useState<DocNameState>('Not Set');
-
-  useEffect(() => {
-    if (documentName) {
-      setDocNameState('Viewing');
-    } else {
-      setDocNameState('Editing');
-    }
-  }, []);
+  const [docNameState, setDocNameState] = React.useState<DocNameState>(documentName ? 'Viewing' : 'Editing');
 
   const onDocNameSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -44,9 +36,6 @@ export function EditDocumentName({ documentName, saveChanges }: {
 
   return (
     <Stack direction="row">
-      {docNameState === 'Not Set' && (
-        <Button onClick={setDocNameButtonClicked}>Set Document Name</Button>
-      )}
       {docNameState === 'Editing' && (
         <form onSubmit={onDocNameSubmit}>
           <FormControl>

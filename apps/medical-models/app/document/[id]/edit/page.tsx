@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { EditText } from '../../../../components/blocks/text/Text';
-import { BlockTypes, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../../models/blocks';
+import { BlockType, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../../models/blocks';
 import { EditDielectric } from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { EditDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
 import { DEFAULT_TISSUE, Tissue } from '../../../../components/blocks/dielectric/tissues';
@@ -28,20 +28,12 @@ type Document = {
 
 type EditDocState = 'loading' | 'loaded';
 
-type EditBodyState = 'Loading' | 'NoBody' | 'HasBody';
+type EditBodyState = 'NoBody' | 'HasBody';
 
 const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (newBody: string) => void }) => {
-  const [editBodyState, setEditBodyState] = useState<EditBodyState>('Loading');
+  const [editBodyState, setEditBodyState] = useState<EditBodyState>(body ? 'HasBody' : 'NoBody');
 
-  useEffect(() => {
-    if (body) {
-      setEditBodyState('HasBody');
-    } else {
-      setEditBodyState('NoBody');
-    }
-  }, []);
-
-  const getBlocks = (): BlockTypes[] => {
+  const getBlocks = (): BlockType[] => {
     console.log('body');
     console.log(body);
     return JSON.parse(body);
@@ -74,9 +66,8 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     }
   };
 
-  const saveBlocks = (blocks: BlockTypes[]) => {
-    let blocksString = JSON.stringify(blocks);
-    saveBodyChanges(blocksString);
+  const saveBlocks = (blocks: BlockType[]) => {
+    saveBodyChanges(JSON.stringify(blocks));
   };
 
   const clickText: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -104,7 +95,7 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     saveNewBlock(newBlock);
   };
 
-  const saveNewBlock = (newBody: BlockTypes) => {
+  const saveNewBlock = (newBody: BlockType) => {
     if (body) {
       const blocks = getBlocks();
       blocks.push(newBody);
@@ -117,21 +108,19 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
 
   return (
     <>
-      {editBodyState === 'Loading' && <p>Loading...</p>}
       {editBodyState === 'NoBody' && (
         <>
           <p>Start solving problems by choosing a block below</p>
         </>
-
       )}
-      {editBodyState === 'HasBody' && getBlocks() && getBlocks().map((block: any, index: number) => {
-        if (block.type === 'text') {
+      {editBodyState === 'HasBody' && getBlocks() && getBlocks().map((block: BlockType, index: number) => {
+        if (isTextBlockType(block)) {
           return <EditText key={index} value={block.text}
                            saveChanges={(newBody) => saveTextChanges(index, newBody)}></EditText>;
-        } else if (block.type === 'dielectric') {
+        } else if (isDielectricBlockType(block)) {
           return <EditDielectric key={index} tissueName={block.tissue}
                                  saveChanges={(newTissue) => saveDielectricChanges(index, newTissue)}></EditDielectric>;
-        } else if (block.type === 'half-life') {
+        } else if (isHalfLifeBlockType(block)) {
           return <EditDrugHalfLife key={index} drugName={block.drug} dose={block.dose}
                                    saveChanges={(newDrug, newDose) => saveHalfLifeChanges(index, newDrug, newDose)}></EditDrugHalfLife>;
         }
@@ -159,10 +148,11 @@ export default function Page({ params }: { params: { id: string } }) {
         setData(response.data);
         setViewDocState('loaded');
       });
-  }, []);
+  }, [params.id]);
 
   const saveBodyChanges = (newBody: string) => {
-    updateDocument(params.id, data!.title, newBody, 'ACTIVE')
+    const titleToSave = data && data.title ? data.title : null;
+    updateDocument(params.id, titleToSave, newBody, 'ACTIVE')
       .then(response => {
         setData(response.data);
         setViewDocState('loaded');
@@ -170,7 +160,8 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const saveDocumentNameChanges = (newName: string) => {
-    updateDocument(params.id, newName, data!.body, 'ACTIVE')
+    const bodyToSave = data && data.body ? data.body : null;
+    updateDocument(params.id, newName, bodyToSave, 'ACTIVE')
       .then(response => {
         setData(response.data);
         setViewDocState('loaded');

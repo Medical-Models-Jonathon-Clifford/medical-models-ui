@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MEDICAL_MODELS_SERVICE_BASE_URL } from '../app/constants';
 
-export function updateDocument(id: string, title: string, body: string, state: string) {
+export function updateDocument(id: string, title: string | null, body: string | null, state: string) {
   return axios.put(`${MEDICAL_MODELS_SERVICE_BASE_URL}/documents/${id}`, {
     id: id,
     title: title,

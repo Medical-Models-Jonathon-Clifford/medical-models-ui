@@ -130,7 +130,7 @@ export function Comments({ documentId }: { documentId: string }) {
       .then(response => {
         setComments(response.data);
       });
-  }, []);
+  }, [documentId]);
 
   const newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCommentText(event.target.value);

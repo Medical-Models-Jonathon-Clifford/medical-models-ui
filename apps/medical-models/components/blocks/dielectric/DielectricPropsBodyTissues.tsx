@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
   CategoryScale,
@@ -103,15 +103,7 @@ export function EditDielectric({ tissueName, saveChanges }: {
   saveChanges: (newTissue: Tissue) => void
 }) {
   const [tissue, setTissue] = useState<Tissue | undefined>(tissueName ? tissueFromName(tissueName) : undefined);
-  const [state, setState] = useState<EditDielectricState>('Loading');
-
-  useEffect(() => {
-    if (tissueName) {
-      setState('Viewing');
-    } else {
-      setState('Editing');
-    }
-  }, []);
+  const [state, setState] = useState<EditDielectricState>(tissueName ? 'Viewing' : 'Editing');
 
   const handleChange = (event: SelectChangeEvent) => {
     setTissue(tissueFromName(event.target.value));

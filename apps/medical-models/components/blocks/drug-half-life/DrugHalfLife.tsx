@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
   CategoryScale,
@@ -85,17 +85,9 @@ export function EditDrugHalfLife({ drugName, dose, saveChanges }: {
 }) {
   const drug = drugFromName(drugName);
 
-  const [state, setState] = useState<EditDrugHalfLifeState>('Loading');
+  const [state, setState] = useState<EditDrugHalfLifeState>(drugName && dose ? 'Viewing' : 'Editing');
   const [inputDrug, setInputDrug] = useState(drug);
   const [inputDose, setInputDose] = useState(dose);
-
-  useEffect(() => {
-    if (drugName && dose) {
-      setState('Viewing');
-    } else {
-      setState('Editing');
-    }
-  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     setInputDrug(drugFromName(event.target.value));

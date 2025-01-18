@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { ReadOnlyText } from '../../../components/blocks/text/Text';
-import { BlockTypes } from '../../../models/blocks';
+import { BlockType, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../models/blocks';
 import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
 import { Button } from '@mui/material';
@@ -28,17 +28,17 @@ type Document = {
 type ViewDocState = 'loading' | 'loaded';
 
 const Body = ({ body }: { body: string }) => {
-  const blocks: BlockTypes[] = JSON.parse(body);
+  const blocks: BlockType[] = JSON.parse(body);
 
   return (
     <>
-      {!blocks && <Typography className={styles.Placeholder}>The test for Addison's is always inconclusive. - Dr Gregory House</Typography>}
-      {blocks && blocks.map((block: any, index: number) => {
-        if (block.type === 'text') {
+      {!blocks && <Typography className={styles.Placeholder}>The test for Addison&apos;s is always inconclusive. - Dr Gregory House</Typography>}
+      {blocks && blocks.map((block: BlockType, index: number) => {
+        if (isTextBlockType(block)) {
           return <ReadOnlyText key={index} text={block.text}></ReadOnlyText>;
-        } else if (block.type === 'dielectric') {
+        } else if (isDielectricBlockType(block)) {
           return <ReadOnlyDielectric key={index} tissueName={block.tissue}></ReadOnlyDielectric>;
-        } else if (block.type === 'half-life') {
+        } else if (isHalfLifeBlockType(block)) {
           return <ReadOnlyDrugHalfLife key={index} drugName={block.drug} dose={block.dose}></ReadOnlyDrugHalfLife>;
         }
       })}
@@ -56,7 +56,7 @@ export default function Page({ params }: { params: { id: string } }) {
         setData(response.data);
         setViewDocState('loaded');
       });
-  }, []);
+  }, [params.id]);
 
   return (
     <>

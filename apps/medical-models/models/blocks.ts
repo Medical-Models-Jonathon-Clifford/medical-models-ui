@@ -1,7 +1,7 @@
 type ValidBlocks = 'text' | 'dielectric' | 'half-life';
 
-export type ValidTypes<ValidBlocks> = {
-  type: string;
+type ValidTypes<T extends ValidBlocks> = {
+  type: T;
 }
 
 export type ViewTextProps = {
@@ -23,18 +23,16 @@ export type DielectricBlockType = ValidTypes<'dielectric'> & ViewDielectricProps
 
 export type HalfLifeBlockType = ValidTypes<'half-life'> & ViewHalfLifeProps;
 
-export type BlockTypes = TextBlockType | DielectricBlockType | HalfLifeBlockType;
+export type BlockType = TextBlockType | DielectricBlockType | HalfLifeBlockType;
 
-export function isTextBlockType(block: BlockTypes): block is TextBlockType {
+export function isTextBlockType(block: BlockType): block is TextBlockType {
   return block.type === 'text';
 }
 
-export function isDielectricBlockType(block: BlockTypes): block is DielectricBlockType {
+export function isDielectricBlockType(block: BlockType): block is DielectricBlockType {
   return block.type === 'dielectric';
 }
 
-export function isHalfLifeBlockType(block: BlockTypes): block is HalfLifeBlockType {
+export function isHalfLifeBlockType(block: BlockType): block is HalfLifeBlockType {
   return block.type === 'half-life';
 }
-
-

@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Pre-commit hook to run linting before every commit
+
+# Run the lint command
+nx run medical-models:lint
+
+# Capture the exit code of the linting process
+if [ $? -ne 0 ]; then
+    echo "Linting failed. Commit aborted."
+    exit 1
+fi
+
+# If linting passes, allow the commit
+exit 0
