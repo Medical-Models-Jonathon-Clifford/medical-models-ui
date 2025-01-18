@@ -3,17 +3,31 @@
 import * as React from 'react';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { EditText } from '../../../../components/blocks/text/Text';
-import { BlockType, isDielectricBlockType, isHalfLifeBlockType, isTextBlockType } from '../../../../models/blocks';
+import {
+  BlockType,
+  isDielectricBlockType,
+  isHalfLifeBlockType,
+  isTextBlockType,
+} from '../../../../models/blocks';
 import { EditDielectric } from '../../../../components/blocks/dielectric/DielectricPropsBodyTissues';
 import { EditDrugHalfLife } from '../../../../components/blocks/drug-half-life/DrugHalfLife';
-import { DEFAULT_TISSUE, Tissue } from '../../../../components/blocks/dielectric/tissues';
-import { DEFAULT_DRUG, Drug } from '../../../../components/blocks/drug-half-life/drugs';
+import {
+  DEFAULT_TISSUE,
+  Tissue,
+} from '../../../../components/blocks/dielectric/tissues';
+import {
+  DEFAULT_DRUG,
+  Drug,
+} from '../../../../components/blocks/drug-half-life/drugs';
 import { Button, Stack } from '@mui/material';
 import { EditDocumentName } from '../../../../components/blocks/document-name/DocumentName';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { DEFAULT_DOSE } from '../../../../components/blocks/drug-half-life/half-life-service';
-import { getDocument, updateDocument } from '../../../../client/medical-models-client';
+import {
+  getDocument,
+  updateDocument,
+} from '../../../../client/medical-models-client';
 
 type Document = {
   id: string;
@@ -30,8 +44,16 @@ type EditDocState = 'loading' | 'loaded';
 
 type EditBodyState = 'NoBody' | 'HasBody';
 
-const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (newBody: string) => void }) => {
-  const [editBodyState, setEditBodyState] = useState<EditBodyState>(body ? 'HasBody' : 'NoBody');
+const EditBody = ({
+  body,
+  saveBodyChanges,
+}: {
+  body: string;
+  saveBodyChanges: (newBody: string) => void;
+}) => {
+  const [editBodyState, setEditBodyState] = useState<EditBodyState>(
+    body ? 'HasBody' : 'NoBody'
+  );
 
   const getBlocks = (): BlockType[] => {
     console.log('body');
@@ -45,7 +67,9 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
       blocks[id].text = newBody;
       saveBlocks(blocks);
     } else {
-      throw new Error('Received a new block that is not a text block. This should not happen.');
+      throw new Error(
+        'Received a new block that is not a text block. This should not happen.'
+      );
     }
   };
 
@@ -57,7 +81,11 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     }
   };
 
-  const saveHalfLifeChanges = (index: number, newDrug: Drug, newDose: number) => {
+  const saveHalfLifeChanges = (
+    index: number,
+    newDrug: Drug,
+    newDose: number
+  ) => {
     const blocks = getBlocks();
     if (isHalfLifeBlockType(blocks[index])) {
       blocks[index].drug = newDrug.name;
@@ -73,7 +101,7 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
   const clickText: MouseEventHandler<HTMLButtonElement> = (event) => {
     const newBlock = {
       type: 'text',
-      text: ''
+      text: '',
     };
     saveNewBlock(newBlock);
   };
@@ -81,7 +109,7 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
   const clickDielectric: MouseEventHandler<HTMLButtonElement> = (event) => {
     const newBlock = {
       type: 'dielectric',
-      tissue: DEFAULT_TISSUE.name
+      tissue: DEFAULT_TISSUE.name,
     };
     saveNewBlock(newBlock);
   };
@@ -90,7 +118,7 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
     const newBlock = {
       type: 'half-life',
       drug: DEFAULT_DRUG.name,
-      dose: DEFAULT_DOSE
+      dose: DEFAULT_DOSE,
     };
     saveNewBlock(newBlock);
   };
@@ -113,24 +141,52 @@ const EditBody = ({ body, saveBodyChanges }: { body: string, saveBodyChanges: (n
           <p>Start solving problems by choosing a block below</p>
         </>
       )}
-      {editBodyState === 'HasBody' && getBlocks() && getBlocks().map((block: BlockType, index: number) => {
-        if (isTextBlockType(block)) {
-          return <EditText key={index} value={block.text}
-                           saveChanges={(newBody) => saveTextChanges(index, newBody)}></EditText>;
-        } else if (isDielectricBlockType(block)) {
-          return <EditDielectric key={index} tissueName={block.tissue}
-                                 saveChanges={(newTissue) => saveDielectricChanges(index, newTissue)}></EditDielectric>;
-        } else if (isHalfLifeBlockType(block)) {
-          return <EditDrugHalfLife key={index} drugName={block.drug} dose={block.dose}
-                                   saveChanges={(newDrug, newDose) => saveHalfLifeChanges(index, newDrug, newDose)}></EditDrugHalfLife>;
-        }
-      })}
+      {editBodyState === 'HasBody' &&
+        getBlocks() &&
+        getBlocks().map((block: BlockType, index: number) => {
+          if (isTextBlockType(block)) {
+            return (
+              <EditText
+                key={index}
+                value={block.text}
+                saveChanges={(newBody) => saveTextChanges(index, newBody)}
+              ></EditText>
+            );
+          } else if (isDielectricBlockType(block)) {
+            return (
+              <EditDielectric
+                key={index}
+                tissueName={block.tissue}
+                saveChanges={(newTissue) =>
+                  saveDielectricChanges(index, newTissue)
+                }
+              ></EditDielectric>
+            );
+          } else if (isHalfLifeBlockType(block)) {
+            return (
+              <EditDrugHalfLife
+                key={index}
+                drugName={block.drug}
+                dose={block.dose}
+                saveChanges={(newDrug, newDose) =>
+                  saveHalfLifeChanges(index, newDrug, newDose)
+                }
+              ></EditDrugHalfLife>
+            );
+          }
+        })}
       <>
         <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
           <Box sx={{ display: 'flex', gap: '8px' }}>
-            <Button variant="contained" onClick={clickText}>Text</Button>
-            <Button variant="contained" onClick={clickDielectric}>Dielectric Properties</Button>
-            <Button variant="contained" onClick={clickHalfLife}>Drug Half Lives</Button>
+            <Button variant="contained" onClick={clickText}>
+              Text
+            </Button>
+            <Button variant="contained" onClick={clickDielectric}>
+              Dielectric Properties
+            </Button>
+            <Button variant="contained" onClick={clickHalfLife}>
+              Drug Half Lives
+            </Button>
           </Box>
         </Paper>
       </>
@@ -143,44 +199,54 @@ export default function Page({ params }: { params: { id: string } }) {
   const [viewDocState, setViewDocState] = useState<EditDocState>('loading');
 
   useEffect(() => {
-    getDocument(params.id)
-      .then(response => {
-        setData(response.data);
-        setViewDocState('loaded');
-      });
+    getDocument(params.id).then((response) => {
+      setData(response.data);
+      setViewDocState('loaded');
+    });
   }, [params.id]);
 
   const saveBodyChanges = (newBody: string) => {
     const titleToSave = data && data.title ? data.title : null;
-    updateDocument(params.id, titleToSave, newBody, 'ACTIVE')
-      .then(response => {
+    updateDocument(params.id, titleToSave, newBody, 'ACTIVE').then(
+      (response) => {
         setData(response.data);
         setViewDocState('loaded');
-      });
+      }
+    );
   };
 
   const saveDocumentNameChanges = (newName: string) => {
     const bodyToSave = data && data.body ? data.body : null;
-    updateDocument(params.id, newName, bodyToSave, 'ACTIVE')
-      .then(response => {
+    updateDocument(params.id, newName, bodyToSave, 'ACTIVE').then(
+      (response) => {
         setData(response.data);
         setViewDocState('loaded');
-      });
+      }
+    );
   };
 
   return (
     <>
       {viewDocState === 'loading' && <p>Loading...</p>}
-      {viewDocState === 'loaded' && data &&
+      {viewDocState === 'loaded' && data && (
         <>
           <Stack>
-            <EditDocumentName documentName={data.title} saveChanges={saveDocumentNameChanges}></EditDocumentName>
+            <EditDocumentName
+              documentName={data.title}
+              saveChanges={saveDocumentNameChanges}
+            ></EditDocumentName>
           </Stack>
-          <p>Created: {data.createdDate} by User {data.creator} - Last modified: {data.modifiedDate} - {data.state}</p>
+          <p>
+            Created: {data.createdDate} by User {data.creator} - Last modified:{' '}
+            {data.modifiedDate} - {data.state}
+          </p>
           <Button href={`/document/${params.id}`}>Publish Page</Button>
-          <EditBody body={data.body} saveBodyChanges={saveBodyChanges}></EditBody>
+          <EditBody
+            body={data.body}
+            saveBodyChanges={saveBodyChanges}
+          ></EditBody>
         </>
-      }
+      )}
     </>
   );
 }

@@ -18,11 +18,9 @@ export type DocumentNode = {
   createdDate: Date;
   modifiedDate: Date;
   children: DocumentNode[];
-}
+};
 
-export function NavTreeDocItem({ docInfo }: {
-  docInfo: DocumentNode
-}) {
+export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
   const [folderOpen, setFolderOpen] = React.useState(true);
   const router = useRouter();
 
@@ -34,13 +32,17 @@ export function NavTreeDocItem({ docInfo }: {
     return `/document/${docInfo.id}`;
   };
 
-  const openFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const openFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (
+    event
+  ) => {
     event.preventDefault();
     event.stopPropagation();
     setFolderOpen(true);
   };
 
-  const closeFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const closeFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (
+    event
+  ) => {
     event.preventDefault();
     event.stopPropagation();
     setFolderOpen(false);
@@ -49,31 +51,31 @@ export function NavTreeDocItem({ docInfo }: {
   const clickAddChild: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log('clicked add child')
+    console.log('clicked add child');
     createNewDocument();
   };
 
   const createNewDocument = () => {
     console.log('Clicked create new document');
     newDocumentWithParent(docInfo.id)
-      .then(r => {
+      .then((r) => {
         console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
   return (
     <>
       <Box>
         <Button href={href()}>
-          {!isFolder() &&
+          {!isFolder() && (
             <IconButton onClick={() => console.log('clicked')}>
               <FiberManualRecordIcon />
             </IconButton>
-          }
+          )}
           {isFolder() && folderOpen && (
             <IconButton onClick={closeFolderArrowClicked}>
               <KeyboardArrowDownIcon />
@@ -93,14 +95,14 @@ export function NavTreeDocItem({ docInfo }: {
           </IconButton>
         </Button>
       </Box>
-      {folderOpen && docInfo.children.map((childDocInfo: DocumentNode) => {
-        return (
-          <Box key={childDocInfo.id} sx={{ marginLeft: '12px' }}>
-            <NavTreeDocItem docInfo={childDocInfo}></NavTreeDocItem>
-          </Box>
-        );
-      })}
+      {folderOpen &&
+        docInfo.children.map((childDocInfo: DocumentNode) => {
+          return (
+            <Box key={childDocInfo.id} sx={{ marginLeft: '12px' }}>
+              <NavTreeDocItem docInfo={childDocInfo}></NavTreeDocItem>
+            </Box>
+          );
+        })}
     </>
-
   );
 }

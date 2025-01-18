@@ -18,7 +18,7 @@ export type Tissue = {
 
 export const TISSUES: Tissue[] = [
   {
-    name: "Aorta",
+    name: 'Aorta',
     ef: 4,
     del1: 40,
     tau1: 8.842,
@@ -32,10 +32,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 10000000,
     tau4: 1.592,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Bladder",
+    name: 'Bladder',
     ef: 2.5,
     del1: 16,
     tau1: 8.842,
@@ -49,10 +49,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 10000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Blood",
+    name: 'Blood',
     ef: 4,
     del1: 56,
     tau1: 8.377,
@@ -66,10 +66,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 0,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Bone (Cancellous)",
+    name: 'Bone (Cancellous)',
     ef: 2.5,
     del1: 18,
     tau1: 13.263,
@@ -83,10 +83,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 20000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Bone (Cortical)",
+    name: 'Bone (Cortical)',
     ef: 2.5,
     del1: 10,
     tau1: 13.263,
@@ -100,10 +100,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 100000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Bone Marrow (Infiltrated)",
+    name: 'Bone Marrow (Infiltrated)',
     ef: 2.5,
     del1: 9,
     tau1: 14.469,
@@ -117,10 +117,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 2000000,
     tau4: 15.915,
-    alf4: 0.1
+    alf4: 0.1,
   },
   {
-    name: "Bone Marrow (Not Infiltrated)",
+    name: 'Bone Marrow (Not Infiltrated)',
     ef: 2.5,
     del1: 3,
     tau1: 7.958,
@@ -134,10 +134,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 2000000,
     tau4: 15.915,
-    alf4: 0.1
+    alf4: 0.1,
   },
   {
-    name: "Brain (Grey Matter)",
+    name: 'Brain (Grey Matter)',
     ef: 4,
     del1: 45,
     tau1: 7.958,
@@ -151,10 +151,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.22,
     del4: 45000000,
     tau4: 5.305,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Brain (White Matter)",
+    name: 'Brain (White Matter)',
     ef: 4,
     del1: 32,
     tau1: 7.958,
@@ -168,10 +168,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.3,
     del4: 35000000,
     tau4: 7.958,
-    alf4: 0.02
+    alf4: 0.02,
   },
   {
-    name: "Breast fat",
+    name: 'Breast fat',
     ef: 2.5,
     del1: 3,
     tau1: 17.68,
@@ -185,10 +185,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 20000000,
     tau4: 13.26,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Cartilage",
+    name: 'Cartilage',
     ef: 4,
     del1: 38,
     tau1: 13.263,
@@ -202,10 +202,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Cerebellum",
+    name: 'Cerebellum',
     ef: 4,
     del1: 40,
     tau1: 7.958,
@@ -219,10 +219,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.22,
     del4: 45000000,
     tau4: 5.305,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Cerebro Spinal Fluid",
+    name: 'Cerebro Spinal Fluid',
     ef: 4,
     del1: 65,
     tau1: 7.958,
@@ -236,10 +236,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0,
     del4: 0,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Cervix",
+    name: 'Cervix',
     ef: 4,
     del1: 45,
     tau1: 7.958,
@@ -253,10 +253,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.18,
     del4: 40000000,
     tau4: 1.592,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Colon",
+    name: 'Colon',
     ef: 4,
     del1: 50,
     tau1: 7.958,
@@ -270,10 +270,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 1.592,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Cornea",
+    name: 'Cornea',
     ef: 4,
     del1: 48,
     tau1: 7.958,
@@ -287,10 +287,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Dura",
+    name: 'Dura',
     ef: 4,
     del1: 40,
     tau1: 7.958,
@@ -304,10 +304,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 1000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Eye Tissues (Sclera)",
+    name: 'Eye Tissues (Sclera)',
     ef: 4,
     del1: 50,
     tau1: 7.958,
@@ -321,10 +321,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 5000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Fat (Average Infiltrated)",
+    name: 'Fat (Average Infiltrated)',
     ef: 2.5,
     del1: 9,
     tau1: 7.958,
@@ -338,10 +338,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.05,
     del4: 10000000,
     tau4: 15.915,
-    alf4: 0.01
+    alf4: 0.01,
   },
   {
-    name: "Fat (Not Infiltrated)",
+    name: 'Fat (Not Infiltrated)',
     ef: 2.5,
     del1: 3,
     tau1: 7.958,
@@ -355,10 +355,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.05,
     del4: 10000000,
     tau4: 7.958,
-    alf4: 0.01
+    alf4: 0.01,
   },
   {
-    name: "Gall Bladder",
+    name: 'Gall Bladder',
     ef: 4,
     del1: 55,
     tau1: 7.579,
@@ -372,10 +372,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 10000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Gall Bladder Bile",
+    name: 'Gall Bladder Bile',
     ef: 4,
     del1: 66,
     tau1: 7.579,
@@ -389,10 +389,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 0,
     tau4: 15.915,
-    alf4: 0.2
+    alf4: 0.2,
   },
   {
-    name: "Heart",
+    name: 'Heart',
     ef: 4,
     del1: 50,
     tau1: 7.958,
@@ -406,10 +406,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.22,
     del4: 25000000,
     tau4: 4.547,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Kidney",
+    name: 'Kidney',
     ef: 4,
     del1: 47,
     tau1: 7.958,
@@ -423,10 +423,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.22,
     del4: 30000000,
     tau4: 4.547,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Lens Cortex",
+    name: 'Lens Cortex',
     ef: 4,
     del1: 42,
     tau1: 7.958,
@@ -440,10 +440,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Lens Nucleus",
+    name: 'Lens Nucleus',
     ef: 3,
     del1: 32,
     tau1: 8.842,
@@ -457,10 +457,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 5000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Liver",
+    name: 'Liver',
     ef: 4,
     del1: 39,
     tau1: 8.842,
@@ -474,10 +474,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 30000000,
     tau4: 15.915,
-    alf4: 0.05
+    alf4: 0.05,
   },
   {
-    name: "Lung (Deflated)",
+    name: 'Lung (Deflated)',
     ef: 4,
     del1: 45,
     tau1: 7.958,
@@ -491,10 +491,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 10000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Lung (Inflated)",
+    name: 'Lung (Inflated)',
     ef: 2.5,
     del1: 18,
     tau1: 7.958,
@@ -508,10 +508,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 7.958,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Muscle",
+    name: 'Muscle',
     ef: 4,
     del1: 50,
     tau1: 7.234,
@@ -525,10 +525,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.1,
     del4: 25000000,
     tau4: 2.274,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Nerve",
+    name: 'Nerve',
     ef: 4,
     del1: 26,
     tau1: 7.958,
@@ -542,10 +542,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Ovary",
+    name: 'Ovary',
     ef: 4,
     del1: 40,
     tau1: 8.842,
@@ -559,10 +559,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.27,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Skin (Dry)",
+    name: 'Skin (Dry)',
     ef: 4,
     del1: 32,
     tau1: 7.234,
@@ -576,10 +576,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 0,
     tau4: 15.915,
-    alf4: 0.2
+    alf4: 0.2,
   },
   {
-    name: "Skin (Wet)",
+    name: 'Skin (Wet)',
     ef: 4,
     del1: 39,
     tau1: 7.958,
@@ -593,10 +593,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.16,
     del4: 30000,
     tau4: 1.592,
-    alf4: 0.2
+    alf4: 0.2,
   },
   {
-    name: "Small Intestine",
+    name: 'Small Intestine',
     ef: 4,
     del1: 50,
     tau1: 7.958,
@@ -610,10 +610,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Spleen",
+    name: 'Spleen',
     ef: 4,
     del1: 48,
     tau1: 7.958,
@@ -627,10 +627,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.25,
     del4: 50000000,
     tau4: 6.366,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Stomach",
+    name: 'Stomach',
     ef: 4,
     del1: 60,
     tau1: 7.958,
@@ -644,10 +644,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Tendon",
+    name: 'Tendon',
     ef: 4,
     del1: 42,
     tau1: 12.243,
@@ -661,10 +661,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.22,
     del4: 20000000,
     tau4: 1.326,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Testis",
+    name: 'Testis',
     ef: 4,
     del1: 55,
     tau1: 7.958,
@@ -678,10 +678,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Thyroid",
+    name: 'Thyroid',
     ef: 4,
     del1: 55,
     tau1: 7.958,
@@ -695,10 +695,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Tongue",
+    name: 'Tongue',
     ef: 4,
     del1: 50,
     tau1: 7.958,
@@ -712,10 +712,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 40000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Trachea",
+    name: 'Trachea',
     ef: 2.5,
     del1: 38,
     tau1: 7.958,
@@ -729,10 +729,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 1000000,
     tau4: 15.915,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Uterus",
+    name: 'Uterus',
     ef: 4,
     del1: 55,
     tau1: 7.958,
@@ -746,10 +746,10 @@ export const TISSUES: Tissue[] = [
     alf3: 0.2,
     del4: 35000000,
     tau4: 1.061,
-    alf4: 0
+    alf4: 0,
   },
   {
-    name: "Vitreous Humor",
+    name: 'Vitreous Humor',
     ef: 4,
     del1: 65,
     tau1: 7.234,
@@ -763,12 +763,12 @@ export const TISSUES: Tissue[] = [
     alf3: 0,
     del4: 0,
     tau4: 15.915,
-    alf4: 0
-  }
+    alf4: 0,
+  },
 ];
 
 export const DEFAULT_TISSUE = TISSUES[0];
 
 export function tissueFromName(name: string) {
-  return TISSUES.filter(tissue => tissue.name === name)[0];
+  return TISSUES.filter((tissue) => tissue.name === name)[0];
 }

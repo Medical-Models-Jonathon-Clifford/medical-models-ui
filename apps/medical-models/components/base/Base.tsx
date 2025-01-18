@@ -24,9 +24,7 @@ export default function Base({ children }: { children: React.ReactNode }) {
       <Box sx={{ display: 'flex' }}>
         <TopAppBar toggleDrawer={toggleDrawer} open={open}></TopAppBar>
         <DrawerMenu toggleDrawer={toggleDrawer} open={open}></DrawerMenu>
-        <MainStage>
-          {children}
-        </MainStage>
+        <MainStage>{children}</MainStage>
       </Box>
     </ThemeProvider>
   );

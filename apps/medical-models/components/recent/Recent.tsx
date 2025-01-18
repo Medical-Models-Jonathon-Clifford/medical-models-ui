@@ -12,7 +12,7 @@ export default function Recent() {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 450
+            height: 450,
           }}
         >
           <Title>Recent Models</Title>

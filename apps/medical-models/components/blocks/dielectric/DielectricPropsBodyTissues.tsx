@@ -14,7 +14,7 @@ import {
   PointElement,
   TimeScale,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import FormControl from '@mui/material/FormControl';
@@ -24,7 +24,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button, Stack } from '@mui/material';
 import { DEFAULT_TISSUE, Tissue, tissueFromName, TISSUES } from './tissues';
 import { getFrequencies, getProperties } from './dielectric';
-import { chartConductivityData, chartOptions, chartPermittivityData } from './dielectric-chart';
+import {
+  chartConductivityData,
+  chartOptions,
+  chartPermittivityData,
+} from './dielectric-chart';
 import Paper from '@mui/material/Paper';
 
 ChartJS.register(
@@ -41,8 +45,12 @@ ChartJS.register(
 
 type EditDielectricState = 'Loading' | 'Editing' | 'Viewing';
 
-const conductivityOptions = chartOptions('Conductivity vs Frequency') as ChartOptions<'line'>;
-const permittivityOptions = chartOptions('Real Part of Permittivity vs Frequency') as ChartOptions<'line'>;
+const conductivityOptions = chartOptions(
+  'Conductivity vs Frequency'
+) as ChartOptions<'line'>;
+const permittivityOptions = chartOptions(
+  'Real Part of Permittivity vs Frequency'
+) as ChartOptions<'line'>;
 
 function calculatePermittivityAndConductivity(tissue: Tissue) {
   const frequencies = getFrequencies();
@@ -57,21 +65,22 @@ function dielectricTitle(tissue: Tissue) {
 }
 
 function PermittivityAndConductivityCharts({ tissue }: { tissue: Tissue }) {
-  const { permittivityData, conductivityData } = calculatePermittivityAndConductivity(tissue);
+  const { permittivityData, conductivityData } =
+    calculatePermittivityAndConductivity(tissue);
 
   return (
     <Stack direction="row" width={'100%'} spacing={'10px'}>
-      <div className="chart-container" style={{ width: '50%', height: '300px' }}>
-        <Line
-          options={permittivityOptions}
-          data={permittivityData}
-        />
+      <div
+        className="chart-container"
+        style={{ width: '50%', height: '300px' }}
+      >
+        <Line options={permittivityOptions} data={permittivityData} />
       </div>
-      <div className="chart-container" style={{ width: '50%', height: '300px' }}>
-        <Line
-          options={conductivityOptions}
-          data={conductivityData}
-        />
+      <div
+        className="chart-container"
+        style={{ width: '50%', height: '300px' }}
+      >
+        <Line options={conductivityOptions} data={conductivityData} />
       </div>
     </Stack>
   );
@@ -80,7 +89,13 @@ function PermittivityAndConductivityCharts({ tissue }: { tissue: Tissue }) {
 function DielectricBox({ children }: { children: React.ReactNode }) {
   return (
     <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+      >
         {children}
       </Box>
     </Paper>
@@ -93,17 +108,26 @@ export function ReadOnlyDielectric({ tissueName }: { tissueName: string }) {
   return (
     <DielectricBox>
       <p>{dielectricTitle(tissue)}</p>
-      <PermittivityAndConductivityCharts tissue={tissue}></PermittivityAndConductivityCharts>
+      <PermittivityAndConductivityCharts
+        tissue={tissue}
+      ></PermittivityAndConductivityCharts>
     </DielectricBox>
   );
 }
 
-export function EditDielectric({ tissueName, saveChanges }: {
-  tissueName: string,
-  saveChanges: (newTissue: Tissue) => void
+export function EditDielectric({
+  tissueName,
+  saveChanges,
+}: {
+  tissueName: string;
+  saveChanges: (newTissue: Tissue) => void;
 }) {
-  const [tissue, setTissue] = useState<Tissue | undefined>(tissueName ? tissueFromName(tissueName) : undefined);
-  const [state, setState] = useState<EditDielectricState>(tissueName ? 'Viewing' : 'Editing');
+  const [tissue, setTissue] = useState<Tissue | undefined>(
+    tissueName ? tissueFromName(tissueName) : undefined
+  );
+  const [state, setState] = useState<EditDielectricState>(
+    tissueName ? 'Viewing' : 'Editing'
+  );
 
   const handleChange = (event: SelectChangeEvent) => {
     setTissue(tissueFromName(event.target.value));
@@ -133,7 +157,9 @@ export function EditDielectric({ tissueName, saveChanges }: {
       <DielectricBox>
         <p>{dielectricTitle(tissue)}</p>
         <Button onClick={clickEditDielectric}>Edit</Button>
-        <PermittivityAndConductivityCharts tissue={tissue}></PermittivityAndConductivityCharts>
+        <PermittivityAndConductivityCharts
+          tissue={tissue}
+        ></PermittivityAndConductivityCharts>
       </DielectricBox>
     );
   }
@@ -155,12 +181,16 @@ export function EditDielectric({ tissueName, saveChanges }: {
             onChange={handleChange}
           >
             {TISSUES.map((h: Tissue) => (
-              <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
+              <MenuItem key={h.name} value={h.name}>
+                {h.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
         <Button onClick={clickSaveDielectric}>Save</Button>
-        <PermittivityAndConductivityCharts tissue={tissueOrDefault}></PermittivityAndConductivityCharts>
+        <PermittivityAndConductivityCharts
+          tissue={tissueOrDefault}
+        ></PermittivityAndConductivityCharts>
       </DielectricBox>
     );
   }

@@ -1,4 +1,15 @@
-import { add, chain, Complex, complex, divide, dotPow, i, multiply, pi, subtract } from 'mathjs';
+import {
+  add,
+  chain,
+  Complex,
+  complex,
+  divide,
+  dotPow,
+  i,
+  multiply,
+  pi,
+  subtract,
+} from 'mathjs';
 import { Tissue } from './tissues';
 import { isComplex } from './complex-type';
 
@@ -13,11 +24,15 @@ export function getFrequencies() {
 }
 
 export function getProperties(tissue: Tissue) {
-  const permittivity: Complex[] = angularFrequencies.map((angularFrequency) => fourColeCole(tissue, angularFrequency));
-  const imaginary = permittivity.map(p => p.im);
+  const permittivity: Complex[] = angularFrequencies.map((angularFrequency) =>
+    fourColeCole(tissue, angularFrequency)
+  );
+  const imaginary = permittivity.map((p) => p.im);
   return {
-    epsilonReal: permittivity.map(p => p.re),
-    conductivity: imaginary.map((epIm, index) => angularFrequencies[index] * EPSILON_0 * epIm)
+    epsilonReal: permittivity.map((p) => p.re),
+    conductivity: imaginary.map(
+      (epIm, index) => angularFrequencies[index] * EPSILON_0 * epIm
+    ),
   };
 }
 
@@ -59,4 +74,3 @@ function logspace(start: number, stop: number, num: number) {
   }
   return arr;
 }
-

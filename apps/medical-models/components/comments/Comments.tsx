@@ -11,33 +11,37 @@ import {
   editCommentById,
   getCommentsForDocument,
   saveNewComment,
-  saveNewReplyComment
+  saveNewReplyComment,
 } from '../../client/medical-models-client';
 
 type CommentState = 'View' | 'Edit';
 
 function CommentThread({
-                         commentNode,
-                         replyParent,
-                         clickReply,
-                         clickSaveNewReply,
-                         newCommentText,
-                         newCommentOnChange,
-                         setNewCommentText,
-                         editComment,
-                         setWholeCommentsState,
-                         deleteComment
-                       }: {
-  commentNode: CommentNode,
-  replyParent: CommentNode | null,
-  clickReply: (comment: CommentNode) => void,
-  clickSaveNewReply: (parentComment: CommentNode) => void,
-  newCommentText: string,
-  newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  setNewCommentText: (value: (((prevState: string) => string) | string)) => void,
-  editComment: (comment: CommentNode, newText: string) => void,
-  setWholeCommentsState: (value: (((prevState: WholeCommentState) => WholeCommentState) | WholeCommentState)) => void,
-  deleteComment: (toDelete: CommentNode) => void
+  commentNode,
+  replyParent,
+  clickReply,
+  clickSaveNewReply,
+  newCommentText,
+  newCommentOnChange,
+  setNewCommentText,
+  editComment,
+  setWholeCommentsState,
+  deleteComment,
+}: {
+  commentNode: CommentNode;
+  replyParent: CommentNode | null;
+  clickReply: (comment: CommentNode) => void;
+  clickSaveNewReply: (parentComment: CommentNode) => void;
+  newCommentText: string;
+  newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setNewCommentText: (value: ((prevState: string) => string) | string) => void;
+  editComment: (comment: CommentNode, newText: string) => void;
+  setWholeCommentsState: (
+    value:
+      | ((prevState: WholeCommentState) => WholeCommentState)
+      | WholeCommentState
+  ) => void;
+  deleteComment: (toDelete: CommentNode) => void;
 }) {
   const [commentState, setCommentState] = useState<CommentState>('View');
 
@@ -63,8 +67,10 @@ function CommentThread({
       {commentState === 'View' && (
         <>
           <Typography>{commentNode.comment.body}</Typography>
-          <Typography variant="caption">Created: {String(commentNode.comment.createdDate)},
-            Edited: {commentNode.comment.modifiedDate.toString()}</Typography>
+          <Typography variant="caption">
+            Created: {String(commentNode.comment.createdDate)}, Edited:{' '}
+            {commentNode.comment.modifiedDate.toString()}
+          </Typography>
           <Stack direction="row" spacing={1}>
             <Button onClick={() => clickReply(commentNode)}>Reply</Button>
             <Button onClick={clickEdit}>Edit</Button>
@@ -103,13 +109,21 @@ function CommentThread({
       )}
       <Box sx={{ marginLeft: '20px' }}>
         {commentNode.children.map((replyCommentNode) => {
-          return <CommentThread key={replyCommentNode.comment.id} commentNode={replyCommentNode}
-                                replyParent={replyParent}
-                                clickReply={clickReply} clickSaveNewReply={clickSaveNewReply}
-                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange}
-                                setNewCommentText={setNewCommentText} editComment={editComment}
-                                setWholeCommentsState={setWholeCommentsState}
-                                deleteComment={deleteComment}></CommentThread>;
+          return (
+            <CommentThread
+              key={replyCommentNode.comment.id}
+              commentNode={replyCommentNode}
+              replyParent={replyParent}
+              clickReply={clickReply}
+              clickSaveNewReply={clickSaveNewReply}
+              newCommentText={newCommentText}
+              newCommentOnChange={newCommentOnChange}
+              setNewCommentText={setNewCommentText}
+              editComment={editComment}
+              setWholeCommentsState={setWholeCommentsState}
+              deleteComment={deleteComment}
+            ></CommentThread>
+          );
         })}
       </Box>
     </Box>
@@ -119,31 +133,44 @@ function CommentThread({
 type WholeCommentState = 'TopLevelComment' | 'Editing';
 
 export function Comments({ documentId }: { documentId: string }) {
-
   const [comments, setComments] = React.useState<CommentNode[]>([]);
-  const [newCommentText, setNewCommentText]: [string, (value: (((prevState: string) => string) | string)) => void] = useState('');
-  const [replyParent, setReplyParent] = React.useState<CommentNode | null>(null);
-  const [wholeCommentsState, setWholeCommentsState]: [WholeCommentState, (value: (((prevState: WholeCommentState) => WholeCommentState) | WholeCommentState)) => void] = useState<WholeCommentState>('TopLevelComment');
+  const [newCommentText, setNewCommentText]: [
+    string,
+    (value: ((prevState: string) => string) | string) => void
+  ] = useState('');
+  const [replyParent, setReplyParent] = React.useState<CommentNode | null>(
+    null
+  );
+  const [wholeCommentsState, setWholeCommentsState]: [
+    WholeCommentState,
+    (
+      value:
+        | ((prevState: WholeCommentState) => WholeCommentState)
+        | WholeCommentState
+    ) => void
+  ] = useState<WholeCommentState>('TopLevelComment');
 
   useEffect(() => {
-    getCommentsForDocument(documentId)
-      .then(response => {
-        setComments(response.data);
-      });
+    getCommentsForDocument(documentId).then((response) => {
+      setComments(response.data);
+    });
   }, [documentId]);
 
-  const newCommentOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const newCommentOnChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCommentText(event.target.value);
   };
 
   const clickSaveNewComment: MouseEventHandler<HTMLButtonElement> = (event) => {
     saveNewComment(documentId, newCommentText)
-      .then(response => {
+      .then((response) => {
         return getCommentsForDocument(documentId);
-      }).then(response => {
-      setComments(response.data);
-      setNewCommentText('');
-    });
+      })
+      .then((response) => {
+        setComments(response.data);
+        setNewCommentText('');
+      });
   };
 
   const getCommentCount = () => {
@@ -154,36 +181,45 @@ export function Comments({ documentId }: { documentId: string }) {
     setReplyParent(comment);
   };
 
-  const clickSaveNewReply: (parentComment: CommentNode) => void = (parentComment: CommentNode) => {
+  const clickSaveNewReply: (parentComment: CommentNode) => void = (
+    parentComment: CommentNode
+  ) => {
     saveNewReplyComment(documentId, newCommentText, parentComment.comment.id)
-      .then(response => {
-        return getCommentsForDocument(documentId);
-      }).then(response => {
-      setComments(response.data);
-      setNewCommentText('');
-      setReplyParent(null);
-    });
-  };
-
-  const editComment: (comment: CommentNode, newText: string) => void = (comment: CommentNode, newText: string) => {
-    editCommentById(comment.comment.id, newText)
-      .then(response => {
-        return getCommentsForDocument(documentId);
-      }).then(response => {
-      setComments(response.data);
-      setNewCommentText('');
-    });
-  };
-
-  const deleteComment: (toDelete: CommentNode) => void = (toDelete: CommentNode) => {
-    deleteCommentById(toDelete.comment.id)
-      .then(response => {
+      .then((response) => {
         return getCommentsForDocument(documentId);
       })
-      .then(response => {
-      setComments(response.data);
-      setNewCommentText('');
-    });
+      .then((response) => {
+        setComments(response.data);
+        setNewCommentText('');
+        setReplyParent(null);
+      });
+  };
+
+  const editComment: (comment: CommentNode, newText: string) => void = (
+    comment: CommentNode,
+    newText: string
+  ) => {
+    editCommentById(comment.comment.id, newText)
+      .then((response) => {
+        return getCommentsForDocument(documentId);
+      })
+      .then((response) => {
+        setComments(response.data);
+        setNewCommentText('');
+      });
+  };
+
+  const deleteComment: (toDelete: CommentNode) => void = (
+    toDelete: CommentNode
+  ) => {
+    deleteCommentById(toDelete.comment.id)
+      .then((response) => {
+        return getCommentsForDocument(documentId);
+      })
+      .then((response) => {
+        setComments(response.data);
+        setNewCommentText('');
+      });
   };
 
   const compareComments = (a: CommentNode, b: CommentNode): number => {
@@ -194,21 +230,30 @@ export function Comments({ documentId }: { documentId: string }) {
     } else {
       return 0;
     }
-  }
+  };
 
   return (
     <>
       <Typography>{getCommentCount()} document comments</Typography>
       <Paper variant="outlined" sx={{ padding: '8px' }}>
         {comments.sort(compareComments).map((comment: CommentNode) => {
-          return <CommentThread key={comment.comment.id} commentNode={comment} replyParent={replyParent}
-                                clickReply={clickReply} clickSaveNewReply={clickSaveNewReply}
-                                newCommentText={newCommentText} newCommentOnChange={newCommentOnChange}
-                                setNewCommentText={setNewCommentText} editComment={editComment}
-                                setWholeCommentsState={setWholeCommentsState}
-                                deleteComment={deleteComment}></CommentThread>;
+          return (
+            <CommentThread
+              key={comment.comment.id}
+              commentNode={comment}
+              replyParent={replyParent}
+              clickReply={clickReply}
+              clickSaveNewReply={clickSaveNewReply}
+              newCommentText={newCommentText}
+              newCommentOnChange={newCommentOnChange}
+              setNewCommentText={setNewCommentText}
+              editComment={editComment}
+              setWholeCommentsState={setWholeCommentsState}
+              deleteComment={deleteComment}
+            ></CommentThread>
+          );
         })}
-        {replyParent === null && wholeCommentsState === 'TopLevelComment' &&
+        {replyParent === null && wholeCommentsState === 'TopLevelComment' && (
           <Box>
             <TextField
               id="outlined-multiline-flexible"
@@ -220,7 +265,7 @@ export function Comments({ documentId }: { documentId: string }) {
             />
             <Button onClick={clickSaveNewComment}>Save</Button>
           </Box>
-        }
+        )}
       </Paper>
     </>
   );

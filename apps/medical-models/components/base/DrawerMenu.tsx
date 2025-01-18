@@ -13,32 +13,40 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
-import { getAllNavigation, newDocument } from '../../client/medical-models-client';
+import {
+  getAllNavigation,
+  newDocument,
+} from '../../client/medical-models-client';
 
-
-export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () => void, open: boolean }) {
-  const [navTreeDocs, setNavTreeDocs] = useState<DocumentNode[]>(stubNavTreeDocs);
+export default function DrawerMenu({
+  toggleDrawer,
+  open,
+}: {
+  toggleDrawer: () => void;
+  open: boolean;
+}) {
+  const [navTreeDocs, setNavTreeDocs] =
+    useState<DocumentNode[]>(stubNavTreeDocs);
   const router = useRouter();
 
   useEffect(() => {
-    getAllNavigation()
-      .then(r => {
-        console.log(r.data);
-        setNavTreeDocs(r.data);
-      })
+    getAllNavigation().then((r) => {
+      console.log(r.data);
+      setNavTreeDocs(r.data);
+    });
   }, []);
 
   const clickCreateNewDocument: MouseEventHandler<HTMLDivElement> = () => {
     console.log('Clicked create new document');
     newDocument()
-      .then(r => {
+      .then((r) => {
         console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -47,7 +55,7 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          px: [1]
+          px: [1],
         }}
       >
         <IconButton onClick={toggleDrawer}>
@@ -61,8 +69,9 @@ export default function DrawerMenu({ toggleDrawer, open }: { toggleDrawer: () =>
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        {navTreeDocs.map((docInfo) =>
-          <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>)}
+        {navTreeDocs.map((docInfo) => (
+          <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>
+        ))}
         <ListItemButton onClick={clickCreateNewDocument}>
           <ListItemIcon>
             <AddIcon />

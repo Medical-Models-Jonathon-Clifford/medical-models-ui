@@ -12,7 +12,7 @@ export default function NewModelSelection() {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 450
+            height: 450,
           }}
         >
           <Title>Create New Document</Title>

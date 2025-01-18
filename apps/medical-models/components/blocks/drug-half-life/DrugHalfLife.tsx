@@ -13,7 +13,7 @@ import {
   PointElement,
   TimeScale,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import FormControl from '@mui/material/FormControl';
@@ -47,14 +47,12 @@ function halfLifeTitle(drug: Drug) {
 function HalfLifeBox({ children }: { children: React.ReactNode }) {
   return (
     <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        {children}
-      </Box>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</Box>
     </Paper>
   );
 }
 
-function HalfLifeChart({ drug, dose }: { drug: Drug, dose: number }) {
+function HalfLifeChart({ drug, dose }: { drug: Drug; dose: number }) {
   const timePoints: number[] = getTimePoints(drug);
   const concentrations: number[] = getConcentrations(drug, timePoints, dose);
 
@@ -66,7 +64,13 @@ function HalfLifeChart({ drug, dose }: { drug: Drug, dose: number }) {
   );
 }
 
-export function ReadOnlyDrugHalfLife({ drugName, dose }: { drugName: string, dose: number }) {
+export function ReadOnlyDrugHalfLife({
+  drugName,
+  dose,
+}: {
+  drugName: string;
+  dose: number;
+}) {
   const drug = drugFromName(drugName);
 
   return (
@@ -78,14 +82,20 @@ export function ReadOnlyDrugHalfLife({ drugName, dose }: { drugName: string, dos
   );
 }
 
-export function EditDrugHalfLife({ drugName, dose, saveChanges }: {
-  drugName: string,
-  dose: number,
-  saveChanges: (newDrug: Drug, newDose: number) => void
+export function EditDrugHalfLife({
+  drugName,
+  dose,
+  saveChanges,
+}: {
+  drugName: string;
+  dose: number;
+  saveChanges: (newDrug: Drug, newDose: number) => void;
 }) {
   const drug = drugFromName(drugName);
 
-  const [state, setState] = useState<EditDrugHalfLifeState>(drugName && dose ? 'Viewing' : 'Editing');
+  const [state, setState] = useState<EditDrugHalfLifeState>(
+    drugName && dose ? 'Viewing' : 'Editing'
+  );
   const [inputDrug, setInputDrug] = useState(drug);
   const [inputDose, setInputDose] = useState(dose);
 
@@ -136,7 +146,9 @@ export function EditDrugHalfLife({ drugName, dose, saveChanges }: {
                 onChange={handleChange}
               >
                 {DRUG_HALF_LIVES.map((h: Drug) => (
-                  <MenuItem key={h.name} value={h.name}>{h.name}</MenuItem>
+                  <MenuItem key={h.name} value={h.name}>
+                    {h.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -147,7 +159,12 @@ export function EditDrugHalfLife({ drugName, dose, saveChanges }: {
                 id="dose-input"
                 value={inputDose}
                 onChange={handleDoseChange}
-                style={{ padding: '12px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
+                style={{
+                  padding: '12px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                  width: '100%',
+                }}
               />
             </FormControl>
           </Stack>

@@ -19,9 +19,17 @@ export function ReadOnlyText({ text }: ViewTextProps) {
   );
 }
 
-export function EditText({ value, saveChanges }: { value: string, saveChanges: (value: string) => void }) {
+export function EditText({
+  value,
+  saveChanges,
+}: {
+  value: string;
+  saveChanges: (value: string) => void;
+}) {
   const [inputText, setInputText] = useState(value);
-  const [state, setState] = useState<EditTextState>(value ? 'Viewing' : 'Editing');
+  const [state, setState] = useState<EditTextState>(
+    value ? 'Viewing' : 'Editing'
+  );
 
   const clickEditTextBlock: MouseEventHandler<HTMLButtonElement> = (event) => {
     setState('Editing');

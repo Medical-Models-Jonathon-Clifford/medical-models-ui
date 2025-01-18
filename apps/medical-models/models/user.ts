@@ -5,4 +5,4 @@ export type User = {
   created_date: string;
   password: string;
   state: 'ACTIVE' | 'LOCKED' | 'ARCHIVED';
-}
+};

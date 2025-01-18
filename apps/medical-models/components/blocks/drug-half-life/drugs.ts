@@ -1,7 +1,7 @@
 export type Drug = {
   name: string;
   halfLife: number;
-}
+};
 
 export const DRUG_HALF_LIVES: Drug[] = [
   { name: 'Paracetamol', halfLife: 12 },
@@ -27,7 +27,7 @@ export const DRUG_HALF_LIVES: Drug[] = [
 ];
 
 export function drugFromName(name: string) {
-  return DRUG_HALF_LIVES.filter(drug => drug.name === name)[0];
+  return DRUG_HALF_LIVES.filter((drug) => drug.name === name)[0];
 }
 
 export const DEFAULT_DRUG = DRUG_HALF_LIVES[0];

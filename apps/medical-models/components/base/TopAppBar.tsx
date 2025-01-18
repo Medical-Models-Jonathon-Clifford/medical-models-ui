@@ -7,8 +7,13 @@ import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import * as React from 'react';
 
-export default function TopAppBar({toggleDrawer, open}: {toggleDrawer: () => void, open: boolean}) {
-
+export default function TopAppBar({
+  toggleDrawer,
+  open,
+}: {
+  toggleDrawer: () => void;
+  open: boolean;
+}) {
   return (
     <AppBar position="absolute" open={open}>
       <Toolbar sx={{ pr: '24px' /* keep right padding when drawer closed */ }}>
@@ -19,7 +24,7 @@ export default function TopAppBar({toggleDrawer, open}: {toggleDrawer: () => voi
           onClick={toggleDrawer}
           sx={{
             marginRight: '36px',
-            ...(open && { display: 'none' })
+            ...(open && { display: 'none' }),
           }}
         >
           <MenuIcon />

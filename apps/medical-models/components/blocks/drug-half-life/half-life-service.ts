@@ -8,7 +8,11 @@ export function getTimePoints(drug: Drug): number[] {
   return linearSpace(0, drug.halfLife * 5);
 }
 
-export function getConcentrations(drug: Drug, timePoints: number[], dosage: number): number[] {
+export function getConcentrations(
+  drug: Drug,
+  timePoints: number[],
+  dosage: number
+): number[] {
   const eliminationConstant = log(2) / drug.halfLife;
   return concentrationDecay(dosage, eliminationConstant, timePoints);
 }
@@ -26,8 +30,12 @@ function linearSpace(start: number, end: number): number[] {
   }
 }
 
-function isMathNumericTypeArray(input: MathNumericType[] | MathNumericType[][]): input is MathNumericType[] {
-  return Array.isArray(input) && (input.length === 0 || !Array.isArray(input[0]));
+function isMathNumericTypeArray(
+  input: MathNumericType[] | MathNumericType[][]
+): input is MathNumericType[] {
+  return (
+    Array.isArray(input) && (input.length === 0 || !Array.isArray(input[0]))
+  );
 }
 
 function isNumberArray(n: MathNumericType[]): n is number[] {
@@ -38,10 +46,12 @@ function isNumber(n: MathNumericType): n is number {
   return typeof n === 'number';
 }
 
-function concentrationDecay(defaultDose: number, eliminationConstant: number, time_points: number[]): number[] {
+function concentrationDecay(
+  defaultDose: number,
+  eliminationConstant: number,
+  time_points: number[]
+): number[] {
   return time_points.map((time: number) => {
     return defaultDose * exp(multiply(-eliminationConstant, time));
   });
 }
-
-
