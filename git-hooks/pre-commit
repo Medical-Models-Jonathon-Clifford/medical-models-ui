@@ -1,13 +1,13 @@
 #!/bin/sh
 #
-# Pre-commit hook to run linting before every commit
+# Pre-commit hook to run linting and prettier before every commit
 
-# Run the lint command
-nx run medical-models:lint
+# Run the lint and prettier targets
+nx run-many --targets=lint,prettier-check --projects=medical-models
 
-# Capture the exit code of the linting process
+# Capture the exit code of the linting and prettier process
 if [ $? -ne 0 ]; then
-    echo "Linting failed. Commit aborted."
+    echo "Linting or prettier failed. Commit aborted."
     exit 1
 fi
 

@@ -14,6 +14,12 @@
     },
     "dockerpush": {
       "command": "docker push jonathonclifford/mm-ui"
+    },
+    "prettier": {
+      "command": "prettier -w --ignore-path ./apps/medical-models/.prettierignore ./apps/medical-models"
+    },
+    "prettier-check": {
+      "command": "prettier -c --ignore-path ./apps/medical-models/.prettierignore ./apps/medical-models"
     }
   }
 }

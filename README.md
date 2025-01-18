@@ -2,6 +2,12 @@
 
 Like Google Docs/OneDrive for Medical Models! This is a full stack project allowing users to create medical models and collaborate on them.
 
+## Setup Pre-Commit Git Hook
+
+```bash
+./setup-hooks.sh
+```
+
 ## Start the application
 
 Run `npx nx dev medical-models-ui` to start the development server. Happy coding!
