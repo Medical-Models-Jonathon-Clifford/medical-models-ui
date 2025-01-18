@@ -99,7 +99,7 @@ const EditBody = ({
   };
 
   const clickText: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newBlock = {
+    const newBlock: BlockType = {
       type: 'text',
       text: '',
     };
@@ -107,7 +107,7 @@ const EditBody = ({
   };
 
   const clickDielectric: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newBlock = {
+    const newBlock: BlockType = {
       type: 'dielectric',
       tissue: DEFAULT_TISSUE.name,
     };
@@ -115,7 +115,7 @@ const EditBody = ({
   };
 
   const clickHalfLife: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newBlock = {
+    const newBlock: BlockType = {
       type: 'half-life',
       drug: DEFAULT_DRUG.name,
       dose: DEFAULT_DOSE,
