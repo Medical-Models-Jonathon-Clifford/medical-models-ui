@@ -13,10 +13,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
-import {
-  getAllNavigation,
-  newDocument,
-} from '../../client/medical-models-client';
+import { getAllNavigation, newDocument } from '../../client/mm-document-client';
 
 export default function DrawerMenu({
   toggleDrawer,

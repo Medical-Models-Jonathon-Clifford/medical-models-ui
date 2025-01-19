@@ -15,9 +15,9 @@ import { Button } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../components/blocks/document-name/DocumentName';
 import Divider from '@mui/material/Divider';
 import { Comments } from '../../../components/comments/Comments';
-import { getDocument } from '../../../client/medical-models-client';
 import Typography from '@mui/material/Typography';
 import styles from './page.module.scss';
+import { getDocument } from '../../../client/mm-document-client';
 
 type Document = {
   id: string;

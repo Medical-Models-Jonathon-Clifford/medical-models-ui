@@ -10,7 +10,8 @@ import Typography from '@mui/material/Typography';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
-import { newDocumentWithParent } from '../../client/medical-models-client';
+
+import { newDocumentWithParent } from '../../client/mm-document-client';
 
 export type DocumentNode = {
   id: string;

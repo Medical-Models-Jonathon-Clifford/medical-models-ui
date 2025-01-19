@@ -12,7 +12,7 @@ import {
   getCommentsForDocument,
   saveNewComment,
   saveNewReplyComment,
-} from '../../client/medical-models-client';
+} from '../../client/mm-comment-client';
 
 type CommentState = 'View' | 'Edit';
 

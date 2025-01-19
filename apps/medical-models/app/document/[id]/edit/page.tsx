@@ -27,7 +27,7 @@ import { DEFAULT_DOSE } from '../../../../components/blocks/drug-half-life/half-
 import {
   getDocument,
   updateDocument,
-} from '../../../../client/medical-models-client';
+} from '../../../../client/mm-document-client';
 
 type Document = {
   id: string;
@@ -98,7 +98,7 @@ const EditBody = ({
     saveBodyChanges(JSON.stringify(blocks));
   };
 
-  const clickText: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const clickText: MouseEventHandler<HTMLButtonElement> = (_) => {
     const newBlock: BlockType = {
       type: 'text',
       text: '',
@@ -106,7 +106,7 @@ const EditBody = ({
     saveNewBlock(newBlock);
   };
 
-  const clickDielectric: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const clickDielectric: MouseEventHandler<HTMLButtonElement> = (_) => {
     const newBlock: BlockType = {
       type: 'dielectric',
       tissue: DEFAULT_TISSUE.name,
@@ -114,7 +114,7 @@ const EditBody = ({
     saveNewBlock(newBlock);
   };
 
-  const clickHalfLife: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const clickHalfLife: MouseEventHandler<HTMLButtonElement> = (_) => {
     const newBlock: BlockType = {
       type: 'half-life',
       drug: DEFAULT_DRUG.name,
