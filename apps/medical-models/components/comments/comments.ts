@@ -1,11 +1,3 @@
-export type CommentNodeData = {
-  id: string;
-  document_id: string;
-  body: string;
-  createdDate: Date;
-  modifiedDate: Date;
-};
-
 export type CommentNode = {
   comment: CommentNodeData;
   children: CommentNode[];
@@ -40,3 +32,24 @@ export function deleteCommentNode(
     return initialFiltered;
   }
 }
+
+export const compareComments = (a: CommentNode, b: CommentNode): number => {
+  if (a.comment.createdDate < b.comment.createdDate) {
+    return -1;
+  } else if (a.comment.createdDate > b.comment.createdDate) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+export const EMPTY_COMMENT = '';
+
+export type CommentNodeData = {
+  id: string;
+  document_id: string;
+  body: string;
+  createdDate: Date;
+  modifiedDate: Date;
+};
+export type WholeCommentState = 'Reloading' | 'TopLevelComment' | 'Editing';

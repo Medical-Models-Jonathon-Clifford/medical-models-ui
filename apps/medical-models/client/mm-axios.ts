@@ -3,5 +3,5 @@ import axios from 'axios';
 
 export const mmAxios = axios.create({
   baseURL: MEDICAL_MODELS_SERVICE_BASE_URL,
-  timeout: 1000,
+  timeout: 5000,
 });
