@@ -5,6 +5,7 @@ import { AddComment } from './AddComment';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { Comment } from './Comment';
 import { CommentNode } from './comments';
+import { useForm } from 'react-hook-form';
 
 type CommentState = 'View' | 'Edit';
 
@@ -13,7 +14,7 @@ type CommentThreadProps = {
   commentNode: CommentNode;
   replyParent: CommentNode | null;
   onClickReply: (comment: CommentNode) => void;
-  onSaveNewReply: (parentComment: CommentNode) => void;
+  onSaveNewReply: (parentComment: CommentNode, replyText: string) => void;
   newCommentText: string;
   onChangeNewComment: (newCommentText: string) => void;
   onClickEdit: (value: string) => void;
@@ -49,6 +50,10 @@ export function CommentThread({
     onClickReply(commentNode);
   };
 
+  const saveNewComment = (replyText: string) => {
+    onSaveNewReply(commentNode, replyText);
+  };
+
   return (
     <Box key={commentNode.comment.id} sx={sx}>
       {commentState === 'View' && (
@@ -73,7 +78,7 @@ export function CommentThread({
           sx={{ marginLeft: '20px' }}
           newCommentText={newCommentText}
           onChangeNewComment={onChangeNewComment}
-          onSaveNewComment={() => onSaveNewReply(commentNode)}
+          onSaveNewComment={saveNewComment}
         ></AddComment>
       )}
       {commentNode.children.map((replyCommentNode) => {

@@ -46,23 +46,24 @@ export function Comments({ documentId }: { documentId: string }) {
     setReplyParent(comment);
   };
 
-  const handleSaveNewComment = () => {
-    saveNewComment(documentId, newCommentText).then((_) => {
+  const handleSaveNewComment = (updatedCommentText: string) => {
+    saveNewComment(documentId, updatedCommentText).then((_) => {
       reloadComments();
       resetNewCommentText();
     });
   };
 
-  const handleSaveNewReply = (parentComment: CommentNode): void => {
-    saveNewReplyComment(
-      documentId,
-      newCommentText,
-      parentComment.comment.id
-    ).then((_) => {
-      reloadComments();
-      resetNewCommentText();
-      setReplyParent(null);
-    });
+  const handleSaveNewReply = (
+    parentComment: CommentNode,
+    replyText: string
+  ): void => {
+    saveNewReplyComment(documentId, replyText, parentComment.comment.id).then(
+      (_) => {
+        reloadComments();
+        resetNewCommentText();
+        setReplyParent(null);
+      }
+    );
   };
 
   const editComment = (comment: CommentNode, newText: string): void => {

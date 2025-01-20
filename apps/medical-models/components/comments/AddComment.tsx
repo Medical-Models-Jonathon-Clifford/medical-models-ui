@@ -3,37 +3,70 @@ import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import styles from './Comments.module.scss';
 
 type AddCommentProps = {
   sx?: SxProps;
   newCommentText: string;
   onChangeNewComment: (newCommentText: string) => void;
-  onSaveNewComment: () => void;
+  onSaveNewComment: (updatedCommentTest: string) => void;
 };
 
-export function AddComment({
-  sx,
-  newCommentText,
-  onChangeNewComment,
-  onSaveNewComment,
-}: AddCommentProps) {
-  const handleChangeComment: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    onChangeNewComment(event.target.value);
+type CommentSchema = {
+  comment: string;
+};
+
+const commentSchema = z.object({
+  comment: z
+    .string()
+    .min(1, 'Surely you have something more to say?')
+    .refine((val) => !val.includes('failure'), 'Failure is not an option')
+    .refine((val) => !val.includes('wait'), 'We wait for no one.')
+    .refine(
+      (val) => !val.includes('permission'),
+      'Better to ask for forgiveness than permission.'
+    )
+    .refine(
+      (val) => !val.includes('ignore'),
+      'First they ignore you. Then they laugh at you. Then they fight you. Then you win.'
+    ),
+});
+
+export function AddComment({ sx, onSaveNewComment }: AddCommentProps) {
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    formState: { errors },
+  } = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      comment: '',
+    },
+  });
+
+  const onSubmit = (d: CommentSchema) => {
+    onSaveNewComment(commentSchema.parse(d).comment);
   };
 
   return (
     <Box sx={sx}>
-      <TextField
-        id="outlined-multiline-flexible"
-        label="Comment"
-        multiline
-        placeholder="Add a comment"
-        value={newCommentText}
-        onChange={handleChangeComment}
-      />
-      <Button onClick={onSaveNewComment}>Save</Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Comment"
+          multiline
+          placeholder="Add a comment"
+          {...register('comment', { onChange: () => trigger('comment') })}
+        />
+        <Button type="submit">Save</Button>
+      </form>
+      {errors.comment && (
+        <p className={styles.validation_error}>{errors.comment.message}</p>
+      )}
     </Box>
   );
 }
