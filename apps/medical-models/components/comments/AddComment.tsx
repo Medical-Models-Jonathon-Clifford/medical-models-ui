@@ -10,8 +10,6 @@ import styles from './Comments.module.scss';
 
 type AddCommentProps = {
   sx?: SxProps;
-  newCommentText: string;
-  onChangeNewComment: (newCommentText: string) => void;
   onSaveNewComment: (updatedCommentTest: string) => void;
 };
 
@@ -32,6 +30,10 @@ const commentSchema = z.object({
     .refine(
       (val) => !val.includes('ignore'),
       'First they ignore you. Then they laugh at you. Then they fight you. Then you win.'
+    )
+    .refine(
+      (val) => !val.includes('quit'),
+      'Pain is temporary. Quitting lasts forever.'
     ),
 });
 

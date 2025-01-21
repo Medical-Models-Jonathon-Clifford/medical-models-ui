@@ -5,7 +5,6 @@ import { AddComment } from './AddComment';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { Comment } from './Comment';
 import { CommentNode } from './comments';
-import { useForm } from 'react-hook-form';
 
 type CommentState = 'View' | 'Edit';
 
@@ -67,17 +66,11 @@ export function CommentThread({
         ></Comment>
       )}
       {commentState == 'Edit' && (
-        <AddComment
-          newCommentText={newCommentText}
-          onChangeNewComment={onChangeNewComment}
-          onSaveNewComment={handleSaveEdit}
-        ></AddComment>
+        <AddComment onSaveNewComment={handleSaveEdit}></AddComment>
       )}
       {replyParent === commentNode && (
         <AddComment
           sx={{ marginLeft: '20px' }}
-          newCommentText={newCommentText}
-          onChangeNewComment={onChangeNewComment}
           onSaveNewComment={saveNewComment}
         ></AddComment>
       )}
