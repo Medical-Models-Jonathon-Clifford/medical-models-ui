@@ -2,19 +2,19 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { ReadOnlyText } from '../../../components/blocks/text/Text';
+import { ReadOnlyText } from '../../../component/blocks/text/Text';
 import {
   BlockType,
   isDielectricBlockType,
   isHalfLifeBlockType,
   isTextBlockType,
-} from '../../../models/blocks';
-import { ReadOnlyDielectric } from '../../../components/blocks/dielectric/DielectricPropsBodyTissues';
-import { ReadOnlyDrugHalfLife } from '../../../components/blocks/drug-half-life/DrugHalfLife';
+} from '../../../model/block';
+import { ReadOnlyDielectric } from '../../../component/blocks/dielectric/DielectricPropsBodyTissues';
+import { ReadOnlyDrugHalfLife } from '../../../component/blocks/drug-half-life/DrugHalfLife';
 import { Button } from '@mui/material';
-import { ReadOnlyDocumentName } from '../../../components/blocks/document-name/DocumentName';
+import { ReadOnlyDocumentName } from '../../../component/blocks/document-name/DocumentName';
 import Divider from '@mui/material/Divider';
-import { Comments } from '../../../components/comments/Comments';
+import { Comments } from '../../../component/comments/Comments';
 import Typography from '@mui/material/Typography';
 import styles from './page.module.scss';
 import { getDocument } from '../../../client/mm-document-client';

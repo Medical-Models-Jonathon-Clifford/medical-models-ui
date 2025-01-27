@@ -1,4 +1,4 @@
-import { zipToPoint } from '../../../adapters/chart-adapters';
+import { zipToPoint } from '../../../adapter/chart-adapters';
 
 export function chartOptions(title: string) {
   return {

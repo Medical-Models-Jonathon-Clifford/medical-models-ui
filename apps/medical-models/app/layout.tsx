@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Base from '../components/base/Base';
+import Base from '../component/base/Base';
 
 export const metadata = {
   title: 'Medical Models',
