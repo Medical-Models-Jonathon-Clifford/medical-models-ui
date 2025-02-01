@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import * as React from 'react';
-import { CommentNode } from './comments';
+import { CommentNode } from '../utils/comments';
 
 type CommentProps = {
   commentNode: CommentNode;
@@ -19,7 +19,9 @@ export function Comment({
 }: CommentProps) {
   return (
     <>
-      <Typography>{commentNode.comment.body}</Typography>
+      <Typography data-testid="comment-body">
+        {commentNode.comment.body}
+      </Typography>
       <Typography variant="caption">
         Created: {String(commentNode.comment.createdDate)}, Edited:{' '}
         {commentNode.comment.modifiedDate.toString()}

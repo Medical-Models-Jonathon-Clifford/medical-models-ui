@@ -28,7 +28,6 @@ export default function DrawerMenu({
 
   useEffect(() => {
     getAllNavigation().then((r) => {
-      console.log(r.data);
       setNavTreeDocs(r.data);
     });
   }, []);
@@ -37,7 +36,6 @@ export default function DrawerMenu({
     console.log('Clicked create new document');
     newDocument()
       .then((r) => {
-        console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
       })
       .catch((e) => {

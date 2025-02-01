@@ -52,15 +52,12 @@ export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
   const clickAddChild: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log('clicked add child');
     createNewDocument();
   };
 
   const createNewDocument = () => {
-    console.log('Clicked create new document');
     newDocumentWithParent(docInfo.id)
       .then((r) => {
-        console.log(r.data);
         router.push('/document/' + r.data.id + '/edit');
       })
       .catch((e) => {

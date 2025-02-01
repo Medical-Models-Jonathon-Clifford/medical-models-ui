@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { AddComment } from './AddComment';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { Comment } from './Comment';
-import { CommentNode } from './comments';
+import { CommentNode } from '../utils/comments';
 
 type CommentState = 'View' | 'Edit';
 
@@ -17,7 +17,7 @@ type CommentThreadProps = {
   newCommentText: string;
   onChangeNewComment: (newCommentText: string) => void;
   onClickEdit: (value: string) => void;
-  onSaveEdit: (comment: CommentNode) => void;
+  onSaveEdit: (comment: CommentNode, editText: string) => void;
   onDeleteComment: (toDelete: CommentNode) => void;
 };
 
@@ -40,21 +40,21 @@ export function CommentThread({
     setCommentState('Edit');
   };
 
-  function handleSaveEdit() {
-    onSaveEdit(commentNode);
+  const handleSaveEdit = (editText: string) => {
+    onSaveEdit(commentNode, editText);
     setCommentState('View');
-  }
+  };
 
   const handleReply = () => {
     onClickReply(commentNode);
   };
 
-  const saveNewComment = (replyText: string) => {
+  const handleSaveNew = (replyText: string) => {
     onSaveNewReply(commentNode, replyText);
   };
 
   return (
-    <Box key={commentNode.comment.id} sx={sx}>
+    <Box data-testid="comment-thread" sx={sx}>
       {commentState === 'View' && (
         <Comment
           commentNode={commentNode}
@@ -66,12 +66,15 @@ export function CommentThread({
         ></Comment>
       )}
       {commentState == 'Edit' && (
-        <AddComment onSaveNewComment={handleSaveEdit}></AddComment>
+        <AddComment
+          newCommentText={newCommentText}
+          onSave={handleSaveEdit}
+        ></AddComment>
       )}
       {replyParent === commentNode && (
         <AddComment
           sx={{ marginLeft: '20px' }}
-          onSaveNewComment={saveNewComment}
+          onSave={handleSaveNew}
         ></AddComment>
       )}
       {commentNode.children.map((replyCommentNode) => {

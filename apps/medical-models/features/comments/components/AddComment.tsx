@@ -6,11 +6,12 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import styles from './Comments.module.scss';
+import styles from './CommentPanel.module.scss';
 
 type AddCommentProps = {
   sx?: SxProps;
-  onSaveNewComment: (updatedCommentTest: string) => void;
+  newCommentText?: string;
+  onSave: (updatedCommentTest: string) => void;
 };
 
 type CommentSchema = {
@@ -21,7 +22,10 @@ const commentSchema = z.object({
   comment: z
     .string()
     .min(1, 'Surely you have something more to say?')
-    .refine((val) => !val.includes('failure'), 'Failure is not an option')
+    .refine(
+      (val) => !['failure', 'fail'].includes(val),
+      'Failure is not an option'
+    )
     .refine((val) => !val.includes('wait'), 'We wait for no one.')
     .refine(
       (val) => !val.includes('permission'),
@@ -32,12 +36,16 @@ const commentSchema = z.object({
       'First they ignore you. Then they laugh at you. Then they fight you. Then you win.'
     )
     .refine(
-      (val) => !val.includes('quit'),
+      (val) => !['quit', 'quitting'].includes(val),
       'Pain is temporary. Quitting lasts forever.'
     ),
 });
 
-export function AddComment({ sx, onSaveNewComment }: AddCommentProps) {
+export function AddComment({
+  sx,
+  newCommentText = '',
+  onSave,
+}: AddCommentProps) {
   const {
     register,
     handleSubmit,
@@ -46,12 +54,13 @@ export function AddComment({ sx, onSaveNewComment }: AddCommentProps) {
   } = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
-      comment: '',
+      comment: newCommentText,
     },
   });
 
   const onSubmit = (d: CommentSchema) => {
-    onSaveNewComment(commentSchema.parse(d).comment);
+    const updatedComment = commentSchema.parse(d).comment;
+    onSave(updatedComment);
   };
 
   return (

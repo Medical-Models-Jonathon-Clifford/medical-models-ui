@@ -8,7 +8,7 @@ const testOnSaveNewComment = jest.fn();
 describe('Page', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
-      <AddComment onSaveNewComment={testOnSaveNewComment} />
+      <AddComment onSave={testOnSaveNewComment} />
     );
     expect(baseElement).toBeTruthy();
     expect(testOnSaveNewComment).toBeCalledTimes(0);

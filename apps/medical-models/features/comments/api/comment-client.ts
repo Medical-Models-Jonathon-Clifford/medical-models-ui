@@ -1,4 +1,4 @@
-import { mmAxios } from './mm-axios';
+import { mmAxios } from '../../../client/mm-axios';
 
 export function deleteCommentById(commentId: string) {
   return mmAxios.delete(`/comments/${commentId}`);

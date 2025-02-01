@@ -2,22 +2,12 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { ReadOnlyText } from '../../../component/blocks/text/Text';
-import {
-  BlockType,
-  isDielectricBlockType,
-  isHalfLifeBlockType,
-  isTextBlockType,
-} from '../../../model/block';
-import { ReadOnlyDielectric } from '../../../component/blocks/dielectric/DielectricPropsBodyTissues';
-import { ReadOnlyDrugHalfLife } from '../../../component/blocks/drug-half-life/DrugHalfLife';
 import { Button } from '@mui/material';
-import { ReadOnlyDocumentName } from '../../../component/blocks/document-name/DocumentName';
+import { ReadOnlyDocumentName } from '../../../features/blocks/document-name/DocumentName';
 import Divider from '@mui/material/Divider';
-import { Comments } from '../../../component/comments/Comments';
-import Typography from '@mui/material/Typography';
-import styles from './page.module.scss';
+import { CommentPanel } from '../../../features/comments/components/CommentPanel';
 import { getDocument } from '../../../client/mm-document-client';
+import { ReadOnlyBody } from './ReadOnlyBody';
 
 type Document = {
   id: string;
@@ -31,41 +21,6 @@ type Document = {
 };
 
 type ViewDocState = 'loading' | 'loaded';
-
-const Body = ({ body }: { body: string }) => {
-  const blocks: BlockType[] = JSON.parse(body);
-
-  return (
-    <>
-      {!blocks && (
-        <Typography className={styles.Placeholder}>
-          The test for Addison&apos;s is always inconclusive. - Dr Gregory House
-        </Typography>
-      )}
-      {blocks &&
-        blocks.map((block: BlockType, index: number) => {
-          if (isTextBlockType(block)) {
-            return <ReadOnlyText key={index} text={block.text}></ReadOnlyText>;
-          } else if (isDielectricBlockType(block)) {
-            return (
-              <ReadOnlyDielectric
-                key={index}
-                tissueName={block.tissue}
-              ></ReadOnlyDielectric>
-            );
-          } else if (isHalfLifeBlockType(block)) {
-            return (
-              <ReadOnlyDrugHalfLife
-                key={index}
-                drugName={block.drug}
-                dose={block.dose}
-              ></ReadOnlyDrugHalfLife>
-            );
-          }
-        })}
-    </>
-  );
-};
 
 export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<Document | undefined>(undefined);
@@ -91,9 +46,9 @@ export default function Page({ params }: { params: { id: string } }) {
             {data.modifiedDate} - {data.state}
           </p>
           <Button href={`/document/${params.id}/edit`}>Edit Page</Button>
-          <Body body={data.body}></Body>
+          <ReadOnlyBody body={data.body}></ReadOnlyBody>
           <Divider></Divider>
-          <Comments documentId={params.id}></Comments>
+          <CommentPanel documentId={params.id}></CommentPanel>
         </>
       )}
     </>

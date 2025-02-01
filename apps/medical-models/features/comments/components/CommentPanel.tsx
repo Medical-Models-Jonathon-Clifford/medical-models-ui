@@ -8,18 +8,18 @@ import {
   getCommentsForDocument,
   saveNewComment,
   saveNewReplyComment,
-} from '../../client/mm-comment-client';
+} from '../api/comment-client';
 import {
   CommentNode,
   compareComments,
   countComments,
   EMPTY_COMMENT,
   WholeCommentState,
-} from './comments';
+} from '../utils/comments';
 import { CommentThread } from './CommentThread';
 import { AddComment } from './AddComment';
 
-export function Comments({ documentId }: { documentId: string }) {
+export function CommentPanel({ documentId }: { documentId: string }) {
   const [comments, setComments] = React.useState<CommentNode[]>([]);
   const [newCommentText, setNewCommentText] = useState<string>(EMPTY_COMMENT);
   const [replyParent, setReplyParent] = React.useState<CommentNode | null>(
@@ -38,70 +38,38 @@ export function Comments({ documentId }: { documentId: string }) {
     setNewCommentText(newCommentText);
   };
 
-  const commentCount = () => {
-    return countComments(comments);
-  };
-
   const handleReply = (comment: CommentNode): void => {
     setReplyParent(comment);
   };
 
-  const handleSaveNewComment = (updatedCommentText: string) => {
-    saveNewComment(documentId, updatedCommentText).then((_) => {
-      reloadComments();
-      resetNewCommentText();
-    });
+  const handleSaveNewComment = async (updatedCommentText: string) => {
+    await saveNewComment(documentId, updatedCommentText);
+    await reloadComments();
+    resetNewCommentText();
   };
 
-  const handleSaveNewReply = (
+  const handleSaveNewReply = async (
     parentComment: CommentNode,
     replyText: string
-  ): void => {
-    saveNewReplyComment(documentId, replyText, parentComment.comment.id).then(
-      (_) => {
-        reloadComments();
-        resetNewCommentText();
-        setReplyParent(null);
-      }
-    );
+  ): Promise<void> => {
+    await saveNewReplyComment(documentId, replyText, parentComment.comment.id);
+    await reloadComments();
+    resetNewCommentText();
+    setReplyParent(null);
   };
 
-  const editComment = (comment: CommentNode, newText: string): void => {
-    editCommentById(comment.comment.id, newText).then((_) => {
-      reloadComments();
-      resetNewCommentText();
-    });
+  const handleDeleteComment = async (toDelete: CommentNode): Promise<void> => {
+    try {
+      await deleteCommentById(toDelete.comment.id);
+      await reloadComments();
+    } catch (e) {
+      console.error('There was an error deleting comments ', toDelete, e);
+    }
   };
 
-  const handleDeleteComment = (toDelete: CommentNode): void => {
-    deleteCommentById(toDelete.comment.id)
-      .then((_) => reloadComments())
-      .catch((e) => {
-        console.error('There was an error deleting comments ', toDelete, e);
-      });
-  };
-
-  const reloadComments = () => {
-    setWholeCommentsState('Reloading');
-    getCommentsForDocument(documentId)
-      .then((response) => {
-        setComments(response.data);
-        setWholeCommentsState('TopLevelComment');
-      })
-      .catch((e) => {
-        console.error('There was an error reloading comments: ', e);
-      });
-  };
-
-  const resetNewCommentText = () => {
-    setNewCommentText(EMPTY_COMMENT);
-  };
-
-  const sortedComments = () => comments.sort(compareComments);
-
-  const handleSaveEdit = (commentNode: CommentNode) => {
+  const handleSaveEdit = async (commentNode: CommentNode, editText: string) => {
     setWholeCommentsState('TopLevelComment');
-    editComment(commentNode, newCommentText);
+    await editComment(commentNode, editText);
   };
 
   const handleClickEdit = (newCommentText: string) => {
@@ -109,9 +77,41 @@ export function Comments({ documentId }: { documentId: string }) {
     setWholeCommentsState('Editing');
   };
 
+  const resetNewCommentText = () => {
+    setNewCommentText(EMPTY_COMMENT);
+  };
+
+  const editComment = async (
+    comment: CommentNode,
+    newText: string
+  ): Promise<void> => {
+    await editCommentById(comment.comment.id, newText);
+    await reloadComments();
+    resetNewCommentText();
+  };
+
+  const commentCount = () => {
+    return countComments(comments);
+  };
+
+  const sortedComments = () => comments.sort(compareComments);
+
+  const reloadComments = async () => {
+    setWholeCommentsState('Reloading');
+    try {
+      const response = await getCommentsForDocument(documentId);
+      setComments(response.data);
+      setWholeCommentsState('TopLevelComment');
+    } catch (err) {
+      console.error('There was an error reloading comments: ', err);
+    }
+  };
+
   return (
     <>
-      <Typography>{commentCount()} document comments</Typography>
+      <Typography data-testid="comment-panel-count">
+        {commentCount()} comments
+      </Typography>
       <Paper variant="outlined" sx={{ padding: '8px' }}>
         {sortedComments().map((comment: CommentNode) => {
           return (
@@ -132,8 +132,7 @@ export function Comments({ documentId }: { documentId: string }) {
         {replyParent === null && wholeCommentsState === 'TopLevelComment' && (
           <AddComment
             newCommentText={newCommentText}
-            onChangeNewComment={handleChangeNewComment}
-            onSaveNewComment={handleSaveNewComment}
+            onSave={handleSaveNewComment}
           ></AddComment>
         )}
       </Paper>
