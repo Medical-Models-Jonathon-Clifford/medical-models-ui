@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MouseEventHandler } from 'react';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -85,12 +85,16 @@ export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
             </IconButton>
           )}
           <Typography variant="body1">{docInfo.title}</Typography>
-          <IconButton onClick={() => console.log('clicked')}>
-            <MoreHorizIcon />
-          </IconButton>
-          <IconButton onClick={clickAddChild}>
-            <AddIcon />
-          </IconButton>
+          <Tooltip title="More Options">
+            <IconButton onClick={() => console.log('clicked')}>
+              <MoreHorizIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="New Child">
+            <IconButton onClick={clickAddChild}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
         </Button>
       </Box>
       {folderOpen &&
