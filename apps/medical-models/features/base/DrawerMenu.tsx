@@ -14,6 +14,10 @@ import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
+import { Box, Skeleton } from '@mui/material';
+import styles from './DrawerMenu.module.scss';
+
+type DrawerMenuState = 'loading' | 'ready';
 
 export default function DrawerMenu({
   toggleDrawer,
@@ -22,25 +26,31 @@ export default function DrawerMenu({
   toggleDrawer: () => void;
   open: boolean;
 }) {
+  const [drawerMenuState, setDrawerMenuState] =
+    useState<DrawerMenuState>('loading');
   const [navTreeDocs, setNavTreeDocs] =
     useState<DocumentNode[]>(stubNavTreeDocs);
   const router = useRouter();
 
   useEffect(() => {
-    getAllNavigation().then((r) => {
-      setNavTreeDocs(r.data);
-    });
+    async function fetchAllNavigation() {
+      const response = await getAllNavigation();
+      setNavTreeDocs(response.data);
+      setDrawerMenuState('ready');
+    }
+
+    fetchAllNavigation();
   }, []);
 
-  const clickCreateNewDocument: MouseEventHandler<HTMLDivElement> = () => {
-    console.log('Clicked create new document');
-    newDocument()
-      .then((r) => {
-        router.push('/document/' + r.data.id + '/edit');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const clickCreateNewDocument: MouseEventHandler<
+    HTMLDivElement
+  > = async () => {
+    try {
+      const r = await newDocument();
+      router.push('/document/' + r.data.id + '/edit');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -64,9 +74,39 @@ export default function DrawerMenu({
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
-        {navTreeDocs.map((docInfo) => (
-          <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>
-        ))}
+        {drawerMenuState === 'loading' && (
+          <Box className={styles.loading_box}>
+            <Skeleton
+              variant="text"
+              animation="wave"
+              className={styles.parent_skeleton}
+            />
+            <Skeleton
+              variant="text"
+              animation="wave"
+              className={styles.child_skeleton}
+            />
+            <Skeleton
+              variant="text"
+              animation="wave"
+              className={styles.child_skeleton}
+            />
+            <Skeleton
+              variant="text"
+              animation="wave"
+              className={styles.parent_skeleton}
+            />
+            <Skeleton
+              variant="text"
+              animation="wave"
+              className={styles.child_skeleton}
+            />
+          </Box>
+        )}
+        {drawerMenuState === 'ready' &&
+          navTreeDocs.map((docInfo) => (
+            <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>
+          ))}
         <ListItemButton onClick={clickCreateNewDocument}>
           <ListItemIcon>
             <AddIcon />
