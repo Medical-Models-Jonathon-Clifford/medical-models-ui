@@ -1,4 +1,4 @@
-import { AppBar } from '../appbar/AppBar';
+import { AppBar } from '../../components/appbar/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';

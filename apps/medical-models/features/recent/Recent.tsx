@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Title from '../title/Title';
+import Title from '../../components/title/Title';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
