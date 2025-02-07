@@ -11,7 +11,7 @@ import { ReadOnlyDielectric } from '../../../features/blocks/dielectric/Dielectr
 import { ReadOnlyDrugHalfLife } from '../../../features/blocks/drug-half-life/DrugHalfLife';
 import * as React from 'react';
 
-export const ReadOnlyBody = ({ body }: { body: string }) => {
+export function ReadOnlyBody({ body }: { body: string }) {
   const blocks: BlockType[] = JSON.parse(body);
 
   return (
@@ -44,4 +44,4 @@ export const ReadOnlyBody = ({ body }: { body: string }) => {
         })}
     </>
   );
-};
+}

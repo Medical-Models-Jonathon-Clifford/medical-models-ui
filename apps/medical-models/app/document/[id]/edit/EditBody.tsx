@@ -40,13 +40,13 @@ const DEFAULT_HALF_LIFE: BlockType = {
   dose: DEFAULT_DOSE,
 };
 
-export const EditBody = ({
+export function EditBody({
   body,
   saveBodyChanges,
 }: {
   body: string;
   saveBodyChanges: (newBody: string) => void;
-}) => {
+}) {
   const [editBodyState, setEditBodyState] = useState<EditBodyState>(
     body ? 'HasBody' : 'NoBody'
   );
@@ -173,4 +173,4 @@ export const EditBody = ({
       </>
     </>
   );
-};
+}
