@@ -18,30 +18,36 @@ export default function Page({ params }: { params: { id: string } }) {
   const [viewDocState, setViewDocState] = useState<EditDocState>('loading');
 
   useEffect(() => {
-    getDocument(params.id).then((response) => {
+    async function fetchDocument() {
+      const response = await getDocument(params.id);
       setData(response.data);
       setViewDocState('loaded');
-    });
+    }
+    fetchDocument();
   }, [params.id]);
 
-  const saveBodyChanges = (newBody: string) => {
+  const saveBodyChanges = async (newBody: string) => {
     const titleToSave = data && data.title ? data.title : null;
-    updateDocument(params.id, titleToSave, newBody, 'ACTIVE').then(
-      (response) => {
-        setData(response.data);
-        setViewDocState('loaded');
-      }
+    const response = await updateDocument(
+      params.id,
+      titleToSave,
+      newBody,
+      'ACTIVE'
     );
+    setData(response.data);
+    setViewDocState('loaded');
   };
 
-  const saveDocumentNameChanges = (newName: string) => {
+  const saveDocumentNameChanges = async (newName: string) => {
     const bodyToSave = data && data.body ? data.body : null;
-    updateDocument(params.id, newName, bodyToSave, 'ACTIVE').then(
-      (response) => {
-        setData(response.data);
-        setViewDocState('loaded');
-      }
+    const response = await updateDocument(
+      params.id,
+      newName,
+      bodyToSave,
+      'ACTIVE'
     );
+    setData(response.data);
+    setViewDocState('loaded');
   };
 
   return (

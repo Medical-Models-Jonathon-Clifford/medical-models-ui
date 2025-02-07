@@ -49,20 +49,19 @@ export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
     setFolderOpen(false);
   };
 
-  const clickAddChild: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const clickAddChild: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    createNewDocument();
+    await createNewDocument();
   };
 
-  const createNewDocument = () => {
-    newDocumentWithParent(docInfo.id)
-      .then((r) => {
-        router.push('/document/' + r.data.id + '/edit');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const createNewDocument = async () => {
+    try {
+      const r = await newDocumentWithParent(docInfo.id);
+      router.push('/document/' + r.data.id + '/edit');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

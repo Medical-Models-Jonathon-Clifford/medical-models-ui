@@ -29,9 +29,11 @@ export function CommentPanel({ documentId }: { documentId: string }) {
     useState<WholeCommentState>('TopLevelComment');
 
   useEffect(() => {
-    getCommentsForDocument(documentId).then((response) => {
+    async function fetchComments() {
+      const response = await getCommentsForDocument(documentId);
       setComments(response.data);
-    });
+    }
+    fetchComments();
   }, [documentId]);
 
   const handleChangeNewComment = (newCommentText: string): void => {

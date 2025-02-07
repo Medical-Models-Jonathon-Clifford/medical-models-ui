@@ -27,10 +27,12 @@ export default function Page({ params }: { params: { id: string } }) {
   const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
 
   useEffect(() => {
-    getDocument(params.id).then((response) => {
+    async function fetchDocument() {
+      const response = await getDocument(params.id);
       setData(response.data);
       setViewDocState('loaded');
-    });
+    }
+    fetchDocument();
   }, [params.id]);
 
   return (

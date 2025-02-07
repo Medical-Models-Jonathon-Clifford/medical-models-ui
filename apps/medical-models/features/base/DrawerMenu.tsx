@@ -38,7 +38,6 @@ export default function DrawerMenu({
       setNavTreeDocs(response.data);
       setDrawerMenuState('ready');
     }
-
     fetchAllNavigation();
   }, []);
 
