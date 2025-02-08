@@ -1,8 +1,9 @@
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import * as React from 'react';
 import { CommentNode } from '../utils/comments';
+import styles from './Comment.module.scss';
+import Box from '@mui/material/Box';
 
 type CommentProps = {
   commentNode: CommentNode;
@@ -26,11 +27,19 @@ export function Comment({
         Created: {String(commentNode.comment.createdDate)}, Edited:{' '}
         {commentNode.comment.modifiedDate.toString()}
       </Typography>
-      <Stack direction="row" spacing={1}>
-        <Button onClick={onReply}>Reply</Button>
-        <Button onClick={onEdit}>Edit</Button>
-        <Button onClick={onDelete}>Delete</Button>
-      </Stack>
+      <Box className={styles.button_box}>
+        <Button variant={'link'} onClick={onReply}>
+          Reply
+        </Button>
+        <Typography className={styles.button_separator}>•</Typography>
+        <Button variant={'link'} onClick={onEdit}>
+          Edit
+        </Button>
+        <Typography className={styles.button_separator}>•</Typography>
+        <Button variant={'link'} onClick={onDelete}>
+          Delete
+        </Button>
+      </Box>
     </>
   );
 }
