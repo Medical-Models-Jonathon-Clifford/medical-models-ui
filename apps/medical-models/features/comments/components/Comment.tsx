@@ -4,6 +4,7 @@ import * as React from 'react';
 import { CommentNode } from '../utils/comments';
 import styles from './Comment.module.scss';
 import Box from '@mui/material/Box';
+import { formatTimeSince } from '../../../utils/date-adapters';
 
 type CommentProps = {
   commentNode: CommentNode;
@@ -24,8 +25,7 @@ export function Comment({
         {commentNode.comment.body}
       </Typography>
       <Typography variant="caption">
-        Created: {String(commentNode.comment.createdDate)}, Edited:{' '}
-        {commentNode.comment.modifiedDate.toString()}
+        {formatTimeSince(commentNode.comment.modifiedDate)}
       </Typography>
       <Box className={styles.button_box}>
         <Button variant={'link'} onClick={onReply}>
