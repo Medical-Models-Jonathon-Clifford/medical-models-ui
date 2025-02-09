@@ -5,6 +5,8 @@ import { CommentNode } from '../utils/comments';
 import styles from './Comment.module.scss';
 import Box from '@mui/material/Box';
 import { formatTimeSince } from '../../../utils/date-adapters';
+import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
+import Link from '@mui/material/Link';
 
 type CommentProps = {
   commentNode: CommentNode;
@@ -21,24 +23,32 @@ export function Comment({
 }: CommentProps) {
   return (
     <>
-      <Typography data-testid="comment-body">
-        {commentNode.comment.body}
-      </Typography>
-      <Typography variant="caption">
-        {formatTimeSince(commentNode.comment.modifiedDate)}
-      </Typography>
-      <Box className={styles.button_box}>
-        <Button variant={'link'} onClick={onReply}>
-          Reply
-        </Button>
-        <Typography className={styles.button_separator}>•</Typography>
-        <Button variant={'link'} onClick={onEdit}>
-          Edit
-        </Button>
-        <Typography className={styles.button_separator}>•</Typography>
-        <Button variant={'link'} onClick={onDelete}>
-          Delete
-        </Button>
+      <Box className={styles.comment_box}>
+        <ProfileIcon />
+        <Box className={styles.comment_info_box}>
+          <Box>
+            <Link variant="h4">Gregory House</Link>
+            <Typography variant="caption">
+              {formatTimeSince(commentNode.comment.modifiedDate)}
+            </Typography>
+          </Box>
+          <Typography variant="body1" data-testid="comment-body">
+            {commentNode.comment.body}
+          </Typography>
+          <Box className={styles.button_box}>
+            <Button variant={'link'} onClick={onReply}>
+              Reply
+            </Button>
+            <Typography className={styles.button_separator}>•</Typography>
+            <Button variant={'link'} onClick={onEdit}>
+              Edit
+            </Button>
+            <Typography className={styles.button_separator}>•</Typography>
+            <Button variant={'link'} onClick={onDelete}>
+              Delete
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </>
   );

@@ -49,7 +49,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </p>
           <Button href={`/document/${params.id}/edit`}>Edit Page</Button>
           <ReadOnlyBody body={data.body}></ReadOnlyBody>
-          <Divider></Divider>
+          <Divider variant="middle" />
           <CommentPanel documentId={params.id}></CommentPanel>
         </>
       )}

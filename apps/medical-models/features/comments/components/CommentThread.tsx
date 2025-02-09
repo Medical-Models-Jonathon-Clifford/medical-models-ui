@@ -5,6 +5,7 @@ import { AddComment } from './AddComment';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { Comment } from './Comment';
 import { CommentNode } from '../utils/comments';
+import styles from './CommentThread.module.scss';
 
 type CommentState = 'View' | 'Edit';
 
@@ -54,34 +55,40 @@ export function CommentThread({
   };
 
   return (
-    <Box data-testid="comment-thread" sx={sx}>
-      {commentState === 'View' && (
-        <Comment
-          commentNode={commentNode}
-          onReply={handleReply}
-          onEdit={handleEdit}
-          onDelete={() => {
-            onDeleteComment(commentNode);
-          }}
-        ></Comment>
-      )}
-      {commentState == 'Edit' && (
-        <AddComment
-          newCommentText={newCommentText}
-          onSave={handleSaveEdit}
-        ></AddComment>
-      )}
-      {replyParent === commentNode && (
-        <AddComment
-          sx={{ marginLeft: '20px' }}
-          onSave={handleSaveNew}
-        ></AddComment>
-      )}
+    <Box
+      data-testid="comment-thread"
+      sx={sx}
+      className={styles.comment_thread_box}
+    >
+      <Box className={styles.comment_thread_parent_box}>
+        {commentState === 'View' && (
+          <Comment
+            commentNode={commentNode}
+            onReply={handleReply}
+            onEdit={handleEdit}
+            onDelete={() => {
+              onDeleteComment(commentNode);
+            }}
+          ></Comment>
+        )}
+        {commentState == 'Edit' && (
+          <AddComment
+            newCommentText={newCommentText}
+            onSave={handleSaveEdit}
+          ></AddComment>
+        )}
+        {replyParent === commentNode && (
+          <AddComment
+            sx={{ marginLeft: '40px' }}
+            onSave={handleSaveNew}
+          ></AddComment>
+        )}
+      </Box>
       {commentNode.children.map((replyCommentNode) => {
         return (
           <CommentThread
             key={replyCommentNode.comment.id}
-            sx={{ marginLeft: '20px' }}
+            sx={{ marginLeft: '40px' }}
             commentNode={replyCommentNode}
             replyParent={replyParent}
             onClickReply={onClickReply}

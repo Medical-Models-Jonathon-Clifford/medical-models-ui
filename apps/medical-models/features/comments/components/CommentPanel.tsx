@@ -1,4 +1,3 @@
-import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
@@ -17,7 +16,11 @@ import {
   WholeCommentState,
 } from '../utils/comments';
 import { CommentThread } from './CommentThread';
-import { AddComment } from './AddComment';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
+import { CommentPrompt } from './CommentPrompt';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import styles from './CommentPanel.module.scss';
 
 export function CommentPanel({ documentId }: { documentId: string }) {
   const [comments, setComments] = React.useState<CommentNode[]>([]);
@@ -33,6 +36,7 @@ export function CommentPanel({ documentId }: { documentId: string }) {
       const response = await getCommentsForDocument(documentId);
       setComments(response.data);
     }
+
     fetchComments();
   }, [documentId]);
 
@@ -111,10 +115,13 @@ export function CommentPanel({ documentId }: { documentId: string }) {
 
   return (
     <>
-      <Typography data-testid="comment-panel-count">
-        {commentCount()} comments
-      </Typography>
-      <Paper variant="outlined" sx={{ padding: '8px' }}>
+      <Box sx={{ padding: '8px' }}>
+        <Box className={styles.comment_count_box}>
+          <CommentOutlinedIcon />
+          <Typography variant="comment_count" data-testid="comment-panel-count">
+            {commentCount()} comments
+          </Typography>
+        </Box>
         {sortedComments().map((comment: CommentNode) => {
           return (
             <CommentThread
@@ -131,13 +138,14 @@ export function CommentPanel({ documentId }: { documentId: string }) {
             ></CommentThread>
           );
         })}
+        <Divider variant="middle" />
         {replyParent === null && wholeCommentsState === 'TopLevelComment' && (
-          <AddComment
+          <CommentPrompt
             newCommentText={newCommentText}
             onSave={handleSaveNewComment}
-          ></AddComment>
+          ></CommentPrompt>
         )}
-      </Paper>
+      </Box>
     </>
   );
 }

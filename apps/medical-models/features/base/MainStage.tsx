@@ -7,13 +7,11 @@ export default function MainStage({ children }: { children: React.ReactNode }) {
     <Box
       component="main"
       sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
+        backgroundColor: '#FFF',
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        padding: '0 40px 20px 40px',
       }}
     >
       <Toolbar />

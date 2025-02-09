@@ -68,12 +68,13 @@ export function AddComment({
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           id="outlined-multiline-flexible"
-          label="Comment"
           multiline
-          placeholder="Add a comment"
+          placeholder="Go ahead, just type them in..."
           {...register('comment', { onChange: () => trigger('comment') })}
         />
-        <Button type="submit">Save</Button>
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
       </form>
       {errors.comment && (
         <p className={styles.validation_error}>{errors.comment.message}</p>

@@ -8,7 +8,7 @@ import MainStage from './MainStage';
 import DrawerMenu from './DrawerMenu';
 import TopAppBar from './TopAppBar';
 import { useState } from 'react';
-import { lightTheme } from './lightTheme';
+import { lightTheme } from './light-theme';
 
 export default function Base({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
