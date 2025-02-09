@@ -20,6 +20,8 @@ type CommentThreadProps = {
   onClickEdit: (value: string) => void;
   onSaveEdit: (comment: CommentNode, editText: string) => void;
   onDeleteComment: (toDelete: CommentNode) => void;
+  onCancelEdit: () => void;
+  onCancelReply: () => void;
 };
 
 export function CommentThread({
@@ -33,6 +35,8 @@ export function CommentThread({
   onClickEdit,
   onSaveEdit,
   onDeleteComment,
+  onCancelEdit,
+  onCancelReply,
 }: CommentThreadProps) {
   const [commentState, setCommentState] = useState<CommentState>('View');
 
@@ -52,6 +56,15 @@ export function CommentThread({
 
   const handleSaveNew = (replyText: string) => {
     onSaveNewReply(commentNode, replyText);
+  };
+
+  const handleCancelEdit = () => {
+    setCommentState('View');
+    onCancelEdit();
+  };
+  const handleCancelNew = () => {
+    setCommentState('View');
+    onCancelReply();
   };
 
   return (
@@ -75,15 +88,19 @@ export function CommentThread({
           <AddComment
             newCommentText={newCommentText}
             onSave={handleSaveEdit}
-          ></AddComment>
-        )}
-        {replyParent === commentNode && (
-          <AddComment
-            sx={{ marginLeft: '40px' }}
-            onSave={handleSaveNew}
+            onCancel={handleCancelEdit}
           ></AddComment>
         )}
       </Box>
+      {replyParent === commentNode && (
+        <Box className={styles.comment_thread_reply_box}>
+          <AddComment
+            sx={{ marginLeft: '40px' }}
+            onSave={handleSaveNew}
+            onCancel={handleCancelNew}
+          ></AddComment>
+        </Box>
+      )}
       {commentNode.children.map((replyCommentNode) => {
         return (
           <CommentThread
@@ -98,6 +115,8 @@ export function CommentThread({
             onClickEdit={onClickEdit}
             onSaveEdit={onSaveEdit}
             onDeleteComment={onDeleteComment}
+            onCancelEdit={onCancelEdit}
+            onCancelReply={onCancelReply}
           ></CommentThread>
         );
       })}

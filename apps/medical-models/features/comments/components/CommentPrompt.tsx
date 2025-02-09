@@ -23,22 +23,29 @@ export function CommentPrompt({
     setCommentPromptState('prompt');
   };
 
+  const handleCancel = () => {
+    setCommentPromptState('prompt');
+  };
+
   return (
     <>
       <Box className={styles.comment_prompt_box}>
-        <ProfileIcon />
         {commentPromptState === 'prompt' && (
-          <Button
-            variant="prompt"
-            onClick={() => setCommentPromptState('add-comment')}
-          >
-            Share your thoughts...
-          </Button>
+          <>
+            <ProfileIcon />
+            <Button
+              variant="prompt"
+              onClick={() => setCommentPromptState('add-comment')}
+            >
+              Share your thoughts...
+            </Button>
+          </>
         )}
         {commentPromptState === 'add-comment' && (
           <AddComment
             newCommentText={newCommentText}
             onSave={handleSave}
+            onCancel={handleCancel}
           ></AddComment>
         )}
       </Box>

@@ -23,7 +23,7 @@ export const lightTheme = createTheme({
         {
           props: { variant: 'link' },
           style: {
-            color: '#1558bc',
+            color: 'rgb(21,88,188)',
             textTransform: 'none',
             fontSize: '12px',
             fontWeight: '400',
@@ -38,7 +38,7 @@ export const lightTheme = createTheme({
         {
           props: { variant: 'prompt' },
           style: {
-            color: '#505258',
+            color: 'rgb(80,82,88)',
             textTransform: 'none',
             fontSize: '14px',
             fontWeight: '400',
@@ -55,6 +55,16 @@ export const lightTheme = createTheme({
           props: { variant: 'contained' },
           style: {
             textTransform: 'none',
+          },
+        },
+        {
+          props: { variant: 'text' },
+          style: {
+            textTransform: 'none',
+            color: 'rgb(80, 82, 88)',
+            ':hover': {
+              backgroundColor: 'rgba(9,30,66,0.08)',
+            },
           },
         },
       ],

@@ -1,0 +1,23 @@
+.add_comment_box {
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+}
+
+.add_comment_form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.add_comment_button_box {
+  display: flex;
+  flex-direction: row;
+  column-gap: 4px;
+}
+
+.add_comment_text_field {
+  width: 100%;
+}

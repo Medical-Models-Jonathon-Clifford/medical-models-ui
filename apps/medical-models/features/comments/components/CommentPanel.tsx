@@ -83,6 +83,17 @@ export function CommentPanel({ documentId }: { documentId: string }) {
     setWholeCommentsState('Editing');
   };
 
+  const handleCancelEdit = () => {
+    resetNewCommentText();
+    setWholeCommentsState('TopLevelComment');
+  };
+
+  const handleCancelReply = () => {
+    resetNewCommentText();
+    setWholeCommentsState('TopLevelComment');
+    setReplyParent(null);
+  };
+
   const resetNewCommentText = () => {
     setNewCommentText(EMPTY_COMMENT);
   };
@@ -135,6 +146,8 @@ export function CommentPanel({ documentId }: { documentId: string }) {
               onClickEdit={handleClickEdit}
               onSaveEdit={handleSaveEdit}
               onDeleteComment={handleDeleteComment}
+              onCancelEdit={handleCancelEdit}
+              onCancelReply={handleCancelReply}
             ></CommentThread>
           );
         })}

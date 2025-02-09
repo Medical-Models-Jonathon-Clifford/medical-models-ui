@@ -6,12 +6,14 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import styles from './CommentPanel.module.scss';
+import styles from './AddComment.module.scss';
+import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 
 type AddCommentProps = {
   sx?: SxProps;
   newCommentText?: string;
   onSave: (updatedCommentTest: string) => void;
+  onCancel: () => void;
 };
 
 type CommentSchema = {
@@ -45,12 +47,14 @@ export function AddComment({
   sx,
   newCommentText = '',
   onSave,
+  onCancel,
 }: AddCommentProps) {
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors },
+    reset,
   } = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -63,22 +67,38 @@ export function AddComment({
     onSave(updatedComment);
   };
 
+  const onReset = () => {
+    reset();
+    onCancel();
+  };
+
   return (
-    <Box sx={sx}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Box className={styles.add_comment_box} sx={sx}>
+      <ProfileIcon />
+      <form
+        className={styles.add_comment_form}
+        onSubmit={handleSubmit(onSubmit)}
+        onReset={onReset}
+      >
         <TextField
           id="outlined-multiline-flexible"
+          className={styles.add_comment_text_field}
           multiline
           placeholder="Go ahead, just type them in..."
           {...register('comment', { onChange: () => trigger('comment') })}
         />
-        <Button variant="contained" type="submit">
-          Save
-        </Button>
+        <Box className={styles.add_comment_button_box}>
+          <Button variant="contained" type="submit">
+            Save
+          </Button>
+          <Button variant="text" type="reset">
+            Cancel
+          </Button>
+        </Box>
+        {errors.comment && (
+          <p className={styles.validation_error}>{errors.comment.message}</p>
+        )}
       </form>
-      {errors.comment && (
-        <p className={styles.validation_error}>{errors.comment.message}</p>
-      )}
     </Box>
   );
 }
