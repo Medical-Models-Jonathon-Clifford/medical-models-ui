@@ -3,9 +3,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import * as React from 'react';
+import { ProfileIcon } from '../../components/profile-icon/ProfileIcon';
 
 export default function TopAppBar({
   toggleDrawer,
@@ -39,9 +38,7 @@ export default function TopAppBar({
           Medical Models
         </Typography>
         <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
+          <ProfileIcon size={24} />
         </IconButton>
       </Toolbar>
     </AppBar>
