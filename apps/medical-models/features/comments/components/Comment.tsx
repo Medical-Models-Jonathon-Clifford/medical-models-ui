@@ -27,7 +27,7 @@ export function Comment({
         <ProfileIcon />
         <Box className={styles.comment_info_box}>
           <Box>
-            <Link variant="h4">Gregory House</Link>
+            <Link variant="h4">John Smith</Link>
             <Typography variant="caption">
               {formatTimeSince(commentNode.comment.modifiedDate)}
             </Typography>
