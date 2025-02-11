@@ -1,9 +1,8 @@
-import { AddComment } from './AddComment';
-import * as React from 'react';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { AddComment } from './AddComment';
+import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 import styles from './CommentPrompt.module.scss';
 
 type CommentPromptState = 'prompt' | 'add-comment';
@@ -33,12 +32,12 @@ export function CommentPrompt({
         {commentPromptState === 'prompt' && (
           <>
             <ProfileIcon />
-            <Button
-              variant="prompt"
+            <button
+              className={styles.comment_prompt_button}
               onClick={() => setCommentPromptState('add-comment')}
             >
-              Share your thoughts...
-            </Button>
+              <Typography>Share your thoughts...</Typography>
+            </button>
           </>
         )}
         {commentPromptState === 'add-comment' && (

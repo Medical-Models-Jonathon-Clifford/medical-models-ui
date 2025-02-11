@@ -3,3 +3,13 @@
   flex-direction: row;
   column-gap: 24px;
 }
+
+.comment_prompt_button {
+  color: rgb(80, 82, 88);
+  height: 40px;
+  cursor: text;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}

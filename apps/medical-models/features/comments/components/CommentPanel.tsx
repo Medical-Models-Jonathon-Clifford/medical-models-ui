@@ -1,5 +1,7 @@
-import * as React from 'react';
 import { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import {
   deleteCommentById,
@@ -16,18 +18,13 @@ import {
   WholeCommentState,
 } from '../utils/comments';
 import { CommentThread } from './CommentThread';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
 import { CommentPrompt } from './CommentPrompt';
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import styles from './CommentPanel.module.scss';
 
 export function CommentPanel({ documentId }: { documentId: string }) {
-  const [comments, setComments] = React.useState<CommentNode[]>([]);
+  const [comments, setComments] = useState<CommentNode[]>([]);
   const [newCommentText, setNewCommentText] = useState<string>(EMPTY_COMMENT);
-  const [replyParent, setReplyParent] = React.useState<CommentNode | null>(
-    null
-  );
+  const [replyParent, setReplyParent] = useState<CommentNode | null>(null);
   const [wholeCommentsState, setWholeCommentsState] =
     useState<WholeCommentState>('TopLevelComment');
 

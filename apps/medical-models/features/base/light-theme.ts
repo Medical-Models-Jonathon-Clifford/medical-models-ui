@@ -3,7 +3,6 @@ import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     link: true;
-    prompt: true;
   }
 }
 
@@ -31,22 +30,6 @@ export const lightTheme = createTheme({
             minWidth: 'auto',
             ':hover': {
               textDecoration: 'underline',
-              backgroundColor: 'transparent',
-            },
-          },
-        },
-        {
-          props: { variant: 'prompt' },
-          style: {
-            color: 'rgb(80,82,88)',
-            textTransform: 'none',
-            fontSize: '14px',
-            fontWeight: '400',
-            padding: '0',
-            minWidth: 'auto',
-            height: '40px',
-            cursor: 'text',
-            ':hover': {
               backgroundColor: 'transparent',
             },
           },

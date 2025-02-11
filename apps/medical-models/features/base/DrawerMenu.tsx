@@ -1,20 +1,20 @@
-import { Drawer } from '../../components/drawer/Drawer';
-import Toolbar from '@mui/material/Toolbar';
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Toolbar from '@mui/material/Toolbar';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
-import * as React from 'react';
+import { Drawer } from '../../components/drawer/Drawer';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
-import { Box, Skeleton } from '@mui/material';
 import styles from './DrawerMenu.module.scss';
 
 type DrawerMenuState = 'loading' | 'ready';

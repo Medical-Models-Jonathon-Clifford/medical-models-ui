@@ -1,13 +1,12 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import styles from './AddComment.module.scss';
 import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
+import styles from './AddComment.module.scss';
 
 type AddCommentProps = {
   sx?: SxProps;

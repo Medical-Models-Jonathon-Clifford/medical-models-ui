@@ -1,12 +1,11 @@
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import * as React from 'react';
-import { CommentNode } from '../utils/comments';
-import styles from './Comment.module.scss';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import { CommentNode } from '../utils/comments';
 import { formatTimeSince } from '../../../utils/date-adapters';
 import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
-import Link from '@mui/material/Link';
+import styles from './Comment.module.scss';
 
 type CommentProps = {
   commentNode: CommentNode;
