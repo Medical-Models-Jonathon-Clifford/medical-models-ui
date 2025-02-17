@@ -1,28 +1,31 @@
-import * as React from 'react';
-import { MouseEventHandler } from 'react';
-import Box from '@mui/material/Box';
-import { Button, Tooltip } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Typography from '@mui/material/Typography';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import React, { MouseEventHandler, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+import CircleIcon from '@mui/icons-material/Circle';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
-
 import { newDocumentWithParent } from '../../client/mm-document-client';
+import styles from './NavTreeDocItem.module.scss';
+import { DocumentNode } from '../../types/document';
+import { SquareIconButton } from '../../components/square-icon-button/SquareIconButton';
+import { FolderIcon } from './FolderIcon';
 
-export type DocumentNode = {
-  id: string;
-  title: string;
-  createdDate: Date;
-  modifiedDate: Date;
-  children: DocumentNode[];
-};
+const INITIAL_BUTTON_PADDING = 8;
+const EXTRA_PADDING_PER_LEVEL = 15;
+const MAX_DOC_ITEM_TEXT_WIDTH = 204;
 
-export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
-  const [folderOpen, setFolderOpen] = React.useState(true);
+export function NavTreeDocItem({
+  docInfo,
+  level = 0,
+  selectedDocId,
+}: {
+  docInfo: DocumentNode;
+  level?: number;
+  selectedDocId: string;
+}) {
+  const [isFolderOpen, setIsFolderOpen] = useState(true);
   const router = useRouter();
 
   function isFolder() {
@@ -33,20 +36,12 @@ export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
     return `/document/${docInfo.id}`;
   };
 
-  const openFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (
-    event
-  ) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setFolderOpen(true);
+  const handleFolderOpen = () => {
+    setIsFolderOpen(true);
   };
 
-  const closeFolderArrowClicked: MouseEventHandler<HTMLButtonElement> = (
-    event
-  ) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setFolderOpen(false);
+  const handleFolderClose = () => {
+    setIsFolderOpen(false);
   };
 
   const clickAddChild: MouseEventHandler<HTMLButtonElement> = async (event) => {
@@ -64,43 +59,102 @@ export function NavTreeDocItem({ docInfo }: { docInfo: DocumentNode }) {
     }
   };
 
+  function getPaddingLeft() {
+    return `${INITIAL_BUTTON_PADDING + level * EXTRA_PADDING_PER_LEVEL}px`;
+  }
+
+  const DocItemButton = ({ children }: { children: React.ReactNode }) => {
+    return (
+      <Button
+        className={styles.nav_tree_doc_item_button}
+        sx={{
+          paddingLeft: getPaddingLeft(),
+          backgroundColor:
+            selectedDocId === docInfo.id
+              ? 'rgba(25, 118, 210, 0.1)'
+              : 'transparent',
+          ':hover': {
+            backgroundColor:
+              selectedDocId === docInfo.id
+                ? 'rgba(25, 118, 210, 0.2)'
+                : 'rgba(202,202,202,0.2)',
+          },
+        }}
+        href={href()}
+      >
+        {children}
+      </Button>
+    );
+  };
+
+  function getDocItemTextWidth() {
+    return `${MAX_DOC_ITEM_TEXT_WIDTH - level * EXTRA_PADDING_PER_LEVEL}px`;
+  }
+
+  const LeefIcon = () => {
+    return (
+      <Box className={styles.nav_tree_doc_item_leef_box}>
+        <CircleIcon className={styles.nav_tree_doc_item_circle_icon} />
+      </Box>
+    );
+  };
+
   return (
     <>
-      <Box>
-        <Button href={href()}>
-          {!isFolder() && (
-            <IconButton onClick={() => console.log('clicked')}>
-              <FiberManualRecordIcon />
-            </IconButton>
-          )}
-          {isFolder() && folderOpen && (
-            <IconButton onClick={closeFolderArrowClicked}>
-              <KeyboardArrowDownIcon />
-            </IconButton>
-          )}
-          {isFolder() && !folderOpen && (
-            <IconButton onClick={openFolderArrowClicked}>
-              <KeyboardArrowRightIcon />
-            </IconButton>
-          )}
-          <Typography variant="body1">{docInfo.title}</Typography>
-          <Tooltip title="More Options">
-            <IconButton onClick={() => console.log('clicked')}>
+      <Box className={styles.nav_tree_doc_item_box}>
+        <DocItemButton>
+          <Box className={styles.nav_tree_doc_item_icon_text_box}>
+            {isFolder() ? (
+              <FolderIcon
+                isOpen={isFolderOpen}
+                onOpen={handleFolderOpen}
+                onClose={handleFolderClose}
+              />
+            ) : (
+              <LeefIcon />
+            )}
+            <Box
+              sx={{ width: getDocItemTextWidth() }}
+              className={styles.nav_tree_doc_item_text_box}
+            >
+              <Typography
+                variant="body1"
+                className={styles.nav_tree_doc_item_text}
+                sx={{
+                  color:
+                    selectedDocId === docInfo.id
+                      ? 'rgba(25, 118, 210, 1)'
+                      : 'rgba(0, 0, 0, 0.87)',
+                }}
+              >
+                {docInfo.title}
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            className={`more_actions ${styles.nav_tree_doc_item_options_box}`}
+          >
+            <SquareIconButton
+              title="More Options"
+              onClick={() => console.log('clicked')}
+            >
               <MoreHorizIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="New Child">
-            <IconButton onClick={clickAddChild}>
+            </SquareIconButton>
+            <SquareIconButton title="New Child" onClick={clickAddChild}>
               <AddIcon />
-            </IconButton>
-          </Tooltip>
-        </Button>
+            </SquareIconButton>
+          </Box>
+        </DocItemButton>
       </Box>
-      {folderOpen &&
+      {isFolderOpen &&
         docInfo.children.map((childDocInfo: DocumentNode) => {
           return (
-            <Box key={childDocInfo.id} sx={{ marginLeft: '12px' }}>
-              <NavTreeDocItem docInfo={childDocInfo}></NavTreeDocItem>
+            <Box key={childDocInfo.id}>
+              <NavTreeDocItem
+                docInfo={childDocInfo}
+                level={level + 1}
+                selectedDocId={selectedDocId}
+              ></NavTreeDocItem>
             </Box>
           );
         })}

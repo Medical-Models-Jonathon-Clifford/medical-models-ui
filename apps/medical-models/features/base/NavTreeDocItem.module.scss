@@ -1,0 +1,64 @@
+.nav_tree_doc_item_box {
+  box-sizing: border-box;
+  padding: 0 8px;
+  max-width: 100%;
+  width: 100%;
+  height: 36px;
+}
+
+.nav_tree_doc_item_button {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+
+  :global(.more_actions) {
+    display: none;
+  }
+
+  &:hover :global(.more_actions) {
+    display: block;
+  }
+}
+
+.nav_tree_doc_item_icon_text_box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: auto;
+  gap: 8px;
+}
+
+.nav_tree_doc_item_leef_box {
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  font-size: 8px;
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav_tree_doc_item_text_box {
+  box-sizing: border-box;
+  flex: auto;
+}
+
+.nav_tree_doc_item_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  width: 100%;
+}
+
+.nav_tree_doc_item_options_box {
+  flex: none;
+}
+
+.nav_tree_doc_item_circle_icon {
+  font-size: 8px;
+}

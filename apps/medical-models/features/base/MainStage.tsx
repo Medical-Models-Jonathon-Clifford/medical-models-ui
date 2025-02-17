@@ -1,20 +1,23 @@
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
 
-export default function MainStage({ children }: { children: React.ReactNode }) {
+export default function MainStage({
+  children,
+  drawerWidth,
+}: {
+  children: React.ReactNode;
+  drawerWidth: number;
+}) {
   return (
     <Box
       component="main"
       sx={{
         backgroundColor: '#FFF',
-        flexGrow: 1,
-        height: '100vh',
         overflow: 'auto',
         padding: '0 40px 20px 40px',
+        width: `calc(100vw - ${drawerWidth}px)`,
       }}
     >
-      <Toolbar />
       {children}
     </Box>
   );

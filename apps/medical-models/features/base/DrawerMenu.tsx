@@ -1,30 +1,31 @@
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
-import { Drawer } from '../../components/drawer/Drawer';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { DocumentNode, NavTreeDocItem } from './NavTreeDocItem';
+import { NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
 import styles from './DrawerMenu.module.scss';
+import { NewDrawer } from '../../components/drawer/NewDrawer';
+import { DocumentNode } from '../../types/document';
 
 type DrawerMenuState = 'loading' | 'ready';
 
 export default function DrawerMenu({
   toggleDrawer,
   open,
+  width,
+  selectedDocId,
 }: {
   toggleDrawer: () => void;
   open: boolean;
+  width: number;
+  selectedDocId: string;
 }) {
   const [drawerMenuState, setDrawerMenuState] =
     useState<DrawerMenuState>('loading');
@@ -38,6 +39,7 @@ export default function DrawerMenu({
       setNavTreeDocs(response.data);
       setDrawerMenuState('ready');
     }
+
     fetchAllNavigation();
   }, []);
 
@@ -53,66 +55,54 @@ export default function DrawerMenu({
   };
 
   return (
-    <Drawer variant="permanent" open={open}>
-      <Toolbar
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          px: [1],
-        }}
-      >
-        <IconButton onClick={toggleDrawer}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </Toolbar>
-      <List component="nav">
-        <ListItemButton onClick={() => router.push('/')}>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItemButton>
-        {drawerMenuState === 'loading' && (
-          <Box className={styles.loading_box}>
-            <Skeleton
-              variant="text"
-              animation="wave"
-              className={styles.parent_skeleton}
-            />
-            <Skeleton
-              variant="text"
-              animation="wave"
-              className={styles.child_skeleton}
-            />
-            <Skeleton
-              variant="text"
-              animation="wave"
-              className={styles.child_skeleton}
-            />
-            <Skeleton
-              variant="text"
-              animation="wave"
-              className={styles.parent_skeleton}
-            />
-            <Skeleton
-              variant="text"
-              animation="wave"
-              className={styles.child_skeleton}
-            />
-          </Box>
-        )}
-        {drawerMenuState === 'ready' &&
-          navTreeDocs.map((docInfo) => (
-            <NavTreeDocItem key={docInfo.id} docInfo={docInfo}></NavTreeDocItem>
-          ))}
-        <ListItemButton onClick={clickCreateNewDocument}>
-          <ListItemIcon>
-            <AddIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create new document" />
-        </ListItemButton>
-      </List>
-    </Drawer>
+    <NewDrawer width={width}>
+      {open && (
+        <List component="nav">
+          {drawerMenuState === 'loading' && (
+            <Box className={styles.loading_box}>
+              <Skeleton
+                variant="text"
+                animation="wave"
+                className={styles.parent_skeleton}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                className={styles.child_skeleton}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                className={styles.child_skeleton}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                className={styles.parent_skeleton}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                className={styles.child_skeleton}
+              />
+            </Box>
+          )}
+          {drawerMenuState === 'ready' &&
+            navTreeDocs.map((docInfo) => (
+              <NavTreeDocItem
+                key={docInfo.id}
+                docInfo={docInfo}
+                selectedDocId={selectedDocId}
+              ></NavTreeDocItem>
+            ))}
+          <ListItemButton onClick={clickCreateNewDocument}>
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Create new document" />
+          </ListItemButton>
+        </List>
+      )}
+    </NewDrawer>
   );
 }

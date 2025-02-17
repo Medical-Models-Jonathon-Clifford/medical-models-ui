@@ -3,6 +3,7 @@ import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     link: true;
+    sidebar: true;
   }
 }
 
@@ -47,6 +48,16 @@ export const lightTheme = createTheme({
             color: 'rgb(80, 82, 88)',
             ':hover': {
               backgroundColor: 'rgba(9,30,66,0.08)',
+            },
+          },
+        },
+        {
+          props: { variant: 'sidebar' },
+          style: {
+            textTransform: 'none',
+            color: 'rgb(80, 82, 88)',
+            ':hover': {
+              backgroundColor: 'rgba(25, 118, 210, 0.1)',
             },
           },
         },

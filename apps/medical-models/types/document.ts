@@ -8,3 +8,11 @@ export type Document = {
   creator: string;
   state: string;
 };
+
+export type DocumentNode = {
+  id: string;
+  title: string;
+  createdDate: Date;
+  modifiedDate: Date;
+  children: DocumentNode[];
+};

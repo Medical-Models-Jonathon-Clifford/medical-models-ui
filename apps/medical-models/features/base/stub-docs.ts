@@ -1,4 +1,4 @@
-import { DocumentNode } from './NavTreeDocItem';
+import { DocumentNode } from '../../types/document';
 
 export const stubNavTreeDocs: DocumentNode[] = [
   {
