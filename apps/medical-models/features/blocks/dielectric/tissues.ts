@@ -769,6 +769,10 @@ export const TISSUES: Tissue[] = [
 
 export const DEFAULT_TISSUE = TISSUES[0];
 
-export function tissueFromName(name: string) {
-  return TISSUES.filter((tissue) => tissue.name === name)[0];
+export function tissueFromName(name: string): Tissue {
+  const matchingTissue = TISSUES.filter((tissue) => tissue.name === name)[0];
+  if (!matchingTissue) {
+    throw new Error(`Tissue "${name}" not found.`);
+  }
+  return matchingTissue;
 }
