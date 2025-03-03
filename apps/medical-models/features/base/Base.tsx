@@ -16,12 +16,16 @@ import TopAppBar from './TopAppBar';
 import { lightTheme } from './light-theme';
 import styles from './Base.module.scss';
 import { useParams } from 'next/navigation';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 type SideBarState = 'expanded' | 'collapsed';
 
 const EXPANDED_SIDE_BAR_WIDTH = 340;
 const COLLAPSED_SIDE_BAR_WIDTH = 20;
 const TOGGLE_BUTTON_WIDTH = 24;
+
+const queryClient = new QueryClient();
 
 export default function Base({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
@@ -75,29 +79,32 @@ export default function Base({ children }: { children: React.ReactNode }) {
   const ExpandToggleButton = memo(createToggleButton(<ChevronRightIcon />));
 
   return (
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline />
-      <Box className={styles.base_box}>
-        <TopAppBar toggleDrawer={toggleDrawer} open={open}></TopAppBar>
-        <Box className={styles.base_drawer_and_main_stage}>
-          <DrawerMenu
-            toggleDrawer={toggleDrawer}
-            open={sideBarState === 'expanded'}
-            width={drawerWidth}
-            selectedDocId={String(params.id)}
-          ></DrawerMenu>
-          {sideBarState === 'expanded' && (
-            <CollapseToggleButton
-              title="Collapse"
-              onClick={handleClickCollapse}
-            />
-          )}
-          {sideBarState === 'collapsed' && (
-            <ExpandToggleButton title="Expand" onClick={handleClickExpand} />
-          )}
-          <MainStage drawerWidth={drawerWidth}>{children}</MainStage>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <Box className={styles.base_box}>
+          <TopAppBar toggleDrawer={toggleDrawer} open={open}></TopAppBar>
+          <Box className={styles.base_drawer_and_main_stage}>
+            <DrawerMenu
+              toggleDrawer={toggleDrawer}
+              open={sideBarState === 'expanded'}
+              width={drawerWidth}
+              selectedDocId={String(params.id)}
+            ></DrawerMenu>
+            {sideBarState === 'expanded' && (
+              <CollapseToggleButton
+                title="Collapse"
+                onClick={handleClickCollapse}
+              />
+            )}
+            {sideBarState === 'collapsed' && (
+              <ExpandToggleButton title="Expand" onClick={handleClickExpand} />
+            )}
+            <MainStage drawerWidth={drawerWidth}>{children}</MainStage>
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
