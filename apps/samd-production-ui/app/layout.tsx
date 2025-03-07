@@ -1,20 +1,10 @@
-import Box from "@mui/material/Box";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Button from "@mui/material/Button";
-import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import {darkTheme} from "./darkTheme";
-import {ThemeProvider} from "@mui/material/styles";
-import Base from "./Base";
+import * as React from 'react';
+import Base from './Base';
+import styles from './layout.module.scss';
 
 export const metadata = {
-  title: 'CAPA Dashboard',
-  description: 'Dashboard for managing CAPAs (Corrective and Preventative Actions)',
+  title: 'Brutalist',
+  description: 'A dashboard for everything',
 }
 
 export default function RootLayout({
@@ -23,14 +13,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-
-  const handleIcon = (event: React.MouseEvent<HTMLElement>) => {
-    console.log('Icon clicked');
-  }
-
   return (
     <html lang="en">
-      <body>
+      <body className={styles.body}>
       <Base>{children}</Base>
       </body>
     </html>
