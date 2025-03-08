@@ -5,5 +5,44 @@
   "projectType": "application",
   "tags": [],
   "// targets": "to see all targets run: nx show project samd-production-ui --web",
-  "targets": {}
+  "targets": {
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next dev",
+        "env": {
+          "PORT": "3001"
+        }
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next start",
+        "env": {
+          "PORT": "3001"
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/next:server",
+      "options": {
+        "buildTarget": "samd-production-ui:build",
+        "port": 3001
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "options": {
+        "port": 3001,
+        "buildTarget": "samd-production-ui:build"
+      }
+    },
+    "prettier": {
+      "command": "prettier -w --ignore-path ./apps/samd-production-ui/.prettierignore ./apps/samd-production-ui"
+    },
+    "prettier-check": {
+      "command": "prettier -c --ignore-path ./apps/samd-production-ui/.prettierignore ./apps/samd-production-ui"
+    }
+  }
 }

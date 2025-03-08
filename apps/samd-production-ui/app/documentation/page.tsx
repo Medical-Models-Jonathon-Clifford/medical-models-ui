@@ -1,10 +1,6 @@
-'use client';
-
 import * as React from 'react';
-import Link from 'next/link';
 
-export default function Brutalist() {
-
+export default function DocumentationPage() {
   return (
     <>
       <h1>QMS (Quality Management System) Documentation</h1>

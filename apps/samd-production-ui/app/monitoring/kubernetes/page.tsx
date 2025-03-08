@@ -1,11 +1,6 @@
-'use client';
-
 import * as React from 'react';
-import Link from 'next/link';
-import styles from '../Base.module.scss';
 
-export default function Brutalist() {
-
+export default function KubernetesPage() {
   return (
     <>
       <h1>Monitoring Kubernetes</h1>
