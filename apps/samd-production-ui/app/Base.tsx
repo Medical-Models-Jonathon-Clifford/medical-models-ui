@@ -10,6 +10,7 @@ export default function Base({ children }: { children: React.ReactNode }) {
         <Link href="/documentation">Documentation</Link>
         <Link href="/monitoring">Monitoring</Link>
         <Link href="/demodata">Demo Data</Link>
+        <Link href="/environments">Environments</Link>
       </nav>
       <div className={styles.base_page_content}>{children}</div>
     </div>
