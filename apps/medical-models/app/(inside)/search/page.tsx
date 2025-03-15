@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { DocumentNode } from '../../types/document';
+import { DocumentNode } from '../../../types/document';
 
 export default function App() {
   return <Search />;

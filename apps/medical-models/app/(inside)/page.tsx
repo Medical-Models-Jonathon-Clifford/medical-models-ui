@@ -3,8 +3,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import NewModelSelection from '../features/new-model-selection/NewModelSelection';
-import Recent from '../features/recent/Recent';
+import NewModelSelection from '../../features/new-model-selection/NewModelSelection';
+import Recent from '../../features/recent/Recent';
 import { Stack } from '@mui/material';
 
 export default function Dashboard() {

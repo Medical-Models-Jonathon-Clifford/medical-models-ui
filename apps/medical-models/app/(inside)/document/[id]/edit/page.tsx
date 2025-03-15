@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Button, Stack } from '@mui/material';
-import { EditDocumentName } from '../../../../features/blocks/document-name/DocumentName';
+import { EditDocumentName } from '../../../../../features/blocks/document-name/DocumentName';
 import {
   getDocument,
   updateDocument,
-} from '../../../../client/mm-document-client';
-import { Document } from '../../../../types/document';
+} from '../../../../../client/mm-document-client';
+import { Document } from '../../../../../types/document';
 import { EditBody } from './EditBody';
 
 type EditDocState = 'loading' | 'loaded';

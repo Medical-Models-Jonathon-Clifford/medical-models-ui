@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Base from '../features/base/Base';
 
 export const metadata = {
   title: 'Medical Models',
@@ -22,7 +21,8 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Base>{children}</Base>
+        <h1>Login layout</h1>
+        <div>{children}</div>
       </body>
     </html>
   );

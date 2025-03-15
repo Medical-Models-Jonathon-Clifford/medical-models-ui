@@ -5,19 +5,19 @@ import {
   isDielectricBlockType,
   isHalfLifeBlockType,
   isTextBlockType,
-} from '../../../../types/block';
+} from '../../../../../types/block';
 import {
   DEFAULT_TISSUE,
   Tissue,
-} from '../../../../features/blocks/dielectric/tissues';
+} from '../../../../../features/blocks/dielectric/tissues';
 import {
   DEFAULT_DRUG,
   Drug,
-} from '../../../../features/blocks/drug-half-life/drugs';
-import { DEFAULT_DOSE } from '../../../../features/blocks/drug-half-life/half-life-service';
-import { EditText } from '../../../../features/blocks/text/Text';
-import { EditDielectric } from '../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
-import { EditDrugHalfLife } from '../../../../features/blocks/drug-half-life/DrugHalfLife';
+} from '../../../../../features/blocks/drug-half-life/drugs';
+import { DEFAULT_DOSE } from '../../../../../features/blocks/drug-half-life/half-life-service';
+import { EditText } from '../../../../../features/blocks/text/Text';
+import { EditDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
+import { EditDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';

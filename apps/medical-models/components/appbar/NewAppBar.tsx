@@ -1,12 +1,13 @@
 import Box from '@mui/material/Box';
-import styles from './NewAppBar.module.scss';
-import { ProfileIcon } from '../profile-icon/ProfileIcon';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import favicon from '../../public/favicon.png';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Tooltip } from '@mui/material';
+import favicon from '../../public/favicon.png';
+import { ProfileIcon } from '../profile-icon/ProfileIcon';
+import styles from './NewAppBar.module.scss';
 
 export function NewAppBar() {
   return (
@@ -22,11 +23,20 @@ export function NewAppBar() {
           Medical Models
         </Typography>
       </Link>
-      <Tooltip title="John Smith" placement="bottom-start">
-        <IconButton color="inherit">
-          <ProfileIcon size={24} />
-        </IconButton>
-      </Tooltip>
+      <Box>
+        <Tooltip title="John Smith" placement="bottom-start">
+          <IconButton color="inherit">
+            <ProfileIcon size={24} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Logout" placement="bottom-start">
+          <Link href="/login">
+            <IconButton color="inherit">
+              <LogoutIcon className={styles.logout_icon} />
+            </IconButton>
+          </Link>
+        </Tooltip>
+      </Box>
     </Box>
   );
 }
