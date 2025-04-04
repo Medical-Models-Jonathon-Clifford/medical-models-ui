@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image';
 import Link from 'next/link';
-import favicon from '../../public/favicon.png';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
 import styles from './NewAppBar.module.scss';
 
@@ -18,7 +17,7 @@ export function NewAppBar() {
           pathname: '/',
         }}
       >
-        <Image src={favicon} alt="Profile Icon" width={24} height={24} />
+        <Image src={`/favicon.png`} alt="Profile Icon" width={24} height={24} />
         <Typography variant="h6" className={styles.new_app_bar_title_heading}>
           Medical Models
         </Typography>

@@ -10,7 +10,10 @@
       "command": "node ./apps/medical-models/upload-to-s3.js"
     },
     "dockerbuild": {
-      "command": "docker build . -t jonathonclifford/mm-ui"
+      "command": "docker build . -t jonathonclifford/mm-ui -f ./apps/medical-models/Dockerfile"
+    },
+    "dockerrun": {
+      "command": "docker run -p 3000:3000 jonathonclifford/mm-ui"
     },
     "dockerpush": {
       "command": "docker push jonathonclifford/mm-ui"
