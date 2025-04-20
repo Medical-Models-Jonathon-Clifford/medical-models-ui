@@ -31,7 +31,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 COPY apps/medical-models/.env.production apps/medical-models/.env
 
-RUN npm install -g nx@19.5.6
+RUN npm install -g nx@19.5.7
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
