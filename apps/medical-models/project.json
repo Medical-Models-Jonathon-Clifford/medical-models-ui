@@ -10,13 +10,13 @@
       "command": "node ./apps/medical-models/upload-to-s3.js"
     },
     "dockerbuild": {
-      "command": "docker build . -t jonathonclifford/mm-ui -f ./apps/medical-models/Dockerfile"
+      "command": "docker build . -t gitea.busybunyip.com/medical-models/mm-ui -f ./apps/medical-models/Dockerfile"
     },
     "dockerrun": {
-      "command": "docker run -p 3000:3000 jonathonclifford/mm-ui"
+      "command": "docker run -p 3000:3000 gitea.busybunyip.com/medical-models/mm-ui"
     },
     "dockerpush": {
-      "command": "docker push jonathonclifford/mm-ui"
+      "command": "docker push gitea.busybunyip.com/medical-models/mm-ui"
     },
     "prettier": {
       "command": "prettier -w --ignore-path ./apps/medical-models/.prettierignore ./apps/medical-models"
