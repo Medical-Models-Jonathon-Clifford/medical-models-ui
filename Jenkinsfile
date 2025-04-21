@@ -57,8 +57,6 @@ pipeline {
             }
             agent any
             steps {
-                echo '------ Login to Docker Hub ------'
-                sh 'echo "$DOCKER_CREDENTIALS_PSW" | docker login -u "$DOCKER_CREDENTIALS_USR" --password-stdin'
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
                 echo '------ Build Affected ------'
@@ -71,8 +69,6 @@ pipeline {
         }
         stage('Build and Push to Docker Hub - mm-ui, samd-production-ui - Branch/PR') {
             steps {
-                echo '------ Login to Docker Hub ------'
-                sh 'echo "$DOCKER_CREDENTIALS_PSW" | docker login -u "$DOCKER_CREDENTIALS_USR" --password-stdin'
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
                 echo '------ Find merge-base between this branch and main ------'
