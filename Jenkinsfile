@@ -39,6 +39,10 @@ pipeline {
                 ) {
                     script {
                         // Check if node_modules exists and is populated
+                        echo '------ Troubleshooting node_modules test ------'
+                        sh 'test -d node_modules'
+                        sh 'find node_modules -mindepth 1'
+                        sh 'find node_modules -mindepth 1 | read'
                         def cacheRestored = sh(script: "test -d node_modules && find node_modules -mindepth 1 | read", returnStatus: true) == 0
 
                         if (cacheRestored) {
