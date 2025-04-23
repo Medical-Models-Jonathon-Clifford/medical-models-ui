@@ -19,12 +19,16 @@ pipeline {
                 sh 'git fetch origin main:main'
             }
         }
-        stage('Setup environment') {
+        stage('Print Versions') {
             steps {
                 echo '------ Node Version ------'
                 sh 'node -v'
                 echo '------ NPM Version -------'
                 sh 'npm -v'
+                echo '------ Java Version -------'
+                sh 'java -version'
+                echo '------ Linux Distro/Version -------'
+                sh 'cat /etc/os-release'
             }
         }
         stage('Install dependencies with caching') {
@@ -39,12 +43,7 @@ pipeline {
                 ) {
                     script {
                         // Check if node_modules exists and is populated
-                        echo '------ Troubleshooting node_modules test ------'
-                        sh 'test -d node_modules'
-                        sh 'find node_modules -mindepth 1'
-                        sh 'find node_modules -mindepth 1 | read'
                         def cacheRestored = sh(script: "test -d node_modules && find node_modules -mindepth 1 | read", returnStatus: true) == 0
-
                         if (cacheRestored) {
                             echo 'Cache restored successfully. Skipping npm ci.'
                         } else {
@@ -59,12 +58,9 @@ pipeline {
             when {
                 branch 'main'
             }
-//             agent any
             steps {
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
-                echo '------ Troubleshooting queries -------'
-                sh 'ls -la'
                 echo '------ Build Affected ------'
                 sh 'nx affected --base=HEAD~1 --target dockerbuild'
                 retry(3) {
