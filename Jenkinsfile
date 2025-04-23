@@ -57,7 +57,7 @@ pipeline {
         }
         stage('Build and Push to Docker Hub - mm-ui, samd-production-ui - Main') {
             when {
-                not { branch 'main' }
+                branch 'main'
             }
 //             agent any
             steps {
