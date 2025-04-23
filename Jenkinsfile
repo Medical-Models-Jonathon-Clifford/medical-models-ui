@@ -25,10 +25,14 @@ pipeline {
                 sh 'node -v'
                 echo '------ NPM Version -------'
                 sh 'npm -v'
+                echo '------ Nx Version -------'
+                sh 'nx --version'
                 echo '------ Java Version -------'
                 sh 'java -version'
                 echo '------ Linux Distro/Version -------'
                 sh 'cat /etc/os-release'
+                echo '------ kubectl version ------'
+                sh 'kubectl version --client'
             }
         }
         stage('Install dependencies with caching') {
@@ -112,8 +116,6 @@ pipeline {
         }
         stage('Deploy to Prod - mm-ui, samd-production-ui') {
             steps {
-                echo '------ kubectl version ------'
-                sh 'kubectl version --client'
 //              Not ideal since we are deleting and deploying every ui every time regardless of which has changed
                 echo '------ Delete current mm-ui deployment ------'
                 sh 'kubectl --kubeconfig $MY_KUBECONFIG delete deployment deployment-mm-ui --ignore-not-found'
