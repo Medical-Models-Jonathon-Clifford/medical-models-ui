@@ -57,9 +57,9 @@ pipeline {
         }
         stage('Build and Push to Docker Hub - mm-ui, samd-production-ui - Main') {
             when {
-                branch 'main'
+                not { branch 'main' }
             }
-            agent any
+//             agent any
             steps {
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
@@ -74,6 +74,9 @@ pipeline {
             }
         }
         stage('Build and Push to Docker Hub - mm-ui, samd-production-ui - Branch/PR') {
+            when {
+                not { branch 'main' }
+            }
             steps {
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
