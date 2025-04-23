@@ -59,6 +59,8 @@ pipeline {
             steps {
                 echo '------ Login to Gitea Container Registry ------'
                 sh 'echo "$GIT_CREDS_PSW" | docker login gitea.busybunyip.com -u "$GIT_CREDS_USR" --password-stdin'
+                echo '------ Troubleshooting queries -------'
+                sh 'ls -la'
                 echo '------ Build Affected ------'
                 sh 'nx affected --base=HEAD~1 --target dockerbuild'
                 retry(3) {
