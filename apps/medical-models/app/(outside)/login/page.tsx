@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import FolderIcon from '@mui/icons-material/Folder';
+import styles from './page.module.scss';
 
 const DEMO_ACCOUNTS = [
   {
@@ -104,9 +105,10 @@ export default function Login() {
               height: 450,
             }}
           >
-            <Title>Real Login</Title>
+            <Title>Login</Title>
             <Typography>
-              Here you can create a real account of your own.
+              Log in with your own account. Or, try a demo account from the
+              side.
             </Typography>
             <TextField
               id="outlined-basic"
@@ -115,22 +117,21 @@ export default function Login() {
             />
             <TextField
               id="outlined-basic"
+              type="password"
               label="Password"
               variant="outlined"
             />
             <Button>Login</Button>
-            <Typography>Or...</Typography>
-            <Button>Login with Google</Button>
           </Paper>
           <Paper
             sx={{
               p: 2,
               display: 'flex',
               flexDirection: 'column',
-              height: 450,
+              width: '60%',
             }}
           >
-            <Title>Demo Login</Title>
+            <Title>Demo Accounts</Title>
             <Typography>
               If you just want to try out the app, you can login to one of our
               demo accounts.
@@ -140,7 +141,10 @@ export default function Login() {
                 <Typography>{account.centreName}</Typography>
                 <List dense={true}>
                   {account.users.map((user) => (
-                    <ListItem key={user.name}>
+                    <ListItem
+                      className={styles.login_page_creds_list_item}
+                      key={user.name}
+                    >
                       <ListItemAvatar>
                         <Avatar src={user.profilePicture}>
                           <FolderIcon />
