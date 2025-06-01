@@ -9,6 +9,9 @@ import {createStorage} from "unstorage"
 import memoryDriver from "unstorage/drivers/memory"
 import {UnstorageAdapter} from "@auth/unstorage-adapter"
 
+// const AUTHORIZATION_SERVER_URL = "http://127.0.0.1:8081";
+const AUTHORIZATION_SERVER_URL = "https://api.medicalmodels.net";
+
 function hashString(input: string): string {
     return crypto.createHash('sha256').update(input).digest('hex');
 }
@@ -40,18 +43,13 @@ export const {handlers, auth, signIn, signOut} = NextAuth({
             id: "my_authorization_server",
             name: "My Authorization Server",
             type: "oauth",
-            // wellKnown: "http://127.0.0.1:7070/.well-known/openid-configuration",
-            issuer: "http://127.0.0.1:8081",
-            userinfo: "http://127.0.0.1:8081/userinfo",
-            // userinfo: {
-            //     request: () => {}
-            // },
-            token: "http://127.0.0.1:8081/oauth2/token",
+            issuer: AUTHORIZATION_SERVER_URL,
+            userinfo: AUTHORIZATION_SERVER_URL + "/userinfo",
+            token: AUTHORIZATION_SERVER_URL + "/oauth2/token",
             authorization: {
-                url: "http://127.0.0.1:8081/oauth2/authorize",
+                url: AUTHORIZATION_SERVER_URL + "/oauth2/authorize",
                 params: {scope: "openid"}
             },
-            // checks: ["pkce"],
             clientId: 'next-auth-client',
             clientSecret: 'next-auth-client-secret',
             profile(profile) {
