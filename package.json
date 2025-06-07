@@ -6,11 +6,13 @@
   "private": true,
   "dependencies": {
     "@auth/unstorage-adapter": "^2.0.0",
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.10.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "@mui/material-nextjs": "^7.1.1",
     "@mui/x-charts": "^7.13.0",
     "@mui/x-data-grid": "^7.16.0",
     "@mui/x-date-pickers": "^7.20.0",
