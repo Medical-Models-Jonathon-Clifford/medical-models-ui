@@ -83,7 +83,7 @@ export default function Base({ children }: { children: React.ReactNode }) {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Box className={styles.base_box}>
-          <TopAppBar toggleDrawer={toggleDrawer} open={open}></TopAppBar>
+          <TopAppBar/>
           <Box className={styles.base_drawer_and_main_stage}>
             <DrawerMenu
               toggleDrawer={toggleDrawer}
