@@ -2,7 +2,6 @@ import * as React from 'react';
 import Base from '../../features/base/Base';
 import ThemeRegistry from '../../features/base/ThemeRegistry';
 import Providers from '../providers';
-import Posts from './posts/posts';
 
 export const metadata = {
   title: 'Medical Models',
