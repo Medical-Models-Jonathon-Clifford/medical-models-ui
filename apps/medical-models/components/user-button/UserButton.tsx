@@ -12,19 +12,5 @@ export default async function UserButton() {
     return <SignIn />;
   }
 
-  return (
-    <Box
-      sx={{
-        p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <Typography variant="body1" align={'center'}>
-        {session.user.email}
-      </Typography>
-      <SignOut />
-    </Box>
-  );
+  return <SignOut />;
 }

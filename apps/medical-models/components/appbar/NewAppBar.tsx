@@ -2,11 +2,13 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
 import styles from './NewAppBar.module.scss';
+import UserButton from '../user-button/UserButton';
 
 export function NewAppBar() {
   return (
@@ -22,7 +24,7 @@ export function NewAppBar() {
           Medical Models
         </Typography>
       </Link>
-      <Box>
+      <Stack direction="row">
         <Tooltip title="John Smith" placement="bottom-start">
           <IconButton color="inherit">
             <ProfileIcon size={24} />
@@ -35,7 +37,8 @@ export function NewAppBar() {
             </IconButton>
           </Link>
         </Tooltip>
-      </Box>
+        <UserButton />
+      </Stack>
     </Box>
   );
 }

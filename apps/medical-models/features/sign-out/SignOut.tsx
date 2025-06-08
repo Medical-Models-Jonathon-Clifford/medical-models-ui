@@ -8,7 +8,7 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <button className="w-full p-0">Sign Out</button>
+      <button>Sign Out</button>
     </form>
   );
 }
