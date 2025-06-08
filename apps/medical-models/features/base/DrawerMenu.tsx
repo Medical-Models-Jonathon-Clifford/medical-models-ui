@@ -17,12 +17,10 @@ import { DocumentNode } from '../../types/document';
 type DrawerMenuState = 'loading' | 'ready';
 
 export default function DrawerMenu({
-  toggleDrawer,
   open,
   width,
   selectedDocId,
 }: {
-  toggleDrawer: () => void;
   open: boolean;
   width: number;
   selectedDocId: string;

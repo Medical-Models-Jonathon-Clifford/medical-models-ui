@@ -20,14 +20,9 @@ const COLLAPSED_SIDE_BAR_WIDTH = 20;
 const TOGGLE_BUTTON_WIDTH = 24;
 
 export function Body({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(true);
   const [drawerWidth, setDrawerWidth] = useState(EXPANDED_SIDE_BAR_WIDTH);
   const [sideBarState, setSideBarState] = useState<SideBarState>('expanded');
   const params = useParams();
-
-  const toggleDrawer: () => void = () => {
-    setOpen(!open);
-  };
 
   const handleClickCollapse = () => {
     setSideBarState('collapsed');
@@ -73,7 +68,6 @@ export function Body({ children }: { children: React.ReactNode }) {
   return (
     <Box className={styles.base_drawer_and_main_stage}>
       <DrawerMenu
-        toggleDrawer={toggleDrawer}
         open={sideBarState === 'expanded'}
         width={drawerWidth}
         selectedDocId={String(params.id)}
