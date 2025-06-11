@@ -10,7 +10,7 @@ import memoryDriver from 'unstorage/drivers/memory';
 import { UnstorageAdapter } from '@auth/unstorage-adapter';
 
 // const AUTHORIZATION_SERVER_URL = "http://127.0.0.1:8081";
-const AUTHORIZATION_SERVER_URL = 'https://api.medicalmodels.net';
+const AUTHORIZATION_SERVER_URL = 'https://login.medicalmodels.net';
 
 function hashString(input: string): string {
   return crypto.createHash('sha256').update(input).digest('hex');
