@@ -9,8 +9,11 @@ import { createStorage } from 'unstorage';
 import memoryDriver from 'unstorage/drivers/memory';
 import { UnstorageAdapter } from '@auth/unstorage-adapter';
 
-// const AUTHORIZATION_SERVER_URL = "http://127.0.0.1:8081";
-const AUTHORIZATION_SERVER_URL = 'https://login.medicalmodels.net';
+const AUTHORIZATION_SERVER_URL = process.env.AUTHORIZATION_SERVER_URL;
+
+if (AUTHORIZATION_SERVER_URL === undefined) {
+  console.error('AUTHORIZATION_SERVER_URL environment variable must be defined');
+}
 
 function hashString(input: string): string {
   return crypto.createHash('sha256').update(input).digest('hex');
