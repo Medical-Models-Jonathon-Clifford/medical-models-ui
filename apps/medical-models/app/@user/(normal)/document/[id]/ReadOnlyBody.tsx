@@ -3,12 +3,12 @@ import {
   isDielectricBlockType,
   isHalfLifeBlockType,
   isTextBlockType,
-} from '../../../../types/block';
+} from '../../../../../types/block';
 import Typography from '@mui/material/Typography';
 import styles from './page.module.scss';
-import { ReadOnlyText } from '../../../../features/blocks/text/Text';
-import { ReadOnlyDielectric } from '../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
-import { ReadOnlyDrugHalfLife } from '../../../../features/blocks/drug-half-life/DrugHalfLife';
+import { ReadOnlyText } from '../../../../../features/blocks/text/Text';
+import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
+import { ReadOnlyDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
 import * as React from 'react';
 
 export function ReadOnlyBody({ body }: { body: string }) {

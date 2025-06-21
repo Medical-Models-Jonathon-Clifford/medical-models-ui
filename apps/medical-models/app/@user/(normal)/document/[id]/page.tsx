@@ -3,10 +3,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import { ReadOnlyDocumentName } from '../../../../features/blocks/document-name/DocumentName';
+import { ReadOnlyDocumentName } from '../../../../../features/blocks/document-name/DocumentName';
 import Divider from '@mui/material/Divider';
-import { CommentPanel } from '../../../../features/comments/components/CommentPanel';
-import { getDocument } from '../../../../client/mm-document-client';
+import { CommentPanel } from '../../../../../features/comments/components/CommentPanel';
+import { getDocument } from '../../../../../client/mm-document-client';
 import { ReadOnlyBody } from './ReadOnlyBody';
 
 type Document = {

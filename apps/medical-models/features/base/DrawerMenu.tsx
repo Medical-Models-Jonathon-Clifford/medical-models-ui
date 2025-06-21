@@ -13,6 +13,7 @@ import { getAllNavigation, newDocument } from '../../client/mm-document-client';
 import styles from './DrawerMenu.module.scss';
 import { NewDrawer } from '../../components/drawer/NewDrawer';
 import { DocumentNode } from '../../types/document';
+import Link from 'next/link';
 
 type DrawerMenuState = 'loading' | 'ready';
 
@@ -56,6 +57,7 @@ export default function DrawerMenu({
     <NewDrawer width={width}>
       {open && (
         <List component="nav">
+          <Link href="/admin">Administration</Link>
           {drawerMenuState === 'loading' && (
             <Box className={styles.loading_box}>
               <Skeleton
