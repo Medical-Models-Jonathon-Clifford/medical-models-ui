@@ -35,13 +35,6 @@ export async function NewAppBar() {
             <ProfileIcon size={24} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Logout" placement="bottom-start">
-          <Link href="/login">
-            <IconButton color="inherit">
-              <LogoutIcon className={styles.logout_icon} />
-            </IconButton>
-          </Link>
-        </Tooltip>
         <Stack direction="row">
           <SignInOut />
           {session && (
