@@ -37,6 +37,17 @@ async function requestLogger(url: string, options: any) {
   return response;
 }
 
+function decodeIdToken(idToken: string) {
+  try {
+    const base64Payload = idToken.split('.')[1]; // Get the payload section
+    const payload = JSON.parse(atob(base64Payload));
+    return payload;
+  } catch (error) {
+    console.error('Error decoding ID token:', error);
+    return null;
+  }
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   debug: !!process.env.AUTH_DEBUG,
   theme: { logo: 'https://authjs.dev/img/logo-sm.png' },
@@ -92,6 +103,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider === 'keycloak') {
         return { ...token, accessToken: account.access_token };
       }
+      if (account?.id_token) {
+        token.id_token = account.id_token;
+      }
       return token;
     },
     async session({ session, token }) {
@@ -101,7 +115,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token
       );
       if (token?.accessToken) session.accessToken = token.accessToken;
-
+      if (token?.id_token) {
+        console.log('token had an id_token: %o', token.id_token);
+        const idToken = decodeIdToken(token.id_token as string);
+        session.user.middle_name = idToken.middle_name;
+        session.user.picture = idToken.picture;
+        session.user.email = idToken.email;
+        session.user.roles = idToken.roles;
+      } else {
+        session.user.middle_name = 'placeholder middle name';
+      }
+      console.log('session after adding properties: %o', session);
       return session;
     },
     async signIn({ profile }) {
@@ -124,8 +148,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   experimental: { enableWebAuthn: true },
 });
 
+type AuthUser = {
+  name: string;
+  email: string;
+  middle_name: string;
+  picture: string;
+  roles: string[];
+};
+
+type AuthSession = {
+  user: AuthUser;
+  expires: string;
+};
+
 declare module 'next-auth' {
   interface Session {
+    user: AuthUser;
+    expires: string;
     accessToken?: string;
   }
 }
