@@ -119,6 +119,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         console.log('token had an id_token: %o', token.id_token);
         const idToken = decodeIdToken(token.id_token as string);
         session.user.middle_name = idToken.middle_name;
+        session.user.honorific = idToken.honorific;
+        session.user.givenName = idToken.given_name;
+        session.user.familyName = idToken.family_name;
+        session.user.fullName = idToken.name;
         session.user.picture = idToken.picture;
         session.user.email = idToken.email;
         session.user.roles = idToken.roles;
@@ -150,6 +154,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 type AuthUser = {
   name: string;
+  honorific: string;
+  givenName: string;
+  familyName: string;
+  fullName: string;
   email: string;
   middle_name: string;
   picture: string;
