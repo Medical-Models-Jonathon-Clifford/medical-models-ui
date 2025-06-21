@@ -30,11 +30,6 @@ export async function NewAppBar() {
         </Typography>
       </Link>
       <Stack direction="row">
-        <Tooltip title="John Smith" placement="bottom-start">
-          <IconButton color="inherit">
-            <ProfileIcon size={24} />
-          </IconButton>
-        </Tooltip>
         <Stack direction="row">
           <SignInOut />
           {session && (

@@ -8,6 +8,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import FolderIcon from '@mui/icons-material/Folder';
 import IconButton from '@mui/material/IconButton';
+import { ProfileIcon } from '../profile-icon/ProfileIcon';
 
 export default function UserInfo({
   name,
@@ -20,7 +21,7 @@ export default function UserInfo({
   roles: string[];
   email: string;
   expires: string;
-  picture: string;
+  picture: string | undefined;
 }) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -40,7 +41,7 @@ export default function UserInfo({
       <IconButton aria-describedby={id} onClick={handleClick}>
         <ListItemAvatar>
           <Avatar src={picture}>
-            <FolderIcon />
+            <ProfileIcon size={'100%'} />
           </Avatar>
         </ListItemAvatar>
       </IconButton>

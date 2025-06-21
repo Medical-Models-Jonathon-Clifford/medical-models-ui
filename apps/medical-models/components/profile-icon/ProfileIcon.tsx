@@ -21,7 +21,7 @@ function stringToColor(string: string) {
   return color;
 }
 
-function stringAvatar(name: string, size: number) {
+function stringAvatar(name: string, size: number | string) {
   return {
     sx: {
       bgcolor: stringToColor(name),
@@ -36,6 +36,6 @@ function stringAvatar(name: string, size: number) {
   };
 }
 
-export function ProfileIcon({ size = 32 }: { size?: number }) {
+export function ProfileIcon({ size = 32 }: { size?: number | string }) {
   return <Avatar {...stringAvatar('John Smith', size)}></Avatar>;
 }
