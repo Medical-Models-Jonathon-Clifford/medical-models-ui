@@ -40,22 +40,8 @@ export function Forbidden() {
           <circle cx="100" cy="100" r="95" fill="#E0F2FE" />
 
           {/* Door Frame */}
-          <rect
-            x="30"
-            y="40"
-            width="140"
-            height="120"
-            rx="5"
-            fill="#9CA3AF"
-          />
-          <rect
-            x="35"
-            y="45"
-            width="130"
-            height="110"
-            rx="2"
-            fill="#E5E7EB"
-          />
+          <rect x="30" y="40" width="140" height="120" rx="5" fill="#9CA3AF" />
+          <rect x="35" y="45" width="130" height="110" rx="2" fill="#E5E7EB" />
 
           {/* Left Door */}
           <g>
@@ -69,14 +55,7 @@ export function Forbidden() {
               strokeWidth="1"
             />
             {/* Window */}
-            <rect
-              x="50"
-              y="60"
-              width="35"
-              height="40"
-              rx="5"
-              fill="#9CA3AF"
-            />
+            <rect x="50" y="60" width="35" height="40" rx="5" fill="#9CA3AF" />
             <rect
               x="52.5"
               y="62.5"
@@ -103,14 +82,7 @@ export function Forbidden() {
               strokeWidth="1"
             />
             {/* Window */}
-            <rect
-              x="115"
-              y="60"
-              width="35"
-              height="40"
-              rx="5"
-              fill="#9CA3AF"
-            />
+            <rect x="115" y="60" width="35" height="40" rx="5" fill="#9CA3AF" />
             <rect
               x="117.5"
               y="62.5"
@@ -122,14 +94,7 @@ export function Forbidden() {
               strokeWidth="1"
             />
             {/* Push Plate */}
-            <rect
-              x="107"
-              y="85"
-              width="8"
-              height="30"
-              rx="2"
-              fill="#D1D5DB"
-            />
+            <rect x="107" y="85" width="8" height="30" rx="2" fill="#D1D5DB" />
           </g>
 
           {/* Center line */}

@@ -12,7 +12,9 @@ import { UnstorageAdapter } from '@auth/unstorage-adapter';
 const AUTHORIZATION_SERVER_URL = process.env.AUTHORIZATION_SERVER_URL;
 
 if (AUTHORIZATION_SERVER_URL === undefined) {
-  console.error('AUTHORIZATION_SERVER_URL environment variable must be defined');
+  console.error(
+    'AUTHORIZATION_SERVER_URL environment variable must be defined'
+  );
 }
 
 function hashString(input: string): string {

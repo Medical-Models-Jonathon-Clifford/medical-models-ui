@@ -8,9 +8,7 @@ export default async function UserLayout({
 }) {
   return (
     <>
-      <Body>
-        {children}
-      </Body>
+      <Body>{children}</Body>
     </>
   );
 }

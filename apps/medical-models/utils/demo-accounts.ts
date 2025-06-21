@@ -2,12 +2,12 @@ export type DemoUser = {
   name: string;
   role: string;
   profilePicture: string;
-}
+};
 
 export type DemoAccount = {
   centreName: string;
   users: DemoUser[];
-}
+};
 
 export const DEMO_ACCOUNTS: DemoAccount[] = [
   {

@@ -2,7 +2,10 @@
 
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getDocumentsAllNavigation, queryGithubForTanstackInfo } from './search-api';
+import {
+  getDocumentsAllNavigation,
+  queryGithubForTanstackInfo,
+} from './search-api';
 import { DocumentNode } from '../../types/document';
 
 export default function Search() {
@@ -13,7 +16,7 @@ export default function Search() {
     data: repoData,
   } = useQuery({
     queryKey: ['repoData'],
-    queryFn: queryGithubForTanstackInfo
+    queryFn: queryGithubForTanstackInfo,
   });
 
   // Second query to fetch data from your custom API
@@ -23,7 +26,7 @@ export default function Search() {
     data: navigationData,
   } = useQuery({
     queryKey: ['navigationData'],
-    queryFn: getDocumentsAllNavigation
+    queryFn: getDocumentsAllNavigation,
   });
 
   // Show loading state as long as either query is pending

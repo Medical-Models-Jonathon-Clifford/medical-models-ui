@@ -9,20 +9,20 @@ export default function AdminUsersPage() {
       <Link href="/admin/users/new">New User</Link>
       <table>
         <thead>
-        <tr>
-          <th>Name</th>
-          <th>Role</th>
-        </tr>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>John</td>
-          <td>Admin</td>
-        </tr>
-        <tr>
-          <td>Jane</td>
-          <td>User</td>
-        </tr>
+          <tr>
+            <td>John</td>
+            <td>Admin</td>
+          </tr>
+          <tr>
+            <td>Jane</td>
+            <td>User</td>
+          </tr>
         </tbody>
       </table>
     </div>

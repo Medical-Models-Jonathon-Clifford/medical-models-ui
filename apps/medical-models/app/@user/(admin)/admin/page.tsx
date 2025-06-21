@@ -12,7 +12,10 @@ export default function AdminPage() {
         </div>
         <div>
           <h4>By Comments</h4>
-          <p>(Insert horizontal bar chart ranking users by number of comments made)</p>
+          <p>
+            (Insert horizontal bar chart ranking users by number of comments
+            made)
+          </p>
         </div>
       </div>
       <div>

@@ -37,7 +37,6 @@ export default async function RootLayout({
   support: React.ReactNode;
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <head>

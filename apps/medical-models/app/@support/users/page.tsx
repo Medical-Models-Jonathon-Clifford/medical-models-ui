@@ -3,5 +3,5 @@ export default async function SupportUsersPage() {
     <div>
       <h2>Users sub page for support personnel</h2>
     </div>
-  )
+  );
 }

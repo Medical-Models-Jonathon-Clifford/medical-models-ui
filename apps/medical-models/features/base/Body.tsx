@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styles from './Base.module.scss';
 import DrawerMenu from './DrawerMenu';
@@ -36,9 +36,9 @@ export function Body({ children }: { children: React.ReactNode }) {
 
   const createToggleButton = (icon: React.ReactNode) => {
     return function ToggleButton({
-                                   title,
-                                   onClick,
-                                 }: {
+      title,
+      onClick,
+    }: {
       title: string;
       onClick: () => void;
     }) {
@@ -73,10 +73,7 @@ export function Body({ children }: { children: React.ReactNode }) {
         selectedDocId={String(params.id)}
       ></DrawerMenu>
       {sideBarState === 'expanded' && (
-        <CollapseToggleButton
-          title="Collapse"
-          onClick={handleClickCollapse}
-        />
+        <CollapseToggleButton title="Collapse" onClick={handleClickCollapse} />
       )}
       {sideBarState === 'collapsed' && (
         <ExpandToggleButton title="Expand" onClick={handleClickExpand} />
