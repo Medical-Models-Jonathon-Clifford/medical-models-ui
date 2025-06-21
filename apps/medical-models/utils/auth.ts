@@ -151,11 +151,6 @@ type AuthUser = {
   roles: string[];
 };
 
-type AuthSession = {
-  user: AuthUser;
-  expires: string;
-};
-
 declare module 'next-auth' {
   interface Session {
     user: AuthUser;

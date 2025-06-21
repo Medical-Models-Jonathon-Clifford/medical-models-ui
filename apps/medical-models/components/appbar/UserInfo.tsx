@@ -1,13 +1,11 @@
 'use client';
 
-import * as React from 'react';
-import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import { Popover } from '@mui/material';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { useState, MouseEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
-import FolderIcon from '@mui/icons-material/Folder';
 import IconButton from '@mui/material/IconButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
 
 export default function UserInfo({
@@ -25,7 +23,7 @@ export default function UserInfo({
 }) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
