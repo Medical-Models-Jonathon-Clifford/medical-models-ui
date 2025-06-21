@@ -25,25 +25,10 @@ const storage = createStorage({
   driver: memoryDriver(),
 });
 
-async function requestLogger(url: string, options: any) {
-  const response = await fetch(url, options);
-
-  const clone = response.clone(); // Clone the response for reading it multiple times
-  try {
-    const textBody = await clone.text(); // Capture raw response body (JSON or text)
-    console.log('[OAuth Response Body]', textBody);
-  } catch (e) {
-    console.error('[Error Logging Response]', e);
-  }
-
-  return response;
-}
-
 function decodeIdToken(idToken: string) {
   try {
     const base64Payload = idToken.split('.')[1]; // Get the payload section
-    const payload = JSON.parse(atob(base64Payload));
-    return payload;
+    return JSON.parse(atob(base64Payload));
   } catch (error) {
     console.error('Error decoding ID token:', error);
     return null;
