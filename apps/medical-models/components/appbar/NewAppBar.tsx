@@ -1,17 +1,13 @@
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Session } from 'next-auth';
-import { ProfileIcon } from '../profile-icon/ProfileIcon';
 import SignInOut from '../user-button/SignInOut';
+import UserInfo from './UserInfo';
 import { auth } from '../../utils/auth';
 import styles from './NewAppBar.module.scss';
-import UserInfo from './UserInfo';
 
 export async function NewAppBar() {
   const session: Session | null = await auth();
