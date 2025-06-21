@@ -10,7 +10,7 @@ $side-bar-toggle-offset-from-app-bar: 32px;
   position: relative;
   display: flex;
   top: vars.$app-bar-height;
-  height: calc(100vh - vars.$app-bar-height);
+  height: calc(100vh - #{vars.$app-bar-height});
 }
 
 .base_collapse_icon {
