@@ -2,6 +2,7 @@ import {
   BlockType,
   isDielectricBlockType,
   isHalfLifeBlockType,
+  isImageBlockType,
   isTextBlockType,
 } from '../../../../../types/block';
 import Typography from '@mui/material/Typography';
@@ -10,6 +11,7 @@ import { ReadOnlyText } from '../../../../../features/blocks/text/Text';
 import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
 import * as React from 'react';
+import { ReadOnlyImage } from '../../../../../features/blocks/image/Image';
 
 export function ReadOnlyBody({ body }: { body: string }) {
   const blocks: BlockType[] = JSON.parse(body);
@@ -39,6 +41,13 @@ export function ReadOnlyBody({ body }: { body: string }) {
                 drugName={block.drug}
                 dose={block.dose}
               ></ReadOnlyDrugHalfLife>
+            );
+          } else if (isImageBlockType(block)) {
+            return (
+              <ReadOnlyImage
+                key={index}
+                filename={block.filename}
+              ></ReadOnlyImage>
             );
           }
         })}

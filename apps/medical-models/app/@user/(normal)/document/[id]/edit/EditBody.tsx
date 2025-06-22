@@ -4,6 +4,7 @@ import {
   BlockType,
   isDielectricBlockType,
   isHalfLifeBlockType,
+  isImageBlockType,
   isTextBlockType,
 } from '../../../../../../types/block';
 import {
@@ -21,6 +22,7 @@ import { EditDrugHalfLife } from '../../../../../../features/blocks/drug-half-li
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
+import { EditImage } from '../../../../../../features/blocks/image/Image';
 
 type EditBodyState = 'NoBody' | 'HasBody';
 
@@ -38,6 +40,11 @@ const DEFAULT_HALF_LIFE: BlockType = {
   type: 'half-life',
   drug: DEFAULT_DRUG.name,
   dose: DEFAULT_DOSE,
+};
+
+const DEFAULT_IMAGE: BlockType = {
+  type: 'image',
+  filename: 'd5a6c2f0-a04d-4833-8024-163788993430_placeholder-image-1.jpg',
 };
 
 export function EditBody({
@@ -88,6 +95,18 @@ export function EditBody({
     }
   };
 
+  const saveImageChanges = (id: number, newFilename: string) => {
+    const blocks = getBlocks();
+    if (isImageBlockType(blocks[id])) {
+      blocks[id].filename = newFilename;
+      saveBlocks(blocks);
+    } else {
+      throw new Error(
+        'Received a new block that is not an image block. This should not happen.'
+      );
+    }
+  };
+
   const saveBlocks = (blocks: BlockType[]) => {
     saveBodyChanges(JSON.stringify(blocks));
   };
@@ -102,6 +121,10 @@ export function EditBody({
 
   const clickHalfLife: MouseEventHandler<HTMLButtonElement> = (_) => {
     saveNewBlock(DEFAULT_HALF_LIFE);
+  };
+
+  const clickImage: MouseEventHandler<HTMLButtonElement> = (_) => {
+    saveNewBlock(DEFAULT_IMAGE);
   };
 
   const saveNewBlock = (newBody: BlockType) => {
@@ -154,6 +177,16 @@ export function EditBody({
                 }
               ></EditDrugHalfLife>
             );
+          } else if (isImageBlockType(block)) {
+            return (
+              <EditImage
+                key={index}
+                filename={block.filename}
+                saveChanges={(newFilename) =>
+                  saveImageChanges(index, newFilename)
+                }
+              ></EditImage>
+            );
           }
         })}
       <>
@@ -167,6 +200,9 @@ export function EditBody({
             </Button>
             <Button variant="contained" onClick={clickHalfLife}>
               Drug Half Lives
+            </Button>
+            <Button variant="contained" onClick={clickImage}>
+              Image
             </Button>
           </Box>
         </Paper>

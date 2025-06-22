@@ -1,4 +1,4 @@
-type ValidBlocks = 'text' | 'dielectric' | 'half-life';
+type ValidBlocks = 'text' | 'dielectric' | 'half-life' | 'image';
 
 type ValidTypes<T extends ValidBlocks> = {
   type: T;
@@ -17,6 +17,10 @@ export type ViewHalfLifeProps = {
   dose: number;
 };
 
+export type ViewImageProps = {
+  filename: string;
+};
+
 export type TextBlockType = ValidTypes<'text'> & ViewTextProps;
 
 export type DielectricBlockType = ValidTypes<'dielectric'> &
@@ -24,7 +28,13 @@ export type DielectricBlockType = ValidTypes<'dielectric'> &
 
 export type HalfLifeBlockType = ValidTypes<'half-life'> & ViewHalfLifeProps;
 
-export type BlockType = TextBlockType | DielectricBlockType | HalfLifeBlockType;
+export type ImageBlockType = ValidTypes<'image'> & ViewImageProps;
+
+export type BlockType =
+  | TextBlockType
+  | DielectricBlockType
+  | HalfLifeBlockType
+  | ImageBlockType;
 
 export function isTextBlockType(block: BlockType): block is TextBlockType {
   return block.type === 'text';
@@ -40,4 +50,8 @@ export function isHalfLifeBlockType(
   block: BlockType
 ): block is HalfLifeBlockType {
   return block.type === 'half-life';
+}
+
+export function isImageBlockType(block: BlockType): block is ImageBlockType {
+  return block.type === 'image';
 }

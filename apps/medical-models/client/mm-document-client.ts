@@ -29,3 +29,8 @@ export function newDocumentWithParent(parentId: string) {
 export function getAllNavigation() {
   return mmAxios.get(`/documents/all/navigation`);
 }
+
+export function postImage(form: HTMLFormElement) {
+  const formData = new FormData(form);
+  return mmAxios.post(`/images`, formData);
+}
