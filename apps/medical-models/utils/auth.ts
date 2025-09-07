@@ -2,9 +2,6 @@ import NextAuth from 'next-auth';
 import 'next-auth/jwt';
 import crypto from 'crypto';
 
-import GitHub from 'next-auth/providers/github';
-import Google from 'next-auth/providers/google';
-
 import { createStorage } from 'unstorage';
 import memoryDriver from 'unstorage/drivers/memory';
 import { UnstorageAdapter } from '@auth/unstorage-adapter';
@@ -37,13 +34,19 @@ function decodeIdToken(idToken: string) {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   debug: !!process.env.AUTH_DEBUG,
-  theme: { logo: 'https://authjs.dev/img/logo-sm.png' },
+  theme: {
+    colorScheme: 'light',
+    logo: '/favicon.png',
+  },
   adapter: UnstorageAdapter(storage),
   providers: [
     {
       id: 'my_authorization_server',
-      name: 'My Authorization Server',
+      name: 'Medical Models',
       type: 'oauth',
+      style: {
+        logo: '/favicon.png',
+      },
       issuer: AUTHORIZATION_SERVER_URL,
       userinfo: AUTHORIZATION_SERVER_URL + '/userinfo',
       token: AUTHORIZATION_SERVER_URL + '/oauth2/token',
@@ -62,8 +65,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
       },
     },
-    GitHub,
-    Google,
   ],
   basePath: '/auth',
   session: { strategy: 'jwt' },
