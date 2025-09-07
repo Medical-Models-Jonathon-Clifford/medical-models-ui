@@ -7,7 +7,6 @@ export function updateDocument(
   state: string
 ) {
   return mmAxios.put(`/documents/${id}`, {
-    id: id,
     title: title,
     body: body,
     state: state,
