@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AdminBody } from '../../../../features/base/AdminBody';
 import { Box } from '@mui/material';
-import { auth } from '../../../../utils/auth';
+import { auth } from '../../../../auth';
 import { Forbidden } from '../../../../features/forbidden/Forbidden';
 import styles from './layout.module.scss';
 

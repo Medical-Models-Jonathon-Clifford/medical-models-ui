@@ -15,7 +15,7 @@ export function ReadOnlyImage({ filename }: ViewImageProps) {
     <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <img
-          src={`${MEDICAL_MODELS_SERVICE_BASE_URL}/images/${filename}`}
+          src={`/images/${filename}`}
         />
       </Box>
     </Paper>
@@ -62,7 +62,7 @@ export function EditImage({
         <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
           <Box sx={{ display: 'flex', gap: '8px' }}>
             <img
-              src={`${MEDICAL_MODELS_SERVICE_BASE_URL}/images/${imgFilename}`}
+              src={`/images/${imgFilename}`}
             />
             <Button onClick={clickEditImageBlock}>Edit</Button>
           </Box>

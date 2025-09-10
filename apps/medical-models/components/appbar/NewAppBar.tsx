@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Session } from 'next-auth';
 import SignInOut from '../user-button/SignInOut';
 import UserInfo from './UserInfo';
-import { auth } from '../../utils/auth';
+import { auth } from '../../auth';
 import styles from './NewAppBar.module.scss';
 
 export async function NewAppBar() {

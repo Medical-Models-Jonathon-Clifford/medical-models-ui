@@ -32,7 +32,7 @@ function decodeIdToken(idToken: string) {
   }
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   debug: !!process.env.AUTH_DEBUG,
   theme: {
     colorScheme: 'light',
@@ -66,7 +66,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     },
   ],
-  basePath: '/auth',
+  basePath: '/api/auth', // Needs to match location of [...nextauth]/route.ts
   session: { strategy: 'jwt' },
   callbacks: {
     authorized({ request, auth }) {
@@ -94,6 +94,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.id_token) {
         token.id_token = account.id_token;
       }
+      if (account) {
+        token.accessToken = account.access_token;
+      }
       return token;
     },
     async session({ session, token }) {
@@ -107,6 +110,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         console.log('token had an id_token: %o', token.id_token);
         const idToken = decodeIdToken(token.id_token as string);
         session.user.middle_name = idToken.middle_name;
+        session.user.companyId = idToken.companyId;
         session.user.honorific = idToken.honorific;
         session.user.givenName = idToken.given_name;
         session.user.familyName = idToken.family_name;
@@ -114,6 +118,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.picture = idToken.picture;
         session.user.email = idToken.email;
         session.user.roles = idToken.roles;
+        session.idToken = token.id_token;
       } else {
         session.user.middle_name = 'placeholder middle name';
       }
@@ -142,6 +147,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 type AuthUser = {
   name: string;
+  companyId: string;
   honorific: string;
   givenName: string;
   familyName: string;
@@ -157,6 +163,7 @@ declare module 'next-auth' {
     user: AuthUser;
     expires: string;
     accessToken?: string;
+    idToken?: object;
   }
 }
 

@@ -2,8 +2,9 @@ import * as React from 'react';
 import ThemeRegistry from '../features/base/ThemeRegistry';
 import Providers from './providers';
 import { Session } from 'next-auth';
-import { auth } from '../utils/auth';
+import { auth } from '../auth';
 import Base from '../features/base/Base';
+import { redirect } from 'next/navigation';
 
 export const metadata = {
   title: 'Medical Models',
@@ -20,6 +21,10 @@ const Core = async ({
   children: React.ReactNode;
 }) => {
   const session: Session | null = await auth();
+
+  if (!session) {
+    redirect('/api/auth/signin')
+  }
 
   if (session && session.user?.roles.includes('ROLE_SUPPORT')) {
     return <Base>{support}</Base>;

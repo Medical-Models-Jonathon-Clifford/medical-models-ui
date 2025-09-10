@@ -1,4 +1,4 @@
-import { signIn } from '../../utils/auth';
+import { signIn } from '../../auth';
 
 export function SignIn({ provider }: { provider?: string }) {
   return (

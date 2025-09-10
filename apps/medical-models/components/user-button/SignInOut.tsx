@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { auth } from '../../utils/auth';
+import { auth } from '../../auth';
 import { SignOut } from '../../features/sign-out/SignOut';
 import { SignIn } from '../../features/sign-in/SignIn';
 
