@@ -50,6 +50,9 @@ export default function AdminMenu({
         <List component="nav">
           <Stack direction="column">
             <Link href="/">Home</Link>
+            <DocItemButton href="/admin">
+              Admin Dashboard
+            </DocItemButton>
             <DocItemButton href="/admin/details">
               Organisation Details
             </DocItemButton>

@@ -30,7 +30,6 @@ export default async function AdminLayout({
 
   return (
     <AdminBody>
-      <h1>Admin</h1>
       <div>{children}</div>
     </AdminBody>
   );

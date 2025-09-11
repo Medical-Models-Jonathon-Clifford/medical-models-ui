@@ -1,34 +1,20 @@
+import { CompanyRankings } from '../../../../features/admin/company-resources/CompanyRankings';
+import Typography from '@mui/material/Typography';
+import { CompanyTrends } from '../../../../features/admin/company-resources/CompanyTrends';
+
 export default function AdminPage() {
   return (
     <div>
-      <h2>Admin Dashboard</h2>
+      <Typography variant="h2">Admin Dashboard</Typography>
       <div>
-        <h3>Most Active Users</h3>
+        <Typography variant="h3">Rankings</Typography>
         <div>
-          <h4>By Document</h4>
-          <p>
-            (Insert horizontal bar chart ranking users by documents they own)
-          </p>
-        </div>
-        <div>
-          <h4>By Comments</h4>
-          <p>
-            (Insert horizontal bar chart ranking users by number of comments
-            made)
-          </p>
+          <CompanyRankings></CompanyRankings>
         </div>
       </div>
       <div>
-        <h3>Total number of documents</h3>
-        <p>(Insert Trend over time)</p>
-      </div>
-      <div>
-        <h3>Total number of comments</h3>
-        <p>(Insert trend over time)</p>
-      </div>
-      <div>
-        <h3>Most popular models</h3>
-        <p>(Insert horizontal bar chart ranking model popularity</p>
+        <Typography variant="h3">Trends</Typography>
+        <CompanyTrends></CompanyTrends>
       </div>
     </div>
   );
