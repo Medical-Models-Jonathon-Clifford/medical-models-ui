@@ -8,7 +8,6 @@ export default async function SupportLayout({
 }) {
   return (
     <SupportBody>
-      <h1>Support</h1>
       <div>{children}</div>
     </SupportBody>
   );
