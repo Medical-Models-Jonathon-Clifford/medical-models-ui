@@ -21,8 +21,9 @@ import Paper from '@mui/material/Paper';
 import {
   getModelRankings,
   getTotalCommentMetrics,
-  getTotalCompanyMetrics, getTotalDocumentMetrics,
-  getTotalUserMetrics
+  getTotalCompanyMetrics,
+  getTotalDocumentMetrics,
+  getTotalUserMetrics,
 } from '../../../client/mm-support-client';
 import { Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -174,8 +175,8 @@ export function TotalResources() {
   const growthChartOptions = {
     scales: {
       y: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     responsive: true,
     plugins: {
@@ -210,21 +211,25 @@ export function TotalResources() {
     },
   };
 
-  const labels = modelRankings?.map(modelRanking => modelRanking.type).map(getStringFromBlockType);
+  const labels = modelRankings
+    ?.map((modelRanking) => modelRanking.type)
+    .map(getStringFromBlockType);
 
   const data = {
     labels,
     datasets: [
       {
         label: 'Usage Frequency',
-        data: modelRankings?.map(modelRanking => modelRanking.frequency),
+        data: modelRankings?.map((modelRanking) => modelRanking.frequency),
         borderColor: 'rgb(99,161,255)',
         backgroundColor: 'rgba(99,154,255,0.5)',
-      }
+      },
     ],
   };
 
-  const mostPopularModel = modelRankings ? getStringFromBlockType(modelRankings[0].type) : undefined;
+  const mostPopularModel = modelRankings
+    ? getStringFromBlockType(modelRankings[0].type)
+    : undefined;
 
   return (
     <Box sx={{ padding: '8px' }}>
@@ -232,6 +237,40 @@ export function TotalResources() {
       {viewDocState === 'loaded' && (
         <>
           <Stack direction={'column'} style={{ gap: '8px' }}>
+            <Typography variant="h3">Rankings</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                gap: '8px',
+              }}
+            >
+              {/* Model Rankings */}
+              <Paper
+                elevation={3}
+                variant="outlined"
+                style={{ width: '50%', padding: '8px' }}
+              >
+                <Typography>
+                  Most Popular Model:{' '}
+                  <Typography display="inline" fontWeight={'bold'}>
+                    {mostPopularModel}
+                  </Typography>
+                </Typography>
+                <div className="chart-container" style={{ height: '300px' }}>
+                  <Bar options={modelRankingOptions} data={data} />
+                </div>
+              </Paper>
+              {/* Stack Placeholder */}
+              <Box style={{ width: '50%', padding: '8px' }}>
+                <div
+                  className="chart-container"
+                  style={{ height: '300px' }}
+                ></div>
+              </Box>
+            </Box>
+            <Typography variant="h3">Trends</Typography>
             <Box
               sx={{
                 display: 'flex',
@@ -325,38 +364,6 @@ export function TotalResources() {
                   />
                 </div>
               </Paper>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                gap: '8px',
-              }}
-            >
-              {/* Model Rankings */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Most Popular Model:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
-                    {mostPopularModel}
-                  </Typography>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar options={modelRankingOptions} data={data} />
-                </div>
-              </Paper>
-              {/* Stack Placeholder */}
-              <Box style={{ width: '50%', padding: '8px' }}>
-                <div
-                  className="chart-container"
-                  style={{ height: '300px' }}
-                ></div>
-              </Box>
             </Box>
           </Stack>
         </>

@@ -19,3 +19,21 @@ export function getTotalCommentMetrics() {
 export function getModelRankings() {
   return mmAxios.get('/support/models/ranking');
 }
+
+export function searchCompanies(
+  locationStateFilter: string,
+  nameSearchTerm: string
+) {
+  return mmAxios.post('/support/companies/search', {
+    locationStateFilter: locationStateFilter,
+    nameSearchTerm: nameSearchTerm,
+  });
+}
+
+export function searchUsers(
+  nameSearchTerm: string
+) {
+  return mmAxios.post('/support/users/search', {
+    nameSearchTerm: nameSearchTerm,
+  });
+}

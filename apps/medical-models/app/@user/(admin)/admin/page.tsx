@@ -8,9 +8,7 @@ export default function AdminPage() {
       <Typography variant="h2">Admin Dashboard</Typography>
       <div>
         <Typography variant="h3">Rankings</Typography>
-        <div>
-          <CompanyRankings></CompanyRankings>
-        </div>
+        <CompanyRankings></CompanyRankings>
       </div>
       <div>
         <Typography variant="h3">Trends</Typography>

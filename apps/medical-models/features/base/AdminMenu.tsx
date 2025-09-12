@@ -54,9 +54,11 @@ export default function AdminMenu({
               Admin Dashboard
             </DocItemButton>
             <DocItemButton href="/admin/details">
-              Organisation Details
+              Company Details
             </DocItemButton>
-            <DocItemButton href="/admin/users">Users</DocItemButton>
+            <DocItemButton href="/admin/users">
+              Manage Users
+            </DocItemButton>
           </Stack>
         </List>
       )}

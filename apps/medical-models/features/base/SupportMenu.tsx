@@ -51,7 +51,7 @@ export default function SupportMenu({
           <Stack direction="column">
             <Link href="/">Home</Link>
             <DocItemButton href="/">Support Dashboard</DocItemButton>
-            <DocItemButton href="/organisations">Organisations</DocItemButton>
+            <DocItemButton href="/companies">Companies</DocItemButton>
             <DocItemButton href="/users">Users</DocItemButton>
           </Stack>
         </List>

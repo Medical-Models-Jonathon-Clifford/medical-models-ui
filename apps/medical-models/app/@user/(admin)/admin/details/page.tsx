@@ -1,9 +1,9 @@
+import { AdminCompanyDetails } from '../../../../../features/company/company-details/AdminCompanyDetails';
+
 export default function AdminOrganisationDetailsPage() {
   return (
     <div>
-      <h2>Manage Organisation Details</h2>
-      <p>Name: </p>
-      <input type="test" defaultValue="Current name" />
+      <AdminCompanyDetails></AdminCompanyDetails>
     </div>
   );
 }

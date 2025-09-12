@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     }
 
     const filename = request.nextUrl.pathname.replace('/api/images/', '')
-    const url = new URL(`${MEDICAL_MODELS_SERVICE_BASE_URL}/${filename}`, MEDICAL_MODELS_SERVICE_BASE_URL)
+    const url = new URL(`${MEDICAL_MODELS_SERVICE_BASE_URL}${filename}`)
 
     return NextResponse.rewrite(url, {
       request: {

@@ -19,3 +19,13 @@ export function getCompanyDocumentMetrics() {
 export function getCompanyCommentMetrics() {
   return mmAxios.get('/admin/company/comments/metrics');
 }
+
+export function searchCompanyUsers(nameSearchTerm: string) {
+  return mmAxios.post('/admin/companies/users/search', {
+    nameSearchTerm: nameSearchTerm,
+  });
+}
+
+export function getCompanyDetails() {
+  return mmAxios.get('/admin/company/details');
+}

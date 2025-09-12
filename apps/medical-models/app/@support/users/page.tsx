@@ -1,7 +1,11 @@
+import Typography from '@mui/material/Typography';
+import { UserSearch } from '../../../features/support/user-search/UserSearch';
+
 export default async function SupportUsersPage() {
   return (
     <div>
-      <h2>Users sub page for support personnel</h2>
+      <Typography variant="h2">Manage All Users</Typography>
+      <UserSearch></UserSearch>
     </div>
   );
 }
