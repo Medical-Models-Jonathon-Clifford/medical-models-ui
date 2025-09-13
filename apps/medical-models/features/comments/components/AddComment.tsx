@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -60,6 +62,7 @@ export function AddComment({
       comment: newCommentText,
     },
   });
+  const { data: session } = useSession();
 
   const onSubmit = (d: CommentSchema) => {
     const updatedComment = commentSchema.parse(d).comment;
@@ -73,7 +76,9 @@ export function AddComment({
 
   return (
     <Box className={styles.add_comment_box} sx={sx}>
-      <ProfileIcon />
+      <Avatar src={session?.user.picture}>
+        <ProfileIcon size={'100%'} />
+      </Avatar>
       <form
         className={styles.add_comment_form}
         onSubmit={handleSubmit(onSubmit)}

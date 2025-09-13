@@ -9,10 +9,13 @@ export const newTestCommentNode = (
   return {
     comment: {
       id: '1',
-      document_id: '10',
+      documentId: '10',
+      creator: '1',
+      fullName: 'Col. Sherman T. Potter',
       body: 'Test comment',
       createdDate: createdDate,
       modifiedDate: modifiedDate,
+      profilePicturePath: '/users/picture/spotter.png'
     },
     children: [],
   };
@@ -31,7 +34,7 @@ export class CommentNodeBuilder {
   }
 
   document_id(document_id: string) {
-    this.commentNode.comment.document_id = document_id;
+    this.commentNode.comment.documentId = document_id;
     return this;
   }
 

@@ -14,7 +14,7 @@ export function ReadOnlyImage({ filename }: ViewImageProps) {
   return (
     <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
       <Box sx={{ display: 'flex', gap: '8px' }}>
-        <img src={`/images/${filename}`} alt={'Image block'}/>
+        <img src={`/images/${filename}`} alt={'Image block'} />
       </Box>
     </Paper>
   );

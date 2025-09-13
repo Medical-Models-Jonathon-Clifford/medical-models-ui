@@ -1,3 +1,4 @@
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
@@ -23,10 +24,12 @@ export function Comment({
   return (
     <>
       <Box className={styles.comment_box}>
-        <ProfileIcon />
+        <Avatar src={commentNode.comment.profilePicturePath}>
+          <ProfileIcon size={'100%'} />
+        </Avatar>
         <Box className={styles.comment_info_box}>
           <Box>
-            <Link variant="h4">John Smith</Link>
+            <Link variant="h4">{commentNode.comment.fullName}</Link>
             <Typography variant="caption">
               {formatTimeSince(commentNode.comment.modifiedDate)}
             </Typography>

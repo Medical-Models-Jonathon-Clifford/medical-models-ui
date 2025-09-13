@@ -2,10 +2,13 @@ import { compareAsc } from 'date-fns';
 
 export type CommentNodeData = {
   id: string;
-  document_id: string;
+  documentId: string;
+  creator: string;
   body: string;
+  fullName: string;
   createdDate: Date;
   modifiedDate: Date;
+  profilePicturePath: string;
 };
 
 export type CommentNode = {

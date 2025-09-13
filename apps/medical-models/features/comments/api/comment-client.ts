@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react';
 import { mmAxios } from '../../../client/mm-axios';
 
 export function deleteCommentById(commentId: string) {
@@ -14,23 +15,28 @@ export function editCommentById(commentId: string, newText: string) {
   });
 }
 
-export function saveNewComment(documentId: string, newCommentText: string) {
+export async function saveNewComment(
+  documentId: string,
+  newCommentText: string
+) {
+  const session = await getSession();
   return mmAxios.post(`/comments`, {
     documentId: documentId,
     body: newCommentText,
-    creator: '1',
+    creator: session?.user.userId,
   });
 }
 
-export function saveNewReplyComment(
+export async function saveNewReplyComment(
   documentId: string,
   newCommentText: string,
   parentCommentId: string
 ) {
+  const session = await getSession();
   return mmAxios.post(`/comments`, {
     documentId: documentId,
     body: newCommentText,
-    creator: '1',
+    creator: session?.user.userId,
     parentCommentId: parentCommentId,
   });
 }
