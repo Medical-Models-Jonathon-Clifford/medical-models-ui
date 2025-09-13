@@ -19,7 +19,5 @@ export function SupportCompanyDetails({ companyId }: { companyId: string }) {
     fetchCompanyDetails();
   }, []);
 
-  return (
-    <CompanyDetails companyDetails={companyDetails}></CompanyDetails>
-  );
+  return <CompanyDetails companyDetails={companyDetails}></CompanyDetails>;
 }

@@ -13,13 +13,17 @@ export type ViewCompanyDetailsDto = {
   logoFilename: string;
 };
 
-export function CompanyDetails({ companyDetails }: { companyDetails: ViewCompanyDetailsDto | undefined }) {
+export function CompanyDetails({
+  companyDetails,
+}: {
+  companyDetails: ViewCompanyDetailsDto | undefined;
+}) {
   return (
     <Box>
       {companyDetails && companyDetails.logoFilename && (
         <Box>
           <Typography variant="h2">{companyDetails?.name}</Typography>
-          <Stack direction="row" style={{gap: '16px'}}>
+          <Stack direction="row" style={{ gap: '16px' }}>
             <Stack direction="column">
               <Typography variant="body1">
                 Name:{' '}

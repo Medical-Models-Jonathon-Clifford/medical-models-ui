@@ -1,5 +1,5 @@
 import { signOut } from '../../auth';
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 
 export function SignOut() {
   return (
@@ -11,10 +11,9 @@ export function SignOut() {
         // Otherwise, it automatically logs in as the previous user.
         cookies().delete('JSESSIONID');
         await signOut({
-            redirectTo: '/',
-            redirect: true
-          }
-        );
+          redirectTo: '/',
+          redirect: true,
+        });
       }}
     >
       <button>Sign Out</button>

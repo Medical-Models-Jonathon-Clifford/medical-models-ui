@@ -9,14 +9,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { searchCompanies, searchUsers } from '../../../client/mm-support-client';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -29,24 +26,29 @@ type UserSearchResult = {
   id: string;
   name: string;
   email: string;
-}
+};
 
 export function CompanyUserSearch() {
   const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
     UserSearchResult[] | undefined
   >(undefined);
-  const [viewCompanyState, setViewCompanyState] = useState<ViewCompanyState>('loading');
+  const [viewCompanyState, setViewCompanyState] =
+    useState<ViewCompanyState>('loading');
   const [locationStateFilter, setLocationStateFilter] = React.useState('');
   const [nameSearchTerm, setNameSearchTerm] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseUpPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
@@ -65,11 +67,13 @@ export function CompanyUserSearch() {
     fetchCompanyData();
   }, [locationStateFilter, nameSearchTerm]);
 
-  const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleNameChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     const value = event.target.value;
     console.log('name change: %o', value);
     setNameSearchTerm(value);
-  }
+  };
 
   return (
     <>

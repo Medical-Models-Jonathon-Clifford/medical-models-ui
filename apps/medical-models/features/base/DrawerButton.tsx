@@ -1,82 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from './DrawerButton.module.scss';
-import { usePathname } from 'next/navigation';
 
 export function DrawerButton({
-  href,
+  onClick,
   icon,
   children,
 }: {
-  href: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   icon: React.ReactNode;
   children?: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
-  const DocItemButton = ({ children }: { children: React.ReactNode }) => {
-    return (
-      <Button
-        className={styles.nav_tree_doc_item_button}
-        sx={{
-          paddingLeft: '8px',
-          backgroundColor:
-            pathname === href ? 'rgba(25, 118, 210, 0.1)' : 'transparent',
-          ':hover': {
-            backgroundColor:
-              pathname === href
-                ? 'rgba(25, 118, 210, 0.2)'
-                : 'rgba(202,202,202,0.2)',
-          },
-        }}
-        href={href}
-      >
-        {children}
-      </Button>
-    );
-  };
-
   return (
     <Box className={styles.nav_tree_doc_item_box}>
-      <DocItemButton>
+      <Button className={styles.nav_tree_doc_item_button} onClick={onClick}>
         <Box className={styles.nav_tree_doc_item_icon_text_box}>
-          <Box
-            className={styles.nav_tree_doc_item_icon_box}
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              color:
-                pathname === href
-                  ? 'rgba(25, 118, 210, 1)'
-                  : 'rgba(0, 0, 0, 0.87)',
-            }}
-          >
-            {icon}
-          </Box>
-          <Box
-            sx={{ width: '204px' }}
-            className={styles.nav_tree_doc_item_text_box}
-          >
+          <Box className={styles.nav_tree_doc_item_icon_box}>{icon}</Box>
+          <Box className={styles.nav_tree_doc_item_text_box}>
             <Typography
               variant="body1"
               className={styles.nav_tree_doc_item_text}
-              sx={{
-                color:
-                  pathname === href
-                    ? 'rgba(25, 118, 210, 1)'
-                    : 'rgba(0, 0, 0, 0.87)',
-              }}
             >
               {children}
             </Typography>
           </Box>
         </Box>
-      </DocItemButton>
+      </Button>
     </Box>
   );
 }

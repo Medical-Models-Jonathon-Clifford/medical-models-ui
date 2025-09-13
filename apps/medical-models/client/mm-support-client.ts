@@ -30,9 +30,7 @@ export function searchCompanies(
   });
 }
 
-export function searchUsers(
-  nameSearchTerm: string
-) {
+export function searchUsers(nameSearchTerm: string) {
   return mmAxios.post('/support/users/search', {
     nameSearchTerm: nameSearchTerm,
   });

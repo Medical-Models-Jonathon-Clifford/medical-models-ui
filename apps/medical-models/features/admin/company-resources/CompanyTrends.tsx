@@ -118,8 +118,8 @@ export function CompanyTrends() {
   const growthChartOptions = {
     scales: {
       y: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     responsive: true,
     plugins: {

@@ -28,24 +28,29 @@ type CompanySearchResult = {
   id: string;
   name: string;
   locationState: string;
-}
+};
 
 export function CompanySearch() {
   const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
     CompanySearchResult[] | undefined
   >(undefined);
-  const [viewCompanyState, setViewCompanyState] = useState<ViewCompanyState>('loading');
+  const [viewCompanyState, setViewCompanyState] =
+    useState<ViewCompanyState>('loading');
   const [locationStateFilter, setLocationStateFilter] = React.useState('');
   const [nameSearchTerm, setNameSearchTerm] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseUpPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
@@ -55,7 +60,10 @@ export function CompanySearch() {
 
   async function fetchCompanyData() {
     setViewCompanyState('loading');
-    const companyResponse = await searchCompanies(locationStateFilter, nameSearchTerm);
+    const companyResponse = await searchCompanies(
+      locationStateFilter,
+      nameSearchTerm
+    );
     setTotalCompanyMetrics(companyResponse.data);
     setViewCompanyState('loaded');
   }
@@ -64,11 +72,13 @@ export function CompanySearch() {
     fetchCompanyData();
   }, [locationStateFilter, nameSearchTerm]);
 
-  const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleNameChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     const value = event.target.value;
     console.log('name change: %o', value);
     setNameSearchTerm(value);
-  }
+  };
 
   return (
     <>

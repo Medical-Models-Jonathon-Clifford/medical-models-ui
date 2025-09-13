@@ -15,9 +15,9 @@ export type ViewUserDetails = {
 };
 
 export function UserDetails({ userId }: { userId: string }) {
-  const [userDetails, setUserDetails] = useState<
-    ViewUserDetails | undefined
-  >(undefined);
+  const [userDetails, setUserDetails] = useState<ViewUserDetails | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     async function fetchCompanyDetails() {
@@ -33,7 +33,7 @@ export function UserDetails({ userId }: { userId: string }) {
       {userDetails && userDetails.pictureFilename && (
         <Box>
           <Typography variant="h2">{userDetails?.name}</Typography>
-          <Stack direction="row" style={{gap: '16px'}}>
+          <Stack direction="row" style={{ gap: '16px' }}>
             <Stack direction="column">
               <Typography variant="body1">
                 Name:{' '}

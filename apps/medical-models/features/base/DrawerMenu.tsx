@@ -1,9 +1,6 @@
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import AddIcon from '@mui/icons-material/Add';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -14,11 +11,12 @@ import styles from './DrawerMenu.module.scss';
 import { NewDrawer } from '../../components/drawer/NewDrawer';
 import { DocumentNode } from '../../types/document';
 import Divider from '@mui/material/Divider';
-import { DrawerButton } from './DrawerButton';
+import { DrawerLink } from './DrawerLink';
 import { useSession } from 'next-auth/react';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import { DrawerButton } from './DrawerButton';
 
 type DrawerMenuState = 'loading' | 'ready';
 
@@ -47,7 +45,7 @@ export default function DrawerMenu({
   }, []);
 
   const clickCreateNewDocument: MouseEventHandler<
-    HTMLDivElement
+    HTMLButtonElement
   > = async () => {
     try {
       const r = await newDocument();
@@ -63,15 +61,21 @@ export default function DrawerMenu({
         <List component="nav">
           {session?.user?.roles.includes('ROLE_ADMIN') && (
             <>
-              <DrawerButton href="/admin" icon={<DashboardOutlinedIcon />}>
+              <DrawerLink href="/admin" icon={<DashboardOutlinedIcon />}>
                 Admin Dashboard
-              </DrawerButton>
-              <DrawerButton href="/admin/details" icon={<AdminPanelSettingsOutlinedIcon />}>
+              </DrawerLink>
+              <DrawerLink
+                href="/admin/details"
+                icon={<AdminPanelSettingsOutlinedIcon />}
+              >
                 Company Details
-              </DrawerButton>
-              <DrawerButton href="/admin/users" icon={<PeopleOutlineOutlinedIcon />}>
+              </DrawerLink>
+              <DrawerLink
+                href="/admin/users"
+                icon={<PeopleOutlineOutlinedIcon />}
+              >
                 Manage Users
-              </DrawerButton>
+              </DrawerLink>
               <Divider component="li" />
             </>
           )}
@@ -111,12 +115,9 @@ export default function DrawerMenu({
                 docInfo={docInfo}
               ></NavTreeDocItem>
             ))}
-          <ListItemButton onClick={clickCreateNewDocument}>
-            <ListItemIcon>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create new document" />
-          </ListItemButton>
+          <DrawerButton onClick={clickCreateNewDocument} icon={<AddIcon />}>
+            Create new document
+          </DrawerButton>
         </List>
       )}
     </NewDrawer>

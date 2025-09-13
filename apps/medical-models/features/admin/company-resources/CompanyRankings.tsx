@@ -21,8 +21,9 @@ import { Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
 import {
-  getCompanyModelRankings, getUserRankingsForCommentCreation,
-  getUserRankingsForDocumentCreation
+  getCompanyModelRankings,
+  getUserRankingsForCommentCreation,
+  getUserRankingsForDocumentCreation,
 } from '../../../client/mm-admin-client';
 import styles from './CompanyRankings.module.scss';
 
@@ -54,9 +55,8 @@ export function CompanyRankings() {
   const [docCreationUserRankings, setDocCreationUserRankings] = useState<
     NamedUserRanking[] | undefined
   >(undefined);
-  const [commentCreationUserRankings, setCommentCreationUserRankings] = useState<
-    NamedUserRanking[] | undefined
-  >(undefined);
+  const [commentCreationUserRankings, setCommentCreationUserRankings] =
+    useState<NamedUserRanking[] | undefined>(undefined);
   const [modelRankings, setModelRankings] = useState<
     ModelRanking[] | undefined
   >(undefined);
@@ -64,8 +64,10 @@ export function CompanyRankings() {
 
   useEffect(() => {
     async function fetchSupportData() {
-      const docCreationUserRankingsResponse = await getUserRankingsForDocumentCreation();
-      const commentCreationUserRankingsResponse = await getUserRankingsForCommentCreation();
+      const docCreationUserRankingsResponse =
+        await getUserRankingsForDocumentCreation();
+      const commentCreationUserRankingsResponse =
+        await getUserRankingsForCommentCreation();
       const modelRankingsResponse = await getCompanyModelRankings();
       setDocCreationUserRankings(docCreationUserRankingsResponse.data);
       setCommentCreationUserRankings(commentCreationUserRankingsResponse.data);
@@ -133,53 +135,69 @@ export function CompanyRankings() {
     },
   };
 
-  const userDocCreationRankingLabels = docCreationUserRankings?.map(docCreationRanking => docCreationRanking.name);
+  const userDocCreationRankingLabels = docCreationUserRankings?.map(
+    (docCreationRanking) => docCreationRanking.name
+  );
 
   const userDocCreationRankingData = {
     labels: userDocCreationRankingLabels,
     datasets: [
       {
         label: 'Documents created',
-        data: docCreationUserRankings?.map(docCreationRanking => docCreationRanking.frequency),
+        data: docCreationUserRankings?.map(
+          (docCreationRanking) => docCreationRanking.frequency
+        ),
         borderColor: 'rgb(99,161,255)',
         backgroundColor: 'rgba(99,154,255,0.5)',
-      }
+      },
     ],
   };
 
-  const userWhoCreatedTheMostDocuments = docCreationUserRankings ? docCreationUserRankings[0].name : undefined;
+  const userWhoCreatedTheMostDocuments = docCreationUserRankings
+    ? docCreationUserRankings[0].name
+    : undefined;
 
-  const userCommentCreationRankingLabels = commentCreationUserRankings?.map(docCreationRanking => docCreationRanking.name);
+  const userCommentCreationRankingLabels = commentCreationUserRankings?.map(
+    (docCreationRanking) => docCreationRanking.name
+  );
 
   const userCommentCreationRankingData = {
     labels: userCommentCreationRankingLabels,
     datasets: [
       {
         label: 'Comments',
-        data: commentCreationUserRankings?.map(docCreationRanking => docCreationRanking.frequency),
+        data: commentCreationUserRankings?.map(
+          (docCreationRanking) => docCreationRanking.frequency
+        ),
         borderColor: 'rgb(99,161,255)',
         backgroundColor: 'rgba(99,154,255,0.5)',
-      }
+      },
     ],
   };
 
-  const userWhoCreatedTheMostComments = commentCreationUserRankings ? commentCreationUserRankings[0].name : undefined;
+  const userWhoCreatedTheMostComments = commentCreationUserRankings
+    ? commentCreationUserRankings[0].name
+    : undefined;
 
-  const labels = modelRankings?.map(modelRanking => modelRanking.type).map(getStringFromBlockType);
+  const labels = modelRankings
+    ?.map((modelRanking) => modelRanking.type)
+    .map(getStringFromBlockType);
 
   const data = {
     labels,
     datasets: [
       {
         label: 'Usage Frequency',
-        data: modelRankings?.map(modelRanking => modelRanking.frequency),
+        data: modelRankings?.map((modelRanking) => modelRanking.frequency),
         borderColor: 'rgb(99,161,255)',
         backgroundColor: 'rgba(99,154,255,0.5)',
-      }
+      },
     ],
   };
 
-  const mostPopularModel = modelRankings ? getStringFromBlockType(modelRankings[0].type) : undefined;
+  const mostPopularModel = modelRankings
+    ? getStringFromBlockType(modelRankings[0].type)
+    : undefined;
 
   return (
     <Box sx={{ padding: '8px' }}>
@@ -208,7 +226,10 @@ export function CompanyRankings() {
                   </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar options={userDocCreationRankingOptions} data={userDocCreationRankingData} />
+                  <Bar
+                    options={userDocCreationRankingOptions}
+                    data={userDocCreationRankingData}
+                  />
                 </div>
               </Paper>
               {/* Most New Comments */}
@@ -224,7 +245,10 @@ export function CompanyRankings() {
                   </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar options={userCommentCreationRankingOptions} data={userCommentCreationRankingData} />
+                  <Bar
+                    options={userCommentCreationRankingOptions}
+                    data={userCommentCreationRankingData}
+                  />
                 </div>
               </Paper>
             </Box>

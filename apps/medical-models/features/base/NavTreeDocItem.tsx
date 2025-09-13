@@ -135,12 +135,6 @@ export function NavTreeDocItem({
           <Box
             className={`more_actions ${styles.nav_tree_doc_item_options_box}`}
           >
-            <SquareIconButton
-              title="More Options"
-              onClick={() => console.log('clicked')}
-            >
-              <MoreHorizIcon />
-            </SquareIconButton>
             <SquareIconButton title="New Child" onClick={clickAddChild}>
               <AddIcon />
             </SquareIconButton>

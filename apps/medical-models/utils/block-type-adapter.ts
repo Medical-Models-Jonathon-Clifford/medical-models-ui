@@ -1,8 +1,8 @@
 const blockTypeToString: Record<string, string> = {
-  'text': 'Text',
+  text: 'Text',
   'half-life': 'Half Life',
-  'dielectric': 'Dielectric Props.',
-  'image': 'Image'
+  dielectric: 'Dielectric Props.',
+  image: 'Image',
 };
 
 export function getStringFromBlockType(blockType: string) {
