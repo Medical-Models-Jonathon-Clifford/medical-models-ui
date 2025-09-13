@@ -21,7 +21,14 @@ export async function NewAppBar() {
         }}
       >
         <Image src={`/favicon.png`} alt="Profile Icon" width={24} height={24} />
-        <Typography variant="h6" className={styles.new_app_bar_title_heading}>
+        <Typography
+          variant="h6"
+          sx={{
+            height: '24px',
+            lineHeight: 'normal',
+            fontSize: '24px',
+          }}
+        >
           Medical Models
         </Typography>
       </Link>

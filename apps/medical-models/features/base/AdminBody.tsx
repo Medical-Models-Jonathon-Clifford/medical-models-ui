@@ -11,6 +11,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DrawerMenu from './DrawerMenu';
+import {
+  borderColorLayoutLines,
+  colorBackground,
+  colorPrimary,
+} from '../../variables';
 
 type SideBarState = 'expanded' | 'collapsed';
 
@@ -44,9 +49,24 @@ export function AdminBody({ children }: { children: React.ReactNode }) {
         <Tooltip title={title} placement="right">
           <ListItemButton
             onClick={onClick}
-            className={styles.base_collapse_icon}
             sx={{
+              position: 'fixed',
               left: drawerWidth - TOGGLE_BUTTON_WIDTH / 2,
+              top: '88px',
+              borderColor: borderColorLayoutLines,
+              backgroundColor: 'white',
+              borderStyle: 'solid',
+              borderWidth: '1px',
+              borderRadius: '50%',
+              width: '28px',
+              height: '28px',
+              padding: 0,
+              '&:hover': {
+                backgroundColor: colorPrimary,
+                svg: {
+                  fill: colorBackground,
+                },
+              },
             }}
           >
             <ListItemIcon

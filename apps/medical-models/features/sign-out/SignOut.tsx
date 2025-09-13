@@ -1,5 +1,11 @@
 import { signOut } from '../../auth';
 import { cookies } from 'next/headers';
+import Button from '@mui/material/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {
+  borderColorLayoutLines,
+  borderColorLayoutLinesHover,
+} from '../../variables';
 
 export function SignOut() {
   return (
@@ -16,7 +22,23 @@ export function SignOut() {
         });
       }}
     >
-      <button>Sign Out</button>
+      <Button
+        type="submit"
+        startIcon={<LogoutIcon />}
+        variant="outlined"
+        sx={{
+          color: 'rgba(0, 0, 0, 0.87)',
+          textTransform: 'none',
+          borderColor: borderColorLayoutLines,
+          padding: '4px 12px',
+          '&:hover': {
+            backgroundColor: 'rgba(202,202,202,0.2)',
+            borderColor: borderColorLayoutLinesHover,
+          },
+        }}
+      >
+        Sign Out
+      </Button>
     </form>
   );
 }

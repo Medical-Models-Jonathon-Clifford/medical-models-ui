@@ -12,24 +12,3 @@ $side-bar-toggle-offset-from-app-bar: 32px;
   top: vars.$app-bar-height;
   height: calc(100vh - #{vars.$app-bar-height});
 }
-
-.base_collapse_icon {
-  position: fixed;
-  top: vars.$app-bar-height + $side-bar-toggle-offset-from-app-bar;
-  background-color: white;
-  border-style: solid;
-  border-color: vars.$border-color-layout-lines;
-  border-width: 1px;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-
-  &:hover {
-    background-color: vars.$color-primary;
-
-    svg {
-      fill: vars.$color-background;
-    }
-  }
-}
