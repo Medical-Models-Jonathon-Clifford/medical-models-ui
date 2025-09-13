@@ -26,14 +26,12 @@ export async function NewAppBar() {
         </Typography>
       </Link>
       <Stack direction="row">
-        <Stack direction="row">
+        <Stack direction="row" columnGap={'8px'}>
           <SignInOut />
           {session && (
             <UserInfo
               name={session.user.fullName}
               roles={session.user.roles}
-              email={session.user.email}
-              expires={session.expires}
               picture={session.user.picture}
             />
           )}

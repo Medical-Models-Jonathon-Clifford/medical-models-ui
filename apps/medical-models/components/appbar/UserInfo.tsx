@@ -1,63 +1,43 @@
 'use client';
 
-import { useState, MouseEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
+import styles from './UserInfo.module.scss';
+import Tooltip from '@mui/material/Tooltip';
+
+const READABLE_ROLES: Record<string, string> = {
+  ROLE_ADMIN: 'Admin',
+  ROLE_USER: 'User',
+  ROLE_SUPPORT: 'Support',
+};
+
+const chooseReadableRole = (role: string): string => {
+  return READABLE_ROLES[role];
+};
 
 export default function UserInfo({
   name,
   roles,
-  email,
-  expires,
   picture,
 }: {
   name: string;
   roles: string[];
-  email: string;
-  expires: string;
   picture: string | undefined;
 }) {
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
   return (
-    <div>
-      <IconButton aria-describedby={id} onClick={handleClick}>
-        <ListItemAvatar>
+    <Tooltip
+      title={`${name} - ${chooseReadableRole(roles[0])}`}
+      placement="bottom"
+    >
+      <Box className={styles.user_info_box}>
+        <ListItemAvatar className={styles.user_info_avatar}>
           <Avatar src={picture}>
             <ProfileIcon size={'100%'} />
           </Avatar>
         </ListItemAvatar>
-      </IconButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}>Name: {name}</Typography>
-        <Typography sx={{ p: 2 }}>Roles: {roles}</Typography>
-        <Typography sx={{ p: 2 }}>Email: {email}</Typography>
-        <Typography sx={{ p: 2 }}>Session Expires: {expires}</Typography>
-      </Popover>
-    </div>
+      </Box>
+    </Tooltip>
   );
 }

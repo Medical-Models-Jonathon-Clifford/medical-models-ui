@@ -15,7 +15,7 @@ export const newTestCommentNode = (
       body: 'Test comment',
       createdDate: createdDate,
       modifiedDate: modifiedDate,
-      profilePicturePath: '/users/picture/spotter.png'
+      profilePicturePath: '/users/picture/spotter.png',
     },
     children: [],
   };

@@ -1,19 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import NewModelSelection from '../../../features/new-model-selection/NewModelSelection';
-import Recent from '../../../features/recent/Recent';
-import { Stack } from '@mui/material';
+import { AxiosResponse } from 'axios';
+import { DocumentNode } from '../../../types/document';
+import { getAllNavigation } from '../../../client/mm-document-client';
+import { redirect } from 'next/navigation';
 
-export default function UserDashboard() {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Stack spacing={3}>
-          <NewModelSelection />
-          <Recent />
-        </Stack>
-      </Container>
-    </Box>
-  );
+export default async function UserRoot() {
+  const documents: AxiosResponse<DocumentNode[]> = await getAllNavigation();
+  const firstDocId = documents.data[0].id;
+  redirect(`/document/${firstDocId}`);
 }
