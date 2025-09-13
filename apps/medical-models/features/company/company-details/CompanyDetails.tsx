@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
+import styles from './CompanyDetails.module.scss';
 
 export type ViewCompanyDetailsDto = {
   id: string;
@@ -22,15 +23,15 @@ export function CompanyDetails({ companyDetails }: { companyDetails: ViewCompany
             <Stack direction="column">
               <Typography variant="body1">
                 Name:{' '}
-                <Typography display="inline" fontWeight={'bold'}>
+                <span className={styles.important_text}>
                   {companyDetails?.name}
-                </Typography>
+                </span>
               </Typography>
               <Typography variant="body1">
                 State:{' '}
-                <Typography display="inline" fontWeight={'bold'}>
+                <span className={styles.important_text}>
                   {companyDetails?.locationState}
-                </Typography>
+                </span>
               </Typography>
             </Stack>
             <Box

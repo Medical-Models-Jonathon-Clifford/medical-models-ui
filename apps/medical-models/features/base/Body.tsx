@@ -6,7 +6,6 @@ import MainStage from './MainStage';
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import { memo, useState } from 'react';
-import { useParams } from 'next/navigation';
 import Tooltip from '@mui/material/Tooltip';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -22,7 +21,6 @@ const TOGGLE_BUTTON_WIDTH = 24;
 export function Body({ children }: { children: React.ReactNode }) {
   const [drawerWidth, setDrawerWidth] = useState(EXPANDED_SIDE_BAR_WIDTH);
   const [sideBarState, setSideBarState] = useState<SideBarState>('expanded');
-  const params = useParams();
 
   const handleClickCollapse = () => {
     setSideBarState('collapsed');
@@ -70,7 +68,6 @@ export function Body({ children }: { children: React.ReactNode }) {
       <DrawerMenu
         open={sideBarState === 'expanded'}
         width={drawerWidth}
-        selectedDocId={String(params.id)}
       ></DrawerMenu>
       {sideBarState === 'expanded' && (
         <CollapseToggleButton title="Collapse" onClick={handleClickCollapse} />

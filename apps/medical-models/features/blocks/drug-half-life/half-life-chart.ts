@@ -43,7 +43,7 @@ export function halfLifeData(
         backgroundColor: 'rgba(99,154,255,0.5)',
       },
       {
-        label: '50% Concentration',
+        label: '50%',
         data: [
           { x: 0, y: dose / 2 },
           { x: drug.halfLife * 5, y: dose / 2 },

@@ -24,6 +24,7 @@ import {
   getCompanyCommentMetrics,
   getCompanyDocumentMetrics,
 } from '../../../client/mm-admin-client';
+import styles from './CompanyTrends.module.scss';
 
 ChartJS.register(
   BarElement,
@@ -156,9 +157,9 @@ export function CompanyTrends() {
               >
                 <Typography>
                   Company Documents:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className={styles.important_text}>
                     {totalDocumentMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line
@@ -175,9 +176,9 @@ export function CompanyTrends() {
               >
                 <Typography>
                   Company Comments:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className={styles.important_text}>
                     {totalCommentMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line

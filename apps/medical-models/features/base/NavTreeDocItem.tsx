@@ -1,3 +1,5 @@
+'use client';
+
 import React, { MouseEventHandler, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -5,7 +7,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { newDocumentWithParent } from '../../client/mm-document-client';
 import styles from './NavTreeDocItem.module.scss';
 import { DocumentNode } from '../../types/document';
@@ -19,14 +21,13 @@ const MAX_DOC_ITEM_TEXT_WIDTH = 204;
 export function NavTreeDocItem({
   docInfo,
   level = 0,
-  selectedDocId,
 }: {
   docInfo: DocumentNode;
   level?: number;
-  selectedDocId: string;
 }) {
   const [isFolderOpen, setIsFolderOpen] = useState(true);
   const router = useRouter();
+  const params = useParams();
 
   function isFolder() {
     return docInfo.children.length > 0;
@@ -63,6 +64,8 @@ export function NavTreeDocItem({
     return `${INITIAL_BUTTON_PADDING + level * EXTRA_PADDING_PER_LEVEL}px`;
   }
 
+  const docId = String(params.id);
+
   const DocItemButton = ({ children }: { children: React.ReactNode }) => {
     return (
       <Button
@@ -70,12 +73,10 @@ export function NavTreeDocItem({
         sx={{
           paddingLeft: getPaddingLeft(),
           backgroundColor:
-            selectedDocId === docInfo.id
-              ? 'rgba(25, 118, 210, 0.1)'
-              : 'transparent',
+            docId === docInfo.id ? 'rgba(25, 118, 210, 0.1)' : 'transparent',
           ':hover': {
             backgroundColor:
-              selectedDocId === docInfo.id
+              docId === docInfo.id
                 ? 'rgba(25, 118, 210, 0.2)'
                 : 'rgba(202,202,202,0.2)',
           },
@@ -122,7 +123,7 @@ export function NavTreeDocItem({
                 className={styles.nav_tree_doc_item_text}
                 sx={{
                   color:
-                    selectedDocId === docInfo.id
+                    docId === docInfo.id
                       ? 'rgba(25, 118, 210, 1)'
                       : 'rgba(0, 0, 0, 0.87)',
                 }}
@@ -153,7 +154,6 @@ export function NavTreeDocItem({
               <NavTreeDocItem
                 docInfo={childDocInfo}
                 level={level + 1}
-                selectedDocId={selectedDocId}
               ></NavTreeDocItem>
             </Box>
           );

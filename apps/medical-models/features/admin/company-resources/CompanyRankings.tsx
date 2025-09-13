@@ -24,6 +24,7 @@ import {
   getCompanyModelRankings, getUserRankingsForCommentCreation,
   getUserRankingsForDocumentCreation
 } from '../../../client/mm-admin-client';
+import styles from './CompanyRankings.module.scss';
 
 ChartJS.register(
   BarElement,
@@ -202,9 +203,9 @@ export function CompanyRankings() {
               >
                 <Typography>
                   Most Documents:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className={styles.important_text}>
                     {userWhoCreatedTheMostDocuments}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Bar options={userDocCreationRankingOptions} data={userDocCreationRankingData} />
@@ -218,9 +219,9 @@ export function CompanyRankings() {
               >
                 <Typography>
                   Most Comments:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className={styles.important_text}>
                     {userWhoCreatedTheMostComments}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Bar options={userCommentCreationRankingOptions} data={userCommentCreationRankingData} />
@@ -243,9 +244,9 @@ export function CompanyRankings() {
               >
                 <Typography>
                   Most Popular Model:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className={styles.important_text}>
                     {mostPopularModel}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Bar options={modelRankingOptions} data={data} />

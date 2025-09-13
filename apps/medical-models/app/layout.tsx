@@ -5,6 +5,7 @@ import { Session } from 'next-auth';
 import { auth } from '../auth';
 import Base from '../features/base/Base';
 import { redirect } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Medical Models',
@@ -23,7 +24,7 @@ const Core = async ({
   const session: Session | null = await auth();
 
   if (!session) {
-    redirect('/api/auth/signin')
+    redirect('/api/auth/signin');
   }
 
   if (session && session.user?.roles.includes('ROLE_SUPPORT')) {
@@ -54,11 +55,13 @@ export default async function RootLayout({
       </head>
       <body>
         <ThemeRegistry options={{ key: 'css', prepend: true }}>
-          <Providers>
-            <Core support={support} admin={undefined} user={user}>
-              {children}
-            </Core>
-          </Providers>
+          <SessionProvider>
+            <Providers>
+              <Core support={support} admin={undefined} user={user}>
+                {children}
+              </Core>
+            </Providers>
+          </SessionProvider>
         </ThemeRegistry>
       </body>
     </html>

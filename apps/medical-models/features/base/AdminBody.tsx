@@ -10,7 +10,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import AdminMenu from './AdminMenu';
+import DrawerMenu from './DrawerMenu';
 
 type SideBarState = 'expanded' | 'collapsed';
 
@@ -65,10 +65,10 @@ export function AdminBody({ children }: { children: React.ReactNode }) {
 
   return (
     <Box className={styles.base_drawer_and_main_stage}>
-      <AdminMenu
+      <DrawerMenu
         open={sideBarState === 'expanded'}
         width={drawerWidth}
-      ></AdminMenu>
+      ></DrawerMenu>
       {sideBarState === 'expanded' && (
         <CollapseToggleButton title="Collapse" onClick={handleClickCollapse} />
       )}
