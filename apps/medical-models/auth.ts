@@ -110,6 +110,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         console.log('token had an id_token: %o', token.id_token);
         const idToken = decodeIdToken(token.id_token as string);
         session.user.middle_name = idToken.middle_name;
+        session.user.userId = idToken.userId;
         session.user.companyId = idToken.companyId;
         session.user.honorific = idToken.honorific;
         session.user.givenName = idToken.given_name;
@@ -147,6 +148,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
 type AuthUser = {
   name: string;
+  userId: string;
   companyId: string;
   honorific: string;
   givenName: string;
