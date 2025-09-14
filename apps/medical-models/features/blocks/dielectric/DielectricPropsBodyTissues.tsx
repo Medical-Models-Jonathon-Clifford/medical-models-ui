@@ -14,14 +14,14 @@ import {
   PointElement,
   TimeScale,
   Title,
-  Tooltip,
+  Tooltip as TooltipJS,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { Button, Stack } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
 import { DEFAULT_TISSUE, Tissue, tissueFromName, TISSUES } from './tissues';
 import { getFrequencies, getProperties } from './dielectric';
 import {
@@ -30,6 +30,13 @@ import {
   chartPermittivityData,
 } from './dielectric-chart';
 import Paper from '@mui/material/Paper';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
 
 ChartJS.register(
   CategoryScale,
@@ -39,7 +46,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
+  TooltipJS,
   Legend
 );
 
@@ -49,7 +56,7 @@ const conductivityOptions = chartOptions(
   'Conductivity vs Frequency'
 ) as ChartOptions<'line'>;
 const permittivityOptions = chartOptions(
-  'Real Part of Permittivity vs Frequency'
+  'Permittivity vs Frequency'
 ) as ChartOptions<'line'>;
 
 function calculatePermittivityAndConductivity(tissue: Tissue) {
@@ -118,9 +125,15 @@ export function ReadOnlyDielectric({ tissueName }: { tissueName: string }) {
 export function EditDielectric({
   tissueName,
   saveChanges,
+  deleteBlock,
+  moveUp,
+  moveDown,
 }: {
   tissueName: string;
   saveChanges: (newTissue: Tissue) => void;
+  deleteBlock: () => void;
+  moveUp: () => void;
+  moveDown: () => void;
 }) {
   const [tissue, setTissue] = useState<Tissue | undefined>(
     tissueName ? tissueFromName(tissueName) : undefined
@@ -155,8 +168,35 @@ export function EditDielectric({
   if (state === 'Viewing' && tissue) {
     return (
       <DielectricBox>
-        <p>{dielectricTitle(tissue)}</p>
-        <Button onClick={clickEditDielectric}>Edit</Button>
+        <Stack
+          flexDirection="row"
+          justifyContent="space-between"
+          width={'100%'}
+        >
+          <Typography>{dielectricTitle(tissue)}</Typography>
+          <Box>
+            <Tooltip title="Move up">
+              <IconButton aria-label="up" onClick={moveUp}>
+                <ArrowUpwardOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Move down">
+              <IconButton aria-label="down" onClick={moveDown}>
+                <ArrowDownwardOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit block">
+              <IconButton aria-label="edit" onClick={clickEditDielectric}>
+                <EditOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete block">
+              <IconButton aria-label="delete" onClick={deleteBlock}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Stack>
         <PermittivityAndConductivityCharts
           tissue={tissue}
         ></PermittivityAndConductivityCharts>
@@ -169,7 +209,18 @@ export function EditDielectric({
 
     return (
       <DielectricBox>
-        <p>{dielectricTitle(tissueOrDefault)}</p>
+        <Stack
+          flexDirection="row"
+          justifyContent="space-between"
+          width={'100%'}
+        >
+          <p>{dielectricTitle(tissueOrDefault)}</p>
+          <Tooltip title="Save block">
+            <IconButton aria-label="save" onClick={clickSaveDielectric}>
+              <SaveOutlinedIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
         <FormControl>
           <InputLabel id="tissue-select-label">Tissue</InputLabel>
           <Select
@@ -187,7 +238,6 @@ export function EditDielectric({
             ))}
           </Select>
         </FormControl>
-        <Button onClick={clickSaveDielectric}>Save</Button>
         <PermittivityAndConductivityCharts
           tissue={tissueOrDefault}
         ></PermittivityAndConductivityCharts>

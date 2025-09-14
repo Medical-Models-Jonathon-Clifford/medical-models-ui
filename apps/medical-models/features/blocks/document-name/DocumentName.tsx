@@ -4,6 +4,12 @@ import * as React from 'react';
 import { FormEventHandler, MouseEventHandler } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import {
+  borderColorLayoutLines,
+  borderColorLayoutLinesHover,
+} from '../../../variables';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 
 type DocNameState = 'Editing' | 'Viewing';
 
@@ -50,27 +56,59 @@ export function EditDocumentName({
     <Stack direction="row">
       {docNameState === 'Editing' && (
         <form onSubmit={onDocNameSubmit}>
-          <FormControl>
-            <TextField
-              id="outlined-basic"
-              label="New Document Name"
+          <Stack flexDirection="column" alignItems="flex-start" rowGap={'8px'}>
+            <FormControl>
+              <TextField
+                id="outlined-basic"
+                sx={{ width: '75ch' }}
+                variant="outlined"
+                value={inputDocumentName}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setInputDocumentName(event.target.value);
+                }}
+              />
+            </FormControl>
+            <Button
+              onClick={onDocNameSaveButtonClick}
+              startIcon={<SaveOutlinedIcon />}
               variant="outlined"
-              value={inputDocumentName}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setInputDocumentName(event.target.value);
+              sx={{
+                color: 'rgba(0, 0, 0, 0.87)',
+                textTransform: 'none',
+                borderColor: borderColorLayoutLines,
+                padding: '4px 12px',
+                '&:hover': {
+                  backgroundColor: 'rgba(202,202,202,0.2)',
+                  borderColor: borderColorLayoutLinesHover,
+                },
               }}
-            />
-          </FormControl>
-          <Button onClick={onDocNameSaveButtonClick}>Save</Button>
+            >
+              Save Name
+            </Button>
+          </Stack>
         </form>
       )}
       {docNameState === 'Viewing' && (
-        <>
+        <Stack flexDirection="column" alignItems="flex-start">
           <Typography variant="h2">{documentName}</Typography>
-          <Button onClick={setDocNameButtonClicked}>
-            Update Document Name
+          <Button
+            onClick={setDocNameButtonClicked}
+            startIcon={<EditOutlinedIcon />}
+            variant="outlined"
+            sx={{
+              color: 'rgba(0, 0, 0, 0.87)',
+              textTransform: 'none',
+              borderColor: borderColorLayoutLines,
+              padding: '4px 12px',
+              '&:hover': {
+                backgroundColor: 'rgba(202,202,202,0.2)',
+                borderColor: borderColorLayoutLinesHover,
+              },
+            }}
+          >
+            Edit Document Name
           </Button>
-        </>
+        </Stack>
       )}
     </Stack>
   );

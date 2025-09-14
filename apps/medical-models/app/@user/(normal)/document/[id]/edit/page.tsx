@@ -10,6 +10,13 @@ import {
 } from '../../../../../../client/mm-document-client';
 import { Document } from '../../../../../../types/document';
 import { EditBody } from './EditBody';
+import {
+  borderColorLayoutLines,
+  borderColorLayoutLinesHover,
+} from '../../../../../../variables';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import Box from '@mui/material/Box';
+import { formatTimeSince } from '../../../../../../utils/date-adapters';
 
 type EditDocState = 'loading' | 'loaded';
 
@@ -54,7 +61,30 @@ export default function Page({ params }: { params: { id: string } }) {
     <>
       {viewDocState === 'loading' && <p>Loading...</p>}
       {viewDocState === 'loaded' && data && (
-        <>
+        <Box
+          sx={{
+            padding: '16px 0',
+          }}
+        >
+          <Stack justifyContent={'flex-end'} direction={'row'} spacing={1}>
+            <Button
+              href={`/document/${params.id}`}
+              startIcon={<SaveOutlinedIcon />}
+              variant="outlined"
+              sx={{
+                color: 'rgba(0, 0, 0, 0.87)',
+                textTransform: 'none',
+                borderColor: borderColorLayoutLines,
+                padding: '4px 12px',
+                '&:hover': {
+                  backgroundColor: 'rgba(202,202,202,0.2)',
+                  borderColor: borderColorLayoutLinesHover,
+                },
+              }}
+            >
+              Save Page
+            </Button>
+          </Stack>
           <Stack>
             <EditDocumentName
               documentName={data.title}
@@ -62,15 +92,16 @@ export default function Page({ params }: { params: { id: string } }) {
             ></EditDocumentName>
           </Stack>
           <p>
-            Created: {data.createdDate} by User {data.creator} - Last modified:{' '}
-            {data.modifiedDate} - {data.state}
+            Created: {formatTimeSince(data.createdDate)} by{' '}
+            {data.creatorFullName} - Last modified:{' '}
+            {formatTimeSince(data.modifiedDate)}
           </p>
-          <Button href={`/document/${params.id}`}>Publish Page</Button>
+
           <EditBody
             body={data.body}
             saveBodyChanges={saveBodyChanges}
           ></EditBody>
-        </>
+        </Box>
       )}
     </>
   );

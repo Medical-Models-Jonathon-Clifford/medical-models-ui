@@ -12,7 +12,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {
-  appBarHeight,
   borderColorLayoutLines,
   colorBackground,
   colorPrimary,

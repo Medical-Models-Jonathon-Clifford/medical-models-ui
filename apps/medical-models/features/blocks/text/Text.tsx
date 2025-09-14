@@ -4,8 +4,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { MouseEventHandler, useState } from 'react';
-import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
+import { IconButton, Stack, TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 
 type EditTextState = 'Loading' | 'Editing' | 'Viewing';
 
@@ -22,9 +27,15 @@ export function ReadOnlyText({ text }: ViewTextProps) {
 export function EditText({
   value,
   saveChanges,
+  deleteBlock,
+  moveUp,
+  moveDown,
 }: {
   value: string;
   saveChanges: (value: string) => void;
+  deleteBlock: () => void;
+  moveUp: () => void;
+  moveDown: () => void;
 }) {
   const [inputText, setInputText] = useState(value);
   const [state, setState] = useState<EditTextState>(
@@ -51,15 +62,36 @@ export function EditText({
       )}
       {state === 'Viewing' && (
         <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <Box sx={{ display: 'flex', gap: '8px' }}>
+          <Stack gap={'8px'} flexDirection="row" justifyContent="space-between">
             <Typography variant="body1">{value}</Typography>
-            <Button onClick={clickEditTextBlock}>Edit</Button>
-          </Box>
+            <Box>
+              <Tooltip title="Move up">
+                <IconButton aria-label="up" onClick={moveUp}>
+                  <ArrowUpwardOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Move down">
+                <IconButton aria-label="down" onClick={moveDown}>
+                  <ArrowDownwardOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Edit block">
+                <IconButton aria-label="delete" onClick={clickEditTextBlock}>
+                  <EditOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete block">
+                <IconButton aria-label="delete" onClick={deleteBlock}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Stack>
         </Paper>
       )}
       {state === 'Editing' && (
         <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <Box sx={{ display: 'flex', gap: '8px' }}>
+          <Stack gap={'8px'} flexDirection="row" justifyContent="space-between">
             <TextField
               id="outlined-multiline-flexible"
               label="Multiline"
@@ -69,8 +101,12 @@ export function EditText({
                 setInputText(event.target.value);
               }}
             />
-            <Button onClick={clickSaveTextBlock}>Save</Button>
-          </Box>
+            <Tooltip title="Save block">
+              <IconButton aria-label="save" onClick={clickSaveTextBlock}>
+                <SaveOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
         </Paper>
       )}
     </>

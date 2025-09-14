@@ -2,11 +2,12 @@ export type Document = {
   id: string;
   title: string;
   content: string;
-  createdDate: string;
-  modifiedDate: string;
+  createdDate: Date;
+  modifiedDate: Date;
   body: string;
   creator: string;
   state: string;
+  creatorFullName: string;
 };
 
 export type DocumentNode = {

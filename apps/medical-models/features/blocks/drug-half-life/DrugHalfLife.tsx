@@ -13,7 +13,7 @@ import {
   PointElement,
   TimeScale,
   Title,
-  Tooltip,
+  Tooltip as TooltipJs,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import FormControl from '@mui/material/FormControl';
@@ -23,9 +23,15 @@ import MenuItem from '@mui/material/MenuItem';
 import { getConcentrations, getTimePoints } from './half-life-service';
 import { halfLifeData, options } from './half-life-chart';
 import { Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
-import { Button, Stack } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 
 ChartJS.register(
   CategoryScale,
@@ -34,14 +40,14 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
+  TooltipJs,
   Legend
 );
 
 type EditDrugHalfLifeState = 'Loading' | 'Editing' | 'Viewing';
 
 function halfLifeTitle(drug: Drug) {
-  return `${drug.name} Half Life: ${drug.halfLife}`;
+  return `${drug.name} Half Life: ${drug.halfLife} hrs`;
 }
 
 function HalfLifeBox({ children }: { children: React.ReactNode }) {
@@ -76,7 +82,7 @@ export function ReadOnlyDrugHalfLife({
   return (
     <HalfLifeBox>
       <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
-      <Typography variant="body1">Dose: {dose}</Typography>
+      <Typography variant="body1">Dose: {dose} mg</Typography>
       <HalfLifeChart drug={drug} dose={dose}></HalfLifeChart>
     </HalfLifeBox>
   );
@@ -86,10 +92,16 @@ export function EditDrugHalfLife({
   drugName,
   dose,
   saveChanges,
+  deleteBlock,
+  moveUp,
+  moveDown,
 }: {
   drugName: string;
   dose: number;
   saveChanges: (newDrug: Drug, newDose: number) => void;
+  deleteBlock: () => void;
+  moveUp: () => void;
+  moveDown: () => void;
 }) {
   const drug = drugFromName(drugName);
 
@@ -125,15 +137,55 @@ export function EditDrugHalfLife({
       )}
       {state === 'Viewing' && (
         <HalfLifeBox>
-          <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
-          <Typography variant="body1">Dose: {dose}</Typography>
-          <Button onClick={clickEditHalfLife}>Edit</Button>
+          <Stack
+            flexDirection="row"
+            justifyContent="space-between"
+            width={'100%'}
+          >
+            <Box>
+              <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
+              <Typography variant="body1">Dose: {dose} mg</Typography>
+            </Box>
+            <Box>
+              <Tooltip title="Move up">
+                <IconButton aria-label="up" onClick={moveUp}>
+                  <ArrowUpwardOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Move down">
+                <IconButton aria-label="down" onClick={moveDown}>
+                  <ArrowDownwardOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Edit block">
+                <IconButton aria-label="edit" onClick={clickEditHalfLife}>
+                  <EditOutlinedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete block">
+                <IconButton aria-label="delete" onClick={deleteBlock}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Stack>
           <HalfLifeChart drug={drug} dose={dose}></HalfLifeChart>
         </HalfLifeBox>
       )}
       {state === 'Editing' && (
         <HalfLifeBox>
-          <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
+          <Stack
+            flexDirection="row"
+            justifyContent="space-between"
+            width={'100%'}
+          >
+            <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
+            <Tooltip title="Save block">
+              <IconButton aria-label="save" onClick={clickSaveHalfLife}>
+                <SaveOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
           <Stack direction="row">
             <FormControl>
               <InputLabel id="drug-select-label">Drug</InputLabel>
@@ -168,7 +220,6 @@ export function EditDrugHalfLife({
               />
             </FormControl>
           </Stack>
-          <Button onClick={clickSaveHalfLife}>Save</Button>
           <HalfLifeChart drug={inputDrug} dose={inputDose}></HalfLifeChart>
         </HalfLifeBox>
       )}

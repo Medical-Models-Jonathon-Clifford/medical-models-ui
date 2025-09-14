@@ -107,6 +107,31 @@ export function EditBody({
     }
   };
 
+  const deleteBlock = (index: number) => {
+    const blocks: BlockType[] = getBlocks();
+    const newBlocks = blocks.filter((_, i) => i !== index);
+    saveBlocks(newBlocks);
+  };
+
+  const moveUp = (index: number) => {
+    const blocks: BlockType[] = getBlocks();
+    if (index > 0) {
+      // Swap the previous element with the current one
+      [blocks[index - 1], blocks[index]] = [blocks[index], blocks[index - 1]];
+      saveBlocks(blocks);
+    }
+  };
+
+  const moveDown = (index: number) => {
+    const blocks: BlockType[] = getBlocks();
+    // Check if we're not at the last element
+    if (index < blocks.length - 1) {
+      // Swap the current element with the next one
+      [blocks[index], blocks[index + 1]] = [blocks[index + 1], blocks[index]];
+      saveBlocks(blocks);
+    }
+  };
+
   const saveBlocks = (blocks: BlockType[]) => {
     saveBodyChanges(JSON.stringify(blocks));
   };
@@ -154,6 +179,9 @@ export function EditBody({
                 key={index}
                 value={block.text}
                 saveChanges={(newBody) => saveTextChanges(index, newBody)}
+                deleteBlock={() => deleteBlock(index)}
+                moveUp={() => moveUp(index)}
+                moveDown={() => moveDown(index)}
               ></EditText>
             );
           } else if (isDielectricBlockType(block)) {
@@ -164,6 +192,9 @@ export function EditBody({
                 saveChanges={(newTissue) =>
                   saveDielectricChanges(index, newTissue)
                 }
+                deleteBlock={() => deleteBlock(index)}
+                moveUp={() => moveUp(index)}
+                moveDown={() => moveDown(index)}
               ></EditDielectric>
             );
           } else if (isHalfLifeBlockType(block)) {
@@ -175,6 +206,9 @@ export function EditBody({
                 saveChanges={(newDrug, newDose) =>
                   saveHalfLifeChanges(index, newDrug, newDose)
                 }
+                deleteBlock={() => deleteBlock(index)}
+                moveUp={() => moveUp(index)}
+                moveDown={() => moveDown(index)}
               ></EditDrugHalfLife>
             );
           } else if (isImageBlockType(block)) {
@@ -185,6 +219,9 @@ export function EditBody({
                 saveChanges={(newFilename) =>
                   saveImageChanges(index, newFilename)
                 }
+                deleteBlock={() => deleteBlock(index)}
+                moveUp={() => moveUp(index)}
+                moveDown={() => moveDown(index)}
               ></EditImage>
             );
           }

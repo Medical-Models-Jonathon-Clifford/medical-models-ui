@@ -1,7 +1,6 @@
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { CommentNode } from '../utils/comments';
 import { formatTimeSince } from '../../../utils/date-adapters';
@@ -29,7 +28,7 @@ export function Comment({
         </Avatar>
         <Box className={styles.comment_info_box}>
           <Box>
-            <Link variant="h4">{commentNode.comment.fullName}</Link>
+            <Typography variant="h4">{commentNode.comment.fullName}</Typography>
             <Typography variant="caption">
               {formatTimeSince(commentNode.comment.modifiedDate)}
             </Typography>
