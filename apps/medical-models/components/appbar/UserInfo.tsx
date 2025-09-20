@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
-import styles from './UserInfo.module.scss';
 import Tooltip from '@mui/material/Tooltip';
 
 const READABLE_ROLES: Record<string, string> = {
@@ -31,8 +30,16 @@ export default function UserInfo({
       title={`${name} - ${chooseReadableRole(roles[0])}`}
       placement="bottom"
     >
-      <Box className={styles.user_info_box}>
-        <ListItemAvatar className={styles.user_info_avatar}>
+      <Box
+        sx={{
+          marginRight: '8px',
+        }}
+      >
+        <ListItemAvatar
+          sx={{
+            minWidth: 'auto',
+          }}
+        >
           <Avatar src={picture}>
             <ProfileIcon size={'100%'} />
           </Avatar>
