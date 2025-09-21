@@ -6,6 +6,14 @@ pipeline {
         GIT_CREDS = credentials('gitea-jenkins-user-and-pass')
     }
     stages {
+        stage('Secret check with Trufflehog') {
+            steps {
+                echo '------ Trufflehog Version ------'
+                sh 'trufflehog --version'
+                echo '------ Running Trufflehog secret scan ------'
+                sh 'trufflehog git file://. --fail --no-update'
+            }
+        }
         stage('Checkout medical-models-ui') {
             steps {
                 echo '------ Configuring Git to use credentials ------'
