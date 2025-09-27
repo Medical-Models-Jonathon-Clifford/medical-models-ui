@@ -47,6 +47,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       style: {
         logo: '/favicon.png',
       },
+      allowDangerousEmailAccountLinking: true,
       issuer: AUTHORIZATION_SERVER_URL,
       userinfo: AUTHORIZATION_SERVER_URL + '/userinfo',
       token: AUTHORIZATION_SERVER_URL + '/oauth2/token',
