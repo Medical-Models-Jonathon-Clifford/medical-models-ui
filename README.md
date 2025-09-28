@@ -1,16 +1,15 @@
 # Medical Models User Interface
 
-Next.js service for the frontend of the medical models application.
+Next.js service for the frontend of the Medical Models application.
 
 If you're interested in the architecture of Medical Models at a high level. Look here - [medical-models-system-documentation](https://github.com/Medical-Models-Jonathon-Clifford/medical-models-system-documentation). You'll find system diagrams, descriptions and only one UML diagram!
 
 If you want to see the other services, find them here:
 
-| Service                                       | Repo                                                                                                 |
-|-----------------------------------------------|------------------------------------------------------------------------------------------------------|
-| Medical Models Service                        | [medical-models-service](https://github.com/Medical-Models-Jonathon-Clifford/medical-models-service) |
-| Medical Models OAuth 2.0 Authorization Server | [medical-models-authorization-server](https://github.com/Medical-Models-Jonathon-Clifford/medical-models-authorization-server)          |
-
+| Service                                       | Repo                                                                                                                           |
+|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Medical Models Service                        | [medical-models-service](https://github.com/Medical-Models-Jonathon-Clifford/medical-models-service)                           |
+| Medical Models OAuth 2.0 Authorization Server | [medical-models-authorization-server](https://github.com/Medical-Models-Jonathon-Clifford/medical-models-authorization-server) |
 
 ## Local Setup
 
@@ -45,7 +44,8 @@ nx run medical-models:dev
 ```bash
 nx run medical-models:dev
 ```
-2. Any code change you make should live reload. Sometimes more extensive changes need a browser refresh. Installing new dependencies will require you to stop and start the development server.
+2. Navigate to http://localhost:3000 to view the application. You should see a login screen.
+3. Any code change you make should live reload. Sometimes more extensive changes need a browser refresh. Installing new dependencies will require you to stop and start the development server.
 
 ## Tooling
 
@@ -56,11 +56,11 @@ nx run medical-models:dev
 | React             | Industry standard library for building user interfaces on the web. Plenty of well-supported libraries for most tasks.                          | https://react.dev/reference/react |
 | Next.js           | Robust React web framework. Supports Server-side rendering.                                                                                    | https://nextjs.org/docs |
 | React Material UI | Popular React component library.                                                                                                               | https://mui.com/material-ui/getting-started/ |
-| Axios             | Popular isomorphic Javascript web client.                                                                                                      | https://axios-http.com/docs/intro |
+| Axios             | Isomorphic Javascript web client.                                                                                                              | https://axios-http.com/docs/intro |
 | Jest              | Standard Javascript unit testing library.                                                                                                      | https://jestjs.io/docs/getting-started |
 | Prettier          | An opinionated Javascript code formatter. Automatically fixes most code style issues.                                                          | https://prettier.io/docs/ |
 | ESLint            | Javascript linter. Catches additional code style violations on top of prettier.                                                                | https://eslint.org/docs/latest/ |
 | SCSS              | Superset of CSS that aids the maintainability of stylesheets as projects grow larger.                                                          | https://sass-lang.com/documentation/ |
-| Auth.js           | Handles OAuth 2.0 authentication.                                                                                                              | https://authjs.dev/getting-started |
+| Auth.js           | Handles OAuth 2.0 authentication and authorization.                                                                                            | https://authjs.dev/getting-started |
 | Chart.js          | Simple Javascript charting library.                                                                                                            | https://www.chartjs.org/docs/latest/ |
 | Nx                | Creates a dependency graph between sub-components of a project. Keeps the build fast as a project grows by only rebuilding updated components. | https://nx.dev/getting-started/intro |
