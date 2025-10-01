@@ -32,7 +32,6 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
-    "rust-src": "file:libs/rust-src/pkg",
     "sharp": "^0.33.5",
     "tslib": "^2.3.0",
     "unstorage": "^1.10.1",
