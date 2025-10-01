@@ -1,9 +1,0 @@
-@use './variables.scss' as vars;
-
-.environment_versions_table {
-  border: vars.$border_table;
-
-  td,th {
-    border: vars.$border_table;
-  }
-}

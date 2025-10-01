@@ -1,9 +1,0 @@
-{
-  "name": "samd-production-ui-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/samd-production-ui-e2e/src",
-  "tags": [],
-  "implicitDependencies": ["samd-production-ui"],
-  "// targets": "to see all targets run: nx show project samd-production-ui-e2e --web",
-  "targets": {}
-}
