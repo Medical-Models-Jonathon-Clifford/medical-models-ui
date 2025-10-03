@@ -22,21 +22,25 @@ git clone git@github.com:Medical-Models-Jonathon-Clifford/medical-models-ui.git
 ```bash
 cd medical-models-ui
 ```
-4. Install nx globally.
+4. Setup pre-commit hooks
+```bash
+./setup-hooks.sh
+```
+5. Install nx globally.
 ```bash
 npm install -g nx@19.5.7
 ```
-5. Install npm dependencies.
+6. Install npm dependencies.
 ```bash
 npm install
 ```
-6. Run medical-models-ui with the development server.
+7. Run medical-models-ui with the development server.
 ```bash
 nx run medical-models:dev
 ```
-7. Start the medical-models-authorization-server by following its instructions here -  https://github.com/Medical-Models-Jonathon-Clifford/medical-models-authorization-server
-8. Start the medical-models-service by following its instructions here -  https://github.com/Medical-Models-Jonathon-Clifford/medical-models-service
-9. Navigate to http://localhost:3000 to view the application.
+8. Start the medical-models-authorization-server by following its instructions here -  https://github.com/Medical-Models-Jonathon-Clifford/medical-models-authorization-server
+9. Start the medical-models-service by following its instructions here -  https://github.com/Medical-Models-Jonathon-Clifford/medical-models-service
+10. Navigate to http://localhost:3000 to view the application.
 
 ## Local Development
 
