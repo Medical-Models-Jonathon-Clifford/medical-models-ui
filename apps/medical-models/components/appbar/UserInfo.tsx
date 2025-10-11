@@ -44,7 +44,7 @@ export default function UserInfo({
             minWidth: 'auto',
           }}
         >
-          <Avatar src={undefined}>
+          <Avatar src={picture}>
             <ProfileIcon
               givenName={givenName}
               familyName={familyName}
