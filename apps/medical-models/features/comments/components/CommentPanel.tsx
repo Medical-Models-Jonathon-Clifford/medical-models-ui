@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import { CommentOutlined as CommentOutlinedIcon } from '@mui/icons-material';

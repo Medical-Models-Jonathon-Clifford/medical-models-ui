@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { redirect } from 'next/navigation';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import ThemeRegistry from '../features/base/ThemeRegistry';
-import Providers from './providers';
 import { auth } from '../auth';
 import Base from '../features/base/Base';
+import { LOGIN_URL } from './constants';
 import './global.css';
 
 export const metadata = {
@@ -17,15 +17,15 @@ const Core = async ({
   support,
   user,
 }: {
-  support: React.ReactNode;
-  user: React.ReactNode;
-  admin: React.ReactNode;
-  children: React.ReactNode;
+  support: ReactNode;
+  user: ReactNode;
+  admin: ReactNode;
+  children: ReactNode;
 }) => {
   const session: Session | null = await auth();
 
   if (!session) {
-    redirect('/api/auth/signin');
+    redirect(LOGIN_URL);
   }
 
   if (session && session.user?.roles.includes('ROLE_SUPPORT')) {
@@ -40,9 +40,9 @@ export default async function RootLayout({
   support,
   children,
 }: {
-  user: React.ReactNode;
-  support: React.ReactNode;
-  children: React.ReactNode;
+  user: ReactNode;
+  support: ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
@@ -57,11 +57,9 @@ export default async function RootLayout({
       <body>
         <ThemeRegistry options={{ key: 'css', prepend: true }}>
           <SessionProvider>
-            <Providers>
-              <Core support={support} admin={undefined} user={user}>
-                {children}
-              </Core>
-            </Providers>
+            <Core support={support} admin={undefined} user={user}>
+              {children}
+            </Core>
           </SessionProvider>
         </ThemeRegistry>
       </body>

@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import {
   BlockType,
   isDielectricBlockType,
@@ -10,18 +10,13 @@ import { ReadOnlyText } from '../../../../../features/blocks/text/Text';
 import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
 import { ReadOnlyImage } from '../../../../../features/blocks/image/Image';
-import styles from './page.module.scss';
 
 export function ReadOnlyBody({ body }: { body: string }) {
   const blocks: BlockType[] = JSON.parse(body);
 
   return (
     <>
-      {!blocks && (
-        <Typography className={styles.Placeholder}>
-          The test for Addison&apos;s is always inconclusive. - Dr Gregory House
-        </Typography>
-      )}
+      {!blocks && <Box sx={{ height: '150px' }}></Box>}
       {blocks &&
         blocks.map((block: BlockType, index: number) => {
           if (isTextBlockType(block)) {

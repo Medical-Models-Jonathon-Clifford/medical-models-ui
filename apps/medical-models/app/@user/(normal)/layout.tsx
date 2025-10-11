@@ -1,15 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Body } from '../../../features/base/Body';
 import '../../global.css';
 
 export default async function UserLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
-  return (
-    <>
-      <Body>{children}</Body>
-    </>
-  );
+  return <Body>{children}</Body>;
 }

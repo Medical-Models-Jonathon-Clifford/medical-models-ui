@@ -1,3 +1,5 @@
+'use client';
+
 import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import {
   Box,
