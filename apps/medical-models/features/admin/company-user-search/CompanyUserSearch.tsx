@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
-import { searchCompanyUsers } from '../../../client/mm-admin-client';
+import { searchCompanyUsers } from '../../../client/admin-client';
 import { SimplePageState } from '../../../types/states';
 
 type UserSearchResult = {

@@ -1,4 +1,4 @@
-import { getCompanyDetails } from '../../../../../client/mm-admin-client';
+import { getCompanyDetails } from '../../../../../client/admin-client';
 import { CompanyDetails } from '../../../../../features/company/company-details/CompanyDetails';
 
 export default async function AdminOrganisationDetailsPage() {

@@ -1,4 +1,4 @@
-import { getCompany } from '../../../../client/mm-company-client';
+import { getCompany } from '../../../../client/company-client';
 import { CompanyDetails } from '../../../../features/company/company-details/CompanyDetails';
 
 export default async function Page({ params }: { params: { id: string } }) {

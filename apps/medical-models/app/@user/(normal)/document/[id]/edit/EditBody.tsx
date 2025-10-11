@@ -13,13 +13,13 @@ import {
 import {
   DEFAULT_DRUG,
   Drug,
-} from '../../../../../../features/blocks/drug-half-life/drugs';
-import { DEFAULT_DOSE } from '../../../../../../features/blocks/drug-half-life/half-life-service';
-import { EditText } from '../../../../../../features/blocks/text/Text';
+} from '../../../../../../features/blocks/half-life/drugs';
+import { DEFAULT_DOSE } from '../../../../../../features/blocks/half-life/half-life-service';
+import { EditText } from '../../../../../../features/blocks/text/EditText';
 import { EditDielectric } from '../../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
-import { EditDrugHalfLife } from '../../../../../../features/blocks/drug-half-life/DrugHalfLife';
+import { EditHalfLife } from '../../../../../../features/blocks/half-life/DrugHalfLife';
 import { Box, Button, Paper } from '@mui/material';
-import { EditImage } from '../../../../../../features/blocks/image/Image';
+import { EditImage } from '../../../../../../features/blocks/image/EditImage';
 
 type EditBodyState = 'NoBody' | 'HasBody';
 
@@ -196,7 +196,7 @@ export function EditBody({
             );
           } else if (isHalfLifeBlockType(block)) {
             return (
-              <EditDrugHalfLife
+              <EditHalfLife
                 key={index}
                 drugName={block.drug}
                 dose={block.dose}
@@ -206,7 +206,7 @@ export function EditBody({
                 deleteBlock={() => deleteBlock(index)}
                 moveUp={() => moveUp(index)}
                 moveDown={() => moveDown(index)}
-              ></EditDrugHalfLife>
+              ></EditHalfLife>
             );
           } else if (isImageBlockType(block)) {
             return (

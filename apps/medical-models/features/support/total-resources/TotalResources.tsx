@@ -23,7 +23,7 @@ import {
   getTotalCompanyMetrics,
   getTotalDocumentMetrics,
   getTotalUserMetrics,
-} from '../../../client/mm-support-client';
+} from '../../../client/support-client';
 import { Stack } from '@mui/material';
 import { Typography } from '@mui/material';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
@@ -243,16 +243,13 @@ export function TotalResources() {
                   Most Popular Model:{' '}
                   <span className="important_text">{mostPopularModel}</span>
                 </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
+                <div style={{ height: '300px' }}>
                   <Bar options={modelRankingOptions} data={data} />
                 </div>
               </Paper>
               {/* Stack Placeholder */}
               <Box style={{ width: '50%', padding: '8px' }}>
-                <div
-                  className="chart-container"
-                  style={{ height: '300px' }}
-                ></div>
+                <div style={{ height: '300px' }}></div>
               </Box>
             </Box>
             <Typography variant="h3">Trends</Typography>
@@ -276,7 +273,7 @@ export function TotalResources() {
                     {totalCompanyMetrics?.total}
                   </span>
                 </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
+                <div style={{ height: '300px' }}>
                   <Line
                     options={growthChartOptions}
                     data={createCompanyChartData()}
@@ -295,7 +292,7 @@ export function TotalResources() {
                     {totalUserMetrics?.total}
                   </span>
                 </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
+                <div style={{ height: '300px' }}>
                   <Line
                     options={growthChartOptions}
                     data={createUserChartData()}
@@ -323,7 +320,7 @@ export function TotalResources() {
                     {totalDocumentMetrics?.total}
                   </span>
                 </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
+                <div style={{ height: '300px' }}>
                   <Line
                     options={growthChartOptions}
                     data={createDocumentChartData()}
@@ -342,7 +339,7 @@ export function TotalResources() {
                     {totalCommentMetrics?.total}
                   </span>
                 </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
+                <div style={{ height: '300px' }}>
                   <Line
                     options={growthChartOptions}
                     data={createCommentChartData()}

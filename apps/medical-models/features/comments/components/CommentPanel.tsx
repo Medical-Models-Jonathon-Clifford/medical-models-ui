@@ -9,7 +9,7 @@ import {
   getCommentsForDocument,
   saveNewComment,
   saveNewReplyComment,
-} from '../api/comment-client';
+} from '../../../client/comment-client';
 import {
   CommentNode,
   compareComments,

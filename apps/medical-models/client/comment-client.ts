@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { mmAxios } from '../../../client/mm-axios';
+import { mmAxios } from './mm-axios';
 
 export function deleteCommentById(commentId: string) {
   return mmAxios.delete(`/comments/${commentId}`);

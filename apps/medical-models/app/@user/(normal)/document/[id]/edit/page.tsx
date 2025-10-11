@@ -7,7 +7,7 @@ import { EditDocumentName } from '../../../../../../features/blocks/document-nam
 import {
   getDocument,
   updateDocument,
-} from '../../../../../../client/mm-document-client';
+} from '../../../../../../client/document-client';
 import { Document } from '../../../../../../types/document';
 import { EditBody } from './EditBody';
 import {

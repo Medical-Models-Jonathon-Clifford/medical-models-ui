@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
-import { searchCompanies } from '../../../client/mm-support-client';
+import { searchCompanies } from '../../../client/support-client';
 import { SimplePageState } from '../../../types/states';
 
 type CompanySearchResult = {

@@ -1,6 +1,7 @@
 import { zipToPoint } from '../../../utils/chart-adapters';
+import type { ChartOptions } from 'chart.js';
 
-export function chartOptions(title: string) {
+export function chartOptions(title: string): ChartOptions<'line'> {
   return {
     responsive: true,
     plugins: {

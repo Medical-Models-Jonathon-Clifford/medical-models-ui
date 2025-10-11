@@ -19,7 +19,6 @@ import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
-  type ChartOptions,
   Legend,
   LinearScale,
   LineElement,
@@ -41,6 +40,7 @@ import { MoveUp } from '../../../components/block-buttons/MoveUp';
 import { MoveDown } from '../../../components/block-buttons/MoveDown';
 import { EditBlock } from '../../../components/block-buttons/EditBlock';
 import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
+import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
 
 ChartJS.register(
   CategoryScale,
@@ -54,14 +54,8 @@ ChartJS.register(
   Legend
 );
 
-type EditDielectricState = 'Loading' | 'Editing' | 'Viewing';
-
-const conductivityOptions = chartOptions(
-  'Conductivity vs Frequency'
-) as ChartOptions<'line'>;
-const permittivityOptions = chartOptions(
-  'Permittivity vs Frequency'
-) as ChartOptions<'line'>;
+const conductivityOptions = chartOptions('Conductivity vs Frequency');
+const permittivityOptions = chartOptions('Permittivity vs Frequency');
 
 function calculatePermittivityAndConductivity(tissue: Tissue) {
   const frequencies = getFrequencies();
@@ -81,16 +75,10 @@ function PermittivityAndConductivityCharts({ tissue }: { tissue: Tissue }) {
 
   return (
     <Stack direction="row" width={'100%'} spacing={'10px'}>
-      <div
-        className="chart-container"
-        style={{ width: '50%', height: '300px' }}
-      >
+      <div style={{ width: '50%', height: '300px' }}>
         <Line options={permittivityOptions} data={permittivityData} />
       </div>
-      <div
-        className="chart-container"
-        style={{ width: '50%', height: '300px' }}
-      >
+      <div style={{ width: '50%', height: '300px' }}>
         <Line options={conductivityOptions} data={conductivityData} />
       </div>
     </Stack>
@@ -118,7 +106,7 @@ export function ReadOnlyDielectric({ tissueName }: { tissueName: string }) {
 
   return (
     <DielectricBox>
-      <p>{dielectricTitle(tissue)}</p>
+      <Typography variant="body1">{dielectricTitle(tissue)}</Typography>
       <PermittivityAndConductivityCharts
         tissue={tissue}
       ></PermittivityAndConductivityCharts>
@@ -142,8 +130,8 @@ export function EditDielectric({
   const [tissue, setTissue] = useState<Tissue | undefined>(
     tissueName ? tissueFromName(tissueName) : undefined
   );
-  const [state, setState] = useState<EditDielectricState>(
-    tissueName ? 'Viewing' : 'Editing'
+  const [state, setState] = useState<LoadEditViewState>(
+    tissueName ? VIEWING : EDITING
   );
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -151,33 +139,21 @@ export function EditDielectric({
   };
 
   const clickEditDielectric = () => {
-    setState('Editing');
+    setState(EDITING);
   };
 
   const clickSaveDielectric = () => {
     if (tissue) {
       saveChanges(tissue);
     }
-    setState('Viewing');
+    setState(VIEWING);
   };
 
-  if (state === 'Loading') {
+  if (state === VIEWING && tissue) {
     return (
       <DielectricBox>
-        <p>Dielectric Properties...</p>
-      </DielectricBox>
-    );
-  }
-
-  if (state === 'Viewing' && tissue) {
-    return (
-      <DielectricBox>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          width={'100%'}
-        >
-          <Typography>{dielectricTitle(tissue)}</Typography>
+        <Stack flexDirection="row" justifyContent="space-between" width="100%">
+          <Typography variant="body1">{dielectricTitle(tissue)}</Typography>
           <Box>
             <MoveUp onClick={moveUp}></MoveUp>
             <MoveDown onClick={moveDown}></MoveDown>
@@ -192,17 +168,15 @@ export function EditDielectric({
     );
   }
 
-  if (state === 'Editing') {
+  if (state === EDITING) {
     const tissueOrDefault = tissue || DEFAULT_TISSUE;
 
     return (
       <DielectricBox>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          width={'100%'}
-        >
-          <p>{dielectricTitle(tissueOrDefault)}</p>
+        <Stack flexDirection="row" justifyContent="space-between" width="100%">
+          <Typography variant="body1">
+            {dielectricTitle(tissueOrDefault)}
+          </Typography>
           <Tooltip title="Save block">
             <IconButton aria-label="save" onClick={clickSaveDielectric}>
               <SaveOutlinedIcon />
@@ -212,7 +186,7 @@ export function EditDielectric({
         <FormControl>
           <InputLabel id="tissue-select-label">Tissue</InputLabel>
           <Select
-            variant={'filled'}
+            variant="filled"
             labelId="tissue-select-label"
             id="tissue-select"
             value={tissueOrDefault.name}

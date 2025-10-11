@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { searchUsers } from '../../../client/mm-support-client';
+import { searchUsers } from '../../../client/support-client';
 import { SimplePageState } from '../../../types/states';
 
 type UserSearchResult = {

@@ -4,7 +4,7 @@ import {
   getCompanyModelRankings,
   getUserRankingsForCommentCreation,
   getUserRankingsForDocumentCreation,
-} from '../../../client/mm-admin-client';
+} from '../../../client/admin-client';
 import { BarChart } from '../../../components/charts/BarChart';
 import { ModelRanking, NamedUserRanking } from '../../../types/dashboard';
 
@@ -165,7 +165,7 @@ export async function CompanyRankings() {
                   {userWhoCreatedTheMostDocuments}
                 </span>
               </Typography>
-              <div className="chart-container" style={{ height: '300px' }}>
+              <div style={{ height: '300px' }}>
                 <BarChart
                   options={userDocCreationRankingOptions}
                   data={userDocCreationRankingData}
@@ -184,7 +184,7 @@ export async function CompanyRankings() {
                   {userWhoCreatedTheMostComments}
                 </span>
               </Typography>
-              <div className="chart-container" style={{ height: '300px' }}>
+              <div style={{ height: '300px' }}>
                 <BarChart
                   options={userCommentCreationRankingOptions}
                   data={userCommentCreationRankingData}
@@ -210,16 +210,13 @@ export async function CompanyRankings() {
                 Most Popular Model:{' '}
                 <span className="important_text">{mostPopularModel}</span>
               </Typography>
-              <div className="chart-container" style={{ height: '300px' }}>
+              <div style={{ height: '300px' }}>
                 <BarChart options={modelRankingOptions} data={data} />
               </div>
             </Paper>
             {/* Stack Placeholder */}
             <Box style={{ width: '50%', padding: '8px' }}>
-              <div
-                className="chart-container"
-                style={{ height: '300px' }}
-              ></div>
+              <div style={{ height: '300px' }}></div>
             </Box>
           </Box>
         </Stack>

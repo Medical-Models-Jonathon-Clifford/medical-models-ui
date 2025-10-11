@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../../../features/blocks/document-name/DocumentName';
 import { CommentPanel } from '../../../../../features/comments/components/CommentPanel';
-import { getDocument } from '../../../../../client/mm-document-client';
+import { getDocument } from '../../../../../client/document-client';
 import { ReadOnlyBody } from './ReadOnlyBody';
 import {
   borderColorLayoutLines,

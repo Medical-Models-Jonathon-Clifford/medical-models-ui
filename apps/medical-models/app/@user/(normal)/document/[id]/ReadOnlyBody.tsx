@@ -6,10 +6,10 @@ import {
   isImageBlockType,
   isTextBlockType,
 } from '../../../../../types/block';
-import { ReadOnlyText } from '../../../../../features/blocks/text/Text';
+import { ReadOnlyText } from '../../../../../features/blocks/text/ReadOnlyText';
 import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
-import { ReadOnlyDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
-import { ReadOnlyImage } from '../../../../../features/blocks/image/Image';
+import { ReadOnlyHalfLife } from '../../../../../features/blocks/half-life/DrugHalfLife';
+import { ReadOnlyImage } from '../../../../../features/blocks/image/ReadOnlyImage';
 
 export function ReadOnlyBody({ body }: { body: string }) {
   const blocks: BlockType[] = JSON.parse(body);
@@ -30,11 +30,11 @@ export function ReadOnlyBody({ body }: { body: string }) {
             );
           } else if (isHalfLifeBlockType(block)) {
             return (
-              <ReadOnlyDrugHalfLife
+              <ReadOnlyHalfLife
                 key={index}
                 drugName={block.drug}
                 dose={block.dose}
-              ></ReadOnlyDrugHalfLife>
+              ></ReadOnlyHalfLife>
             );
           } else if (isImageBlockType(block)) {
             return (

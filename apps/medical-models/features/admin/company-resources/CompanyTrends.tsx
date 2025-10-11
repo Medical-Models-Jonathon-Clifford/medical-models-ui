@@ -3,7 +3,7 @@ import { ChartData, type ChartOptions } from 'chart.js';
 import {
   getCompanyCommentMetrics,
   getCompanyDocumentMetrics,
-} from '../../../client/mm-admin-client';
+} from '../../../client/admin-client';
 import { DatePoint, LineChart } from '../../../components/charts/LineChart';
 import {
   DailyResourceCount,
@@ -103,7 +103,7 @@ export async function CompanyTrends() {
                   {totalDocumentMetrics?.total}
                 </span>
               </Typography>
-              <div className="chart-container" style={{ height: '300px' }}>
+              <div style={{ height: '300px' }}>
                 <LineChart
                   options={growthChartOptions}
                   data={createDocumentChartData()}
@@ -122,7 +122,7 @@ export async function CompanyTrends() {
                   {totalCommentMetrics?.total}
                 </span>
               </Typography>
-              <div className="chart-container" style={{ height: '300px' }}>
+              <div style={{ height: '300px' }}>
                 <LineChart
                   options={growthChartOptions}
                   data={createCommentChartData()}

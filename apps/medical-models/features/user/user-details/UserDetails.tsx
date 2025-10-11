@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Box, Stack, Typography } from '@mui/material';
-import { getUserDetails } from '../../../client/mm-user-client';
+import { getUserDetails } from '../../../client/user-client';
 
 export type ViewUserDetails = {
   id: string;

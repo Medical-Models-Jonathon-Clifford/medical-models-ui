@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { NavTreeDocItem } from '../../components/nav-tree-doc-item/NavTreeDocItem';
-import { getAllNavigation, newDocument } from '../../client/mm-document-client';
+import { getAllNavigation, newDocument } from '../../client/document-client';
 import { Drawer } from '../../components/drawer/Drawer';
 import { DocumentNode } from '../../types/document';
 import { DrawerLink } from './DrawerLink';

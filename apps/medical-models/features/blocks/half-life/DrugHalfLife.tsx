@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   Box,
   FormControl,
@@ -19,7 +19,6 @@ import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
-  type ChartOptions,
   Legend,
   LinearScale,
   LineElement,
@@ -36,6 +35,7 @@ import { MoveUp } from '../../../components/block-buttons/MoveUp';
 import { MoveDown } from '../../../components/block-buttons/MoveDown';
 import { EditBlock } from '../../../components/block-buttons/EditBlock';
 import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
+import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
 
 ChartJS.register(
   CategoryScale,
@@ -48,13 +48,11 @@ ChartJS.register(
   Legend
 );
 
-type EditDrugHalfLifeState = 'Loading' | 'Editing' | 'Viewing';
-
 function halfLifeTitle(drug: Drug) {
   return `${drug.name} Half Life: ${drug.halfLife} hrs`;
 }
 
-function HalfLifeBox({ children }: { children: React.ReactNode }) {
+function HalfLifeBox({ children }: { children: ReactNode }) {
   return (
     <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</Box>
@@ -68,13 +66,13 @@ function HalfLifeChart({ drug, dose }: { drug: Drug; dose: number }) {
 
   return (
     <Line
-      options={options(drug.halfLife) as ChartOptions<'line'>}
+      options={options(drug.halfLife)}
       data={halfLifeData(timePoints, concentrations, drug, dose)}
     />
   );
 }
 
-export function ReadOnlyDrugHalfLife({
+export function ReadOnlyHalfLife({
   drugName,
   dose,
 }: {
@@ -92,7 +90,7 @@ export function ReadOnlyDrugHalfLife({
   );
 }
 
-export function EditDrugHalfLife({
+export function EditHalfLife({
   drugName,
   dose,
   saveChanges,
@@ -109,8 +107,8 @@ export function EditDrugHalfLife({
 }) {
   const drug = drugFromName(drugName);
 
-  const [state, setState] = useState<EditDrugHalfLifeState>(
-    drugName && dose ? 'Viewing' : 'Editing'
+  const [state, setState] = useState<LoadEditViewState>(
+    drugName && dose ? VIEWING : EDITING
   );
   const [inputDrug, setInputDrug] = useState(drug);
   const [inputDose, setInputDose] = useState(dose);
@@ -124,27 +122,22 @@ export function EditDrugHalfLife({
   };
 
   const clickEditHalfLife = () => {
-    setState('Editing');
+    setState(EDITING);
   };
 
   const clickSaveHalfLife = () => {
     saveChanges(inputDrug, inputDose);
-    setState('Viewing');
+    setState(VIEWING);
   };
 
   return (
     <>
-      {state === 'Loading' && (
-        <HalfLifeBox>
-          <Typography variant="body1">Half life...</Typography>
-        </HalfLifeBox>
-      )}
-      {state === 'Viewing' && (
+      {state === VIEWING && (
         <HalfLifeBox>
           <Stack
             flexDirection="row"
             justifyContent="space-between"
-            width={'100%'}
+            width="100%"
           >
             <Box>
               <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
@@ -160,12 +153,12 @@ export function EditDrugHalfLife({
           <HalfLifeChart drug={drug} dose={dose}></HalfLifeChart>
         </HalfLifeBox>
       )}
-      {state === 'Editing' && (
+      {state === EDITING && (
         <HalfLifeBox>
           <Stack
             flexDirection="row"
             justifyContent="space-between"
-            width={'100%'}
+            width="100%"
           >
             <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
             <Tooltip title="Save block">
@@ -178,7 +171,7 @@ export function EditDrugHalfLife({
             <FormControl>
               <InputLabel id="drug-select-label">Drug</InputLabel>
               <Select
-                variant={'filled'}
+                variant="filled"
                 labelId="drug-select-label"
                 id="drug-select"
                 value={inputDrug.name}

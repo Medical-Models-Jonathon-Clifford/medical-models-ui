@@ -4,7 +4,7 @@ import React, { MouseEventHandler, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Add as AddIcon, Circle as CircleIcon } from '@mui/icons-material';
 import { useParams, useRouter } from 'next/navigation';
-import { newDocumentWithParent } from '../../client/mm-document-client';
+import { newDocumentWithParent } from '../../client/document-client';
 import { DocumentNode } from '../../types/document';
 import { SquareIconButton } from '../square-icon-button/SquareIconButton';
 import { FolderIcon } from '../folder-icon/FolderIcon';
