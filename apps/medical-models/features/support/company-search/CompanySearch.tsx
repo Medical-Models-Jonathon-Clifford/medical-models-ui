@@ -24,8 +24,7 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { searchCompanies } from '../../../client/mm-support-client';
-
-type ViewCompanyState = 'loading' | 'loaded';
+import { SimplePageState } from '../../../types/states';
 
 type CompanySearchResult = {
   id: string;
@@ -38,7 +37,7 @@ export function CompanySearch() {
     CompanySearchResult[] | undefined
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
-    useState<ViewCompanyState>('loading');
+    useState<SimplePageState>('loading');
   const [locationStateFilter, setLocationStateFilter] = useState('');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
   const [showPassword, setShowPassword] = useState(true);

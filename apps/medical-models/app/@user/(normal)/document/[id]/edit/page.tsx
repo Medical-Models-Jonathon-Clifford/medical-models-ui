@@ -15,12 +15,11 @@ import {
   borderColorLayoutLinesHover,
 } from '../../../../../../variables';
 import { formatTimeSince } from '../../../../../../utils/date-adapters';
-
-type EditDocState = 'loading' | 'loaded';
+import { SimplePageState } from '../../../../../../types/states';
 
 export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<Document | undefined>(undefined);
-  const [viewDocState, setViewDocState] = useState<EditDocState>('loading');
+  const [viewDocState, setViewDocState] = useState<SimplePageState>('loading');
 
   useEffect(() => {
     async function fetchDocument() {

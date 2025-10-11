@@ -19,8 +19,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { searchUsers } from '../../../client/mm-support-client';
-
-type ViewCompanyState = 'loading' | 'loaded';
+import { SimplePageState } from '../../../types/states';
 
 type UserSearchResult = {
   id: string;
@@ -33,7 +32,7 @@ export function UserSearch() {
     UserSearchResult[] | undefined
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
-    useState<ViewCompanyState>('loading');
+    useState<SimplePageState>('loading');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
 
   useEffect(() => {

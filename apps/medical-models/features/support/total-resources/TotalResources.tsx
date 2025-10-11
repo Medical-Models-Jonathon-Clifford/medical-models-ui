@@ -32,6 +32,7 @@ import {
   ModelRanking,
   TotalResourceMetrics,
 } from '../../../types/dashboard';
+import { SimplePageState } from '../../../types/states';
 
 ChartJS.register(
   BarElement,
@@ -44,8 +45,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-type ViewDocState = 'loading' | 'loaded';
 
 export function TotalResources() {
   const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
@@ -63,7 +62,7 @@ export function TotalResources() {
   const [modelRankings, setModelRankings] = useState<
     ModelRanking[] | undefined
   >(undefined);
-  const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
+  const [viewDocState, setViewDocState] = useState<SimplePageState>('loading');
 
   useEffect(() => {
     async function fetchSupportData() {

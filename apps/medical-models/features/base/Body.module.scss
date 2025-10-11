@@ -1,15 +1,8 @@
-@use '../../../../variables.scss' as vars;
-
-.base_box {
-  display: flex;
-}
+@use '../../variables.scss' as vars;
 
 .base_drawer_and_main_stage {
   position: relative;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
   top: vars.$app-bar-height;
   height: calc(100vh - #{vars.$app-bar-height});
 }

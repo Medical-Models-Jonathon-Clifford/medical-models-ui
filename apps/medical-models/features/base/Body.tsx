@@ -14,7 +14,7 @@ import {
   colorBackground,
   colorPrimary,
 } from '../../variables';
-import styles from './Base.module.scss';
+import styles from './Body.module.scss';
 
 type SideBarState = 'expanded' | 'collapsed';
 

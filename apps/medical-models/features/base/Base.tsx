@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import styles from './Base.module.scss';
 import { AppBar } from '../../components/appbar/AppBar';
+import styles from './Base.module.scss';
 
-export default function Base({ children }: { children: React.ReactNode }) {
+export default function Base({ children }: { children: ReactNode }) {
   return (
     <>
       <CssBaseline />

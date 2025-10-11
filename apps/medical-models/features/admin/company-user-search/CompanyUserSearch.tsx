@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import {
   FormControl,
@@ -20,8 +19,7 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { searchCompanyUsers } from '../../../client/mm-admin-client';
-
-type ViewCompanyState = 'loading' | 'loaded';
+import { SimplePageState } from '../../../types/states';
 
 type UserSearchResult = {
   id: string;
@@ -34,32 +32,16 @@ export function CompanyUserSearch() {
     UserSearchResult[] | undefined
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
-    useState<ViewCompanyState>('loading');
+    useState<SimplePageState>('loading');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  async function fetchCompanyData() {
-    setViewCompanyState('loading');
-    const userResponse = await searchCompanyUsers(nameSearchTerm);
-    setTotalCompanyMetrics(userResponse.data);
-    setViewCompanyState('loaded');
-  }
 
   useEffect(() => {
+    async function fetchCompanyData() {
+      setViewCompanyState('loading');
+      const userResponse = await searchCompanyUsers(nameSearchTerm);
+      setTotalCompanyMetrics(userResponse.data);
+      setViewCompanyState('loaded');
+    }
     fetchCompanyData();
   }, [nameSearchTerm]);
 
@@ -67,7 +49,6 @@ export function CompanyUserSearch() {
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const value = event.target.value;
-    console.log('name change: %o', value);
     setNameSearchTerm(value);
   };
 
@@ -75,22 +56,14 @@ export function CompanyUserSearch() {
     <>
       <Typography variant="h3">User Search</Typography>
       <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-search">Name</InputLabel>
+        <InputLabel htmlFor="user-search-input">Name</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-search"
-          type={'text'}
+          id="user-search-input"
+          type="text"
           onChange={handleNameChange}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                aria-label={
-                  showPassword ? 'hide the password' : 'display the password'
-                }
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
-                edge="end"
-              >
+              <IconButton aria-label="search icon" edge="end">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
