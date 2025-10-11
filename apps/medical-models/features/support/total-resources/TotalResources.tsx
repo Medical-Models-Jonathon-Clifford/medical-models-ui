@@ -27,6 +27,11 @@ import {
 import { Stack } from '@mui/material';
 import { Typography } from '@mui/material';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
+import {
+  DailyResourceCount,
+  ModelRanking,
+  TotalResourceMetrics,
+} from '../../../types/dashboard';
 
 ChartJS.register(
   BarElement,
@@ -41,22 +46,6 @@ ChartJS.register(
 );
 
 type ViewDocState = 'loading' | 'loaded';
-
-type DailyResourceCount = {
-  date: string;
-  newResources: number;
-  runningTotal: number;
-};
-
-type TotalResourceMetrics = {
-  total: number;
-  dailyCounts: DailyResourceCount[];
-};
-
-type ModelRanking = {
-  type: string;
-  frequency: number;
-};
 
 export function TotalResources() {
   const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<

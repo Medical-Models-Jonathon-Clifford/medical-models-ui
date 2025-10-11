@@ -3,20 +3,19 @@
 import * as React from 'react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography,
-  InputLabel,
-  FormControl,
-  SelectChangeEvent,
-  IconButton,
-  OutlinedInput,
-  InputAdornment,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
@@ -36,7 +35,6 @@ export function CompanyUserSearch() {
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
     useState<ViewCompanyState>('loading');
-  const [locationStateFilter, setLocationStateFilter] = useState('');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
   const [showPassword, setShowPassword] = useState(true);
 
@@ -54,10 +52,6 @@ export function CompanyUserSearch() {
     event.preventDefault();
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setLocationStateFilter(event.target.value);
-  };
-
   async function fetchCompanyData() {
     setViewCompanyState('loading');
     const userResponse = await searchCompanyUsers(nameSearchTerm);
@@ -67,7 +61,7 @@ export function CompanyUserSearch() {
 
   useEffect(() => {
     fetchCompanyData();
-  }, [locationStateFilter, nameSearchTerm]);
+  }, [nameSearchTerm]);
 
   const handleNameChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>

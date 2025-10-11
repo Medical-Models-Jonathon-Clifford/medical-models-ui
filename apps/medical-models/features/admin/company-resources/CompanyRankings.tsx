@@ -1,77 +1,24 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  TimeScale,
-  Title,
-  Tooltip,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
 import {
   getCompanyModelRankings,
   getUserRankingsForCommentCreation,
   getUserRankingsForDocumentCreation,
 } from '../../../client/mm-admin-client';
+import { BarChart } from '../../../components/charts/BarChart';
+import { ModelRanking, NamedUserRanking } from '../../../types/dashboard';
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  TimeScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-type ViewDocState = 'loading' | 'loaded';
-
-type NamedUserRanking = {
-  name: string;
-  frequency: number;
-};
-
-type ModelRanking = {
-  type: string;
-  frequency: number;
-};
-
-export function CompanyRankings() {
-  const [docCreationUserRankings, setDocCreationUserRankings] = useState<
-    NamedUserRanking[] | undefined
-  >(undefined);
-  const [commentCreationUserRankings, setCommentCreationUserRankings] =
-    useState<NamedUserRanking[] | undefined>(undefined);
-  const [modelRankings, setModelRankings] = useState<
-    ModelRanking[] | undefined
-  >(undefined);
-  const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
-
-  useEffect(() => {
-    async function fetchSupportData() {
-      const docCreationUserRankingsResponse =
-        await getUserRankingsForDocumentCreation();
-      const commentCreationUserRankingsResponse =
-        await getUserRankingsForCommentCreation();
-      const modelRankingsResponse = await getCompanyModelRankings();
-      setDocCreationUserRankings(docCreationUserRankingsResponse.data);
-      setCommentCreationUserRankings(commentCreationUserRankingsResponse.data);
-      setModelRankings(modelRankingsResponse.data);
-      setViewDocState('loaded');
-    }
-
-    fetchSupportData();
-  }, []);
+export async function CompanyRankings() {
+  const docCreationUserRankingsResponse =
+    await getUserRankingsForDocumentCreation();
+  const docCreationUserRankings: NamedUserRanking[] =
+    docCreationUserRankingsResponse.data;
+  const commentCreationUserRankingsResponse =
+    await getUserRankingsForCommentCreation();
+  const commentCreationUserRankings: NamedUserRanking[] =
+    commentCreationUserRankingsResponse.data;
+  const modelRankingsResponse = await getCompanyModelRankings();
+  const modelRankings: ModelRanking[] = modelRankingsResponse.data;
 
   const userDocCreationRankingOptions = {
     indexAxis: 'y' as const,
@@ -196,90 +143,87 @@ export function CompanyRankings() {
 
   return (
     <Box sx={{ padding: '8px' }}>
-      {viewDocState === 'loading' && <p>Loading...</p>}
-      {viewDocState === 'loaded' && (
-        <>
-          <Stack direction={'column'} style={{ gap: '8px' }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                gap: '8px',
-              }}
+      <>
+        <Stack direction={'column'} style={{ gap: '8px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              gap: '8px',
+            }}
+          >
+            {/* Most New Documents */}
+            <Paper
+              elevation={3}
+              variant="outlined"
+              style={{ width: '50%', padding: '8px' }}
             >
-              {/* Most New Documents */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Most Documents:{' '}
-                  <span className="important_text">
-                    {userWhoCreatedTheMostDocuments}
-                  </span>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar
-                    options={userDocCreationRankingOptions}
-                    data={userDocCreationRankingData}
-                  />
-                </div>
-              </Paper>
-              {/* Most New Comments */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Most Comments:{' '}
-                  <span className="important_text">
-                    {userWhoCreatedTheMostComments}
-                  </span>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar
-                    options={userCommentCreationRankingOptions}
-                    data={userCommentCreationRankingData}
-                  />
-                </div>
-              </Paper>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                gap: '8px',
-              }}
+              <Typography>
+                Most Documents:{' '}
+                <span className="important_text">
+                  {userWhoCreatedTheMostDocuments}
+                </span>
+              </Typography>
+              <div className="chart-container" style={{ height: '300px' }}>
+                <BarChart
+                  options={userDocCreationRankingOptions}
+                  data={userDocCreationRankingData}
+                />
+              </div>
+            </Paper>
+            {/* Most New Comments */}
+            <Paper
+              elevation={3}
+              variant="outlined"
+              style={{ width: '50%', padding: '8px' }}
             >
-              {/* Model Rankings */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Most Popular Model:{' '}
-                  <span className="important_text">{mostPopularModel}</span>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Bar options={modelRankingOptions} data={data} />
-                </div>
-              </Paper>
-              {/* Stack Placeholder */}
-              <Box style={{ width: '50%', padding: '8px' }}>
-                <div
-                  className="chart-container"
-                  style={{ height: '300px' }}
-                ></div>
-              </Box>
+              <Typography>
+                Most Comments:{' '}
+                <span className="important_text">
+                  {userWhoCreatedTheMostComments}
+                </span>
+              </Typography>
+              <div className="chart-container" style={{ height: '300px' }}>
+                <BarChart
+                  options={userCommentCreationRankingOptions}
+                  data={userCommentCreationRankingData}
+                />
+              </div>
+            </Paper>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              gap: '8px',
+            }}
+          >
+            {/* Model Rankings */}
+            <Paper
+              elevation={3}
+              variant="outlined"
+              style={{ width: '50%', padding: '8px' }}
+            >
+              <Typography>
+                Most Popular Model:{' '}
+                <span className="important_text">{mostPopularModel}</span>
+              </Typography>
+              <div className="chart-container" style={{ height: '300px' }}>
+                <BarChart options={modelRankingOptions} data={data} />
+              </div>
+            </Paper>
+            {/* Stack Placeholder */}
+            <Box style={{ width: '50%', padding: '8px' }}>
+              <div
+                className="chart-container"
+                style={{ height: '300px' }}
+              ></div>
             </Box>
-          </Stack>
-        </>
-      )}
+          </Box>
+        </Stack>
+      </>
     </Box>
   );
 }

@@ -1,75 +1,24 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  type ChartOptions,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  TimeScale,
-  Title,
-  Tooltip,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { ChartData, type ChartOptions } from 'chart.js';
 import {
   getCompanyCommentMetrics,
   getCompanyDocumentMetrics,
 } from '../../../client/mm-admin-client';
+import { DatePoint, LineChart } from '../../../components/charts/LineChart';
+import {
+  DailyResourceCount,
+  TotalResourceMetrics,
+} from '../../../types/dashboard';
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  TimeScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-type ViewDocState = 'loading' | 'loaded';
-
-type DailyResourceCount = {
-  date: string;
-  newResources: number;
-  runningTotal: number;
-};
-
-type TotalResourceMetrics = {
-  total: number;
-  dailyCounts: DailyResourceCount[];
-};
-
-export function CompanyTrends() {
-  const [totalDocumentMetrics, setTotalDocumentMetrics] = useState<
-    TotalResourceMetrics | undefined
-  >(undefined);
-  const [totalCommentMetrics, setTotalCommentMetrics] = useState<
-    TotalResourceMetrics | undefined
-  >(undefined);
-  const [viewDocState, setViewDocState] = useState<ViewDocState>('loading');
-
-  useEffect(() => {
-    async function fetchSupportData() {
-      const documentResponse = await getCompanyDocumentMetrics();
-      const commentResponse = await getCompanyCommentMetrics();
-      setTotalDocumentMetrics(documentResponse.data);
-      setTotalCommentMetrics(commentResponse.data);
-      setViewDocState('loaded');
-    }
-
-    fetchSupportData();
-  }, []);
+export async function CompanyTrends() {
+  const documentResponse = await getCompanyDocumentMetrics();
+  const totalDocumentMetrics: TotalResourceMetrics = documentResponse.data;
+  const commentResponse = await getCompanyCommentMetrics();
+  const totalCommentMetrics: TotalResourceMetrics = commentResponse.data;
 
   const dailyResourceCountToDataPoint = (
     dailyCompanyCount: DailyResourceCount
-  ) => {
+  ): DatePoint => {
     return {
       x: dailyCompanyCount.date,
       y: dailyCompanyCount.runningTotal,
@@ -93,11 +42,11 @@ export function CompanyTrends() {
     };
   };
 
-  const commentDataPoints = totalCommentMetrics?.dailyCounts?.map(
+  const commentDataPoints: DatePoint[] = totalCommentMetrics?.dailyCounts?.map(
     dailyResourceCountToDataPoint
   );
 
-  const createCommentChartData = () => {
+  const createCommentChartData = (): ChartData<'line', DatePoint[]> => {
     return {
       datasets: [
         {
@@ -132,60 +81,57 @@ export function CompanyTrends() {
 
   return (
     <Box sx={{ padding: '8px' }}>
-      {viewDocState === 'loading' && <p>Loading...</p>}
-      {viewDocState === 'loaded' && (
-        <>
-          <Stack direction={'column'} style={{ gap: '8px' }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                gap: '8px',
-              }}
+      <>
+        <Stack direction={'column'} style={{ gap: '8px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              gap: '8px',
+            }}
+          >
+            {/* Documents */}
+            <Paper
+              elevation={3}
+              variant="outlined"
+              style={{ width: '50%', padding: '8px' }}
             >
-              {/* Documents */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Company Documents:{' '}
-                  <span className="important_text">
-                    {totalDocumentMetrics?.total}
-                  </span>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Line
-                    options={growthChartOptions}
-                    data={createDocumentChartData()}
-                  />
-                </div>
-              </Paper>
-              {/* Comments */}
-              <Paper
-                elevation={3}
-                variant="outlined"
-                style={{ width: '50%', padding: '8px' }}
-              >
-                <Typography>
-                  Company Comments:{' '}
-                  <span className="important_text">
-                    {totalCommentMetrics?.total}
-                  </span>
-                </Typography>
-                <div className="chart-container" style={{ height: '300px' }}>
-                  <Line
-                    options={growthChartOptions}
-                    data={createCommentChartData()}
-                  />
-                </div>
-              </Paper>
-            </Box>
-          </Stack>
-        </>
-      )}
+              <Typography>
+                Company Documents:{' '}
+                <span className="important_text">
+                  {totalDocumentMetrics?.total}
+                </span>
+              </Typography>
+              <div className="chart-container" style={{ height: '300px' }}>
+                <LineChart
+                  options={growthChartOptions}
+                  data={createDocumentChartData()}
+                />
+              </div>
+            </Paper>
+            {/* Comments */}
+            <Paper
+              elevation={3}
+              variant="outlined"
+              style={{ width: '50%', padding: '8px' }}
+            >
+              <Typography>
+                Company Comments:{' '}
+                <span className="important_text">
+                  {totalCommentMetrics?.total}
+                </span>
+              </Typography>
+              <div className="chart-container" style={{ height: '300px' }}>
+                <LineChart
+                  options={growthChartOptions}
+                  data={createCommentChartData()}
+                />
+              </div>
+            </Paper>
+          </Box>
+        </Stack>
+      </>
     </Box>
   );
 }
