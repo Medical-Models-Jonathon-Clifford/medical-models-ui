@@ -7,7 +7,7 @@
 .base_drawer_and_main_stage {
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   width: 100%;
   top: vars.$app-bar-height;

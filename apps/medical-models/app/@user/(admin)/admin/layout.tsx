@@ -1,8 +1,8 @@
-import { AdminBody } from '../../../../features/base/AdminBody';
 import { Box } from '@mui/material';
 import { auth } from '../../../../auth';
 import { Forbidden } from '../../../../features/forbidden/Forbidden';
 import styles from './layout.module.scss';
+import { Body } from '../../../../features/base/Body';
 
 export default async function AdminLayout({
   children,
@@ -21,15 +21,17 @@ export default async function AdminLayout({
 
   if (!session.user.roles.includes('ROLE_ADMIN')) {
     return (
-      <Box className={styles.base_drawer_and_main_stage}>
-        <Forbidden />
-      </Box>
+      <Body>
+        <div>
+          <Forbidden />
+        </div>
+      </Body>
     );
   }
 
   return (
-    <AdminBody>
+    <Body>
       <div>{children}</div>
-    </AdminBody>
+    </Body>
   );
 }
