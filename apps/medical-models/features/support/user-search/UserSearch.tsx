@@ -3,19 +3,19 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography,
-  InputLabel,
-  FormControl,
-  IconButton,
-  OutlinedInput,
-  InputAdornment,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { searchUsers } from '../../../client/mm-support-client';
@@ -36,14 +36,13 @@ export function UserSearch() {
     useState<ViewCompanyState>('loading');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
 
-  async function fetchUserData() {
-    setViewCompanyState('loading');
-    const userResponse = await searchUsers(nameSearchTerm);
-    setTotalUserMetrics(userResponse.data);
-    setViewCompanyState('loaded');
-  }
-
   useEffect(() => {
+    async function fetchUserData() {
+      setViewCompanyState('loading');
+      const userResponse = await searchUsers(nameSearchTerm);
+      setTotalUserMetrics(userResponse.data);
+      setViewCompanyState('loaded');
+    }
     fetchUserData();
   }, [nameSearchTerm]);
 

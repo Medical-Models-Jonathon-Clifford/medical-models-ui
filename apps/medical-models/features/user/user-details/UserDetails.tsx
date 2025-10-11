@@ -1,7 +1,5 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { Box, Typography, Stack } from '@mui/material';
+import Image from 'next/image';
+import { Box, Stack, Typography } from '@mui/material';
 import { getUserDetails } from '../../../client/mm-user-client';
 
 export type ViewUserDetails = {
@@ -11,19 +9,9 @@ export type ViewUserDetails = {
   pictureFilename: string;
 };
 
-export function UserDetails({ userId }: { userId: string }) {
-  const [userDetails, setUserDetails] = useState<ViewUserDetails | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    async function fetchCompanyDetails() {
-      const userDetailsResponse = await getUserDetails(userId);
-      setUserDetails(userDetailsResponse.data);
-    }
-
-    fetchCompanyDetails();
-  }, []);
+export async function UserDetails({ userId }: { userId: string }) {
+  const userDetailsResponse = await getUserDetails(userId);
+  const userDetails: ViewUserDetails = userDetailsResponse.data;
 
   return (
     <Box>
@@ -34,15 +22,11 @@ export function UserDetails({ userId }: { userId: string }) {
             <Stack direction="column">
               <Typography variant="body1">
                 Name:{' '}
-                <Typography display="inline" fontWeight={'bold'}>
-                  {userDetails?.name}
-                </Typography>
+                <span className="important_text">{userDetails?.name}</span>
               </Typography>
               <Typography variant="body1">
                 Email:{' '}
-                <Typography display="inline" fontWeight={'bold'}>
-                  {userDetails?.email}
-                </Typography>
+                <span className="important_text">{userDetails?.email}</span>
               </Typography>
             </Stack>
             <Box
@@ -53,11 +37,12 @@ export function UserDetails({ userId }: { userId: string }) {
                 borderStyle: 'solid',
               }}
             >
-              <img
+              <Image
                 width={198}
                 height={198}
                 src={`/users/picture/${userDetails?.pictureFilename}`}
                 alt={'Company logo'}
+                priority
               />
             </Box>
           </Stack>

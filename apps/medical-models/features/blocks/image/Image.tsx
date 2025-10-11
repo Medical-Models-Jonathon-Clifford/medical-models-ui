@@ -36,7 +36,7 @@ export function ReadOnlyImage({ filename }: ViewImageProps) {
       >
         <Image
           fill={true}
-          objectFit={'contain'}
+          style={{ objectFit: 'contain' }}
           src={`/images/${filename}`}
           alt={`Image of ${filename}`}
         />

@@ -217,7 +217,7 @@ export function CompanyRankings() {
               >
                 <Typography>
                   Most Documents:{' '}
-                  <span className={styles.important_text}>
+                  <span className="important_text">
                     {userWhoCreatedTheMostDocuments}
                   </span>
                 </Typography>

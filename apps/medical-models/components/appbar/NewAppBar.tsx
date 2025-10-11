@@ -18,7 +18,13 @@ export async function NewAppBar() {
           pathname: '/',
         }}
       >
-        <Image src={`/favicon.png`} alt="Profile Icon" width={24} height={24} />
+        <Image
+          src={`/favicon.png`}
+          alt="Profile Icon"
+          width={24}
+          height={24}
+          priority
+        />
         <Typography
           variant="h6"
           sx={{

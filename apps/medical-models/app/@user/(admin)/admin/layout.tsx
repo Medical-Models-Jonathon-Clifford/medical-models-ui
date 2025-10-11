@@ -1,8 +1,10 @@
+import React from 'react';
 import { Box } from '@mui/material';
 import { auth } from '../../../../auth';
 import { Forbidden } from '../../../../features/forbidden/Forbidden';
 import styles from './layout.module.scss';
 import { Body } from '../../../../features/base/Body';
+import '../../../global.css';
 
 export default async function AdminLayout({
   children,

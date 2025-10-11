@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Box, Stack, Typography } from '@mui/material';
 import styles from './CompanyDetails.module.scss';
 
-export type ViewCompanyDetailsDto = {
+type ViewCompanyDetailsDto = {
   id: string;
   name: string;
   locationState: string;

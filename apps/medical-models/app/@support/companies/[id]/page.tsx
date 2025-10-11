@@ -1,9 +1,9 @@
-import { SupportCompanyDetails } from '../../../../features/company/company-details/SupportCompanyDetails';
+import { getCompany } from '../../../../client/mm-company-client';
+import { CompanyDetails } from '../../../../features/company/company-details/CompanyDetails';
 
-export default function Page({ params }: { params: { id: string } }) {
-  return (
-    <>
-      <SupportCompanyDetails companyId={params.id}></SupportCompanyDetails>
-    </>
-  );
+export default async function Page({ params }: { params: { id: string } }) {
+  const companyDetailsResponse = await getCompany(params.id);
+  const companyDetails = companyDetailsResponse.data;
+
+  return <CompanyDetails companyDetails={companyDetails}></CompanyDetails>;
 }

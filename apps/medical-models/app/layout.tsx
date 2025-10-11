@@ -6,6 +6,7 @@ import ThemeRegistry from '../features/base/ThemeRegistry';
 import Providers from './providers';
 import { auth } from '../auth';
 import Base from '../features/base/Base';
+import './global.css';
 
 export const metadata = {
   title: 'Medical Models',

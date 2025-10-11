@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { CompanySearch } from '../../../features/support/company-search/CompanySearch';
 
-export default async function SupportUsersPage() {
+export default function SupportUsersPage() {
   return (
     <div>
       <Typography variant="h2">Manage All Companies</Typography>

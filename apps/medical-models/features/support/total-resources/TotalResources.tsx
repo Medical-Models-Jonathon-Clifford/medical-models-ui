@@ -253,9 +253,7 @@ export function TotalResources() {
               >
                 <Typography>
                   Most Popular Model:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
-                    {mostPopularModel}
-                  </Typography>
+                  <span className="important_text">{mostPopularModel}</span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Bar options={modelRankingOptions} data={data} />
@@ -286,9 +284,9 @@ export function TotalResources() {
               >
                 <Typography>
                   Total Companies:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className="important_text">
                     {totalCompanyMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line
@@ -305,9 +303,9 @@ export function TotalResources() {
               >
                 <Typography>
                   Total Users:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className="important_text">
                     {totalUserMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line
@@ -333,9 +331,9 @@ export function TotalResources() {
               >
                 <Typography>
                   Total Documents:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className="important_text">
                     {totalDocumentMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line
@@ -352,9 +350,9 @@ export function TotalResources() {
               >
                 <Typography>
                   Total Comments:{' '}
-                  <Typography display="inline" fontWeight={'bold'}>
+                  <span className="important_text">
                     {totalCommentMetrics?.total}
-                  </Typography>
+                  </span>
                 </Typography>
                 <div className="chart-container" style={{ height: '300px' }}>
                   <Line
