@@ -1,7 +1,7 @@
-import { signOut } from '../../auth';
 import { cookies } from 'next/headers';
-import Button from '@mui/material/Button';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
+import { Logout as LogoutIcon } from '@mui/icons-material';
+import { signOut } from '../../auth';
 import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,

@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import { lightTheme } from './light-theme';
 
 // This implementation is from emotion-js

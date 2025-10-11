@@ -1,6 +1,8 @@
 import { MouseEventHandler } from 'react';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowRight as KeyboardArrowRightIcon,
+} from '@mui/icons-material';
 import { SquareIconButton } from '../../components/square-icon-button/SquareIconButton';
 
 export const FolderIcon = ({

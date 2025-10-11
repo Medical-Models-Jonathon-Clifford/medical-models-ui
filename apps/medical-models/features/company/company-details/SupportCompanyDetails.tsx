@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { getCompany } from '../../../client/mm-company-client';
 import { CompanyDetails, ViewCompanyDetailsDto } from './CompanyDetails';

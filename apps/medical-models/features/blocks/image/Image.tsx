@@ -1,19 +1,23 @@
-import { ViewImageProps } from '../../../types/block';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
 import { FormEventHandler, MouseEventHandler, useState } from 'react';
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {
+  EditOutlined as EditOutlinedIcon,
+  Delete as DeleteIcon,
+  SaveOutlined as SaveOutlinedIcon,
+  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
+  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
+} from '@mui/icons-material';
+import Image from 'next/image';
+import { ViewImageProps } from '../../../types/block';
 import { MEDICAL_MODELS_SERVICE_BASE_URL } from '../../../app/constants';
 import { postImage } from '../../../client/mm-document-client';
-import Image from 'next/image';
-import { IconButton, Stack } from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 
 type EditImageState = 'Loading' | 'Editing' | 'Viewing';
 

@@ -1,8 +1,6 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Box, Typography, Stack } from '@mui/material';
 import { Session } from 'next-auth';
 import SignInOut from '../user-button/SignInOut';
 import UserInfo from './UserInfo';

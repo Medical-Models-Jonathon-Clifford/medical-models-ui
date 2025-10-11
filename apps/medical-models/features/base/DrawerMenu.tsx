@@ -1,22 +1,21 @@
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import AddIcon from '@mui/icons-material/Add';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
+import { Box, Skeleton, List, Divider } from '@mui/material';
+import {
+  Add as AddIcon,
+  DashboardOutlined as DashboardOutlinedIcon,
+  AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
+  PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
+} from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
-import styles from './DrawerMenu.module.scss';
 import { NewDrawer } from '../../components/drawer/NewDrawer';
 import { DocumentNode } from '../../types/document';
-import Divider from '@mui/material/Divider';
 import { DrawerLink } from './DrawerLink';
-import { useSession } from 'next-auth/react';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import { DrawerButton } from './DrawerButton';
+import styles from './DrawerMenu.module.scss';
 
 type DrawerMenuState = 'loading' | 'ready';
 

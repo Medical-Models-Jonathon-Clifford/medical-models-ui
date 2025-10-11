@@ -1,23 +1,24 @@
 'use client';
 
-import * as React from 'react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { searchUsers } from '../../../client/mm-support-client';
-import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  InputLabel,
+  FormControl,
+  IconButton,
+  OutlinedInput,
+  InputAdornment,
+} from '@mui/material';
+import { Search as SearchIcon } from '@mui/icons-material';
+import { searchUsers } from '../../../client/mm-support-client';
 
 type ViewCompanyState = 'loading' | 'loaded';
 
@@ -33,7 +34,7 @@ export function UserSearch() {
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
     useState<ViewCompanyState>('loading');
-  const [nameSearchTerm, setNameSearchTerm] = React.useState('');
+  const [nameSearchTerm, setNameSearchTerm] = useState('');
 
   async function fetchUserData() {
     setViewCompanyState('loading');

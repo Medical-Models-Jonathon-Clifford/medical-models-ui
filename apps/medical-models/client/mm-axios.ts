@@ -1,8 +1,8 @@
-import { LOGIN_URL, MEDICAL_MODELS_SERVICE_BASE_URL } from '../app/constants';
+import { redirect } from 'next/navigation';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
+import { LOGIN_URL, MEDICAL_MODELS_SERVICE_BASE_URL } from '../app/constants';
 import { auth } from '../auth';
-import { redirect } from 'next/navigation';
 
 const mmAxios = axios.create({
   baseURL: MEDICAL_MODELS_SERVICE_BASE_URL,

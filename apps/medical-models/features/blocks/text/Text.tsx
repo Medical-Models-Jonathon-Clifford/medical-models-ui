@@ -1,16 +1,22 @@
-import { ViewTextProps } from '../../../types/block';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { MouseEventHandler, useState } from 'react';
-import { IconButton, Stack, TextField } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Tooltip from '@mui/material/Tooltip';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {
+  Delete as DeleteIcon,
+  EditOutlined as EditOutlinedIcon,
+  SaveOutlined as SaveOutlinedIcon,
+  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
+  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
+} from '@mui/icons-material';
+import { ViewTextProps } from '../../../types/block';
 
 type EditTextState = 'Loading' | 'Editing' | 'Viewing';
 

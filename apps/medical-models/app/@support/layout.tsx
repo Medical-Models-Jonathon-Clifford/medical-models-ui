@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { SupportBody } from '../../features/base/SupportBody';
 
 export default async function SupportLayout({

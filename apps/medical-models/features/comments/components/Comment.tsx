@@ -1,12 +1,9 @@
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Avatar, Box, Button, Typography } from '@mui/material';
+import { useSession } from 'next-auth/react';
 import { CommentNode } from '../utils/comments';
 import { formatTimeSince } from '../../../utils/date-adapters';
 import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 import styles from './Comment.module.scss';
-import { useSession } from 'next-auth/react';
 
 type CommentProps = {
   commentNode: CommentNode;

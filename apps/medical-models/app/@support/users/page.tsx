@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import { UserSearch } from '../../../features/support/user-search/UserSearch';
 
 export default async function SupportUsersPage() {

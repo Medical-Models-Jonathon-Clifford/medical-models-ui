@@ -1,21 +1,20 @@
 'use client';
 
-import styles from './Base.module.scss';
-import DrawerMenu from './DrawerMenu';
-import MainStage from './MainStage';
-import Box from '@mui/material/Box';
 import * as React from 'react';
 import { memo, useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Box, Tooltip, ListItemButton, ListItemIcon } from '@mui/material';
+import {
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+} from '@mui/icons-material';
+import DrawerMenu from './DrawerMenu';
+import MainStage from './MainStage';
 import {
   borderColorLayoutLines,
   colorBackground,
   colorPrimary,
 } from '../../variables';
+import styles from './Base.module.scss';
 
 type SideBarState = 'expanded' | 'collapsed';
 

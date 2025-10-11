@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import { CompanyUserSearch } from '../../../../../features/admin/company-user-search/CompanyUserSearch';
 
 export default function AdminUsersPage() {

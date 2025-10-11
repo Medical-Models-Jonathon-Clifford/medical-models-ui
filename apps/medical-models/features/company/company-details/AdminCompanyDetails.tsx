@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CompanyDetails } from './CompanyDetails';
 import { getCompanyDetails } from '../../../client/mm-admin-client';
 

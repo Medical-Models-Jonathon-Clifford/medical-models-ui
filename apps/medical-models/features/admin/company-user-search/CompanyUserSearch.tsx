@@ -2,22 +2,24 @@
 
 import * as React from 'react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  InputLabel,
+  FormControl,
+  SelectChangeEvent,
+  IconButton,
+  OutlinedInput,
+  InputAdornment,
+} from '@mui/material';
+import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import { SelectChangeEvent } from '@mui/material/Select';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
 import { searchCompanyUsers } from '../../../client/mm-admin-client';
 
 type ViewCompanyState = 'loading' | 'loaded';
@@ -34,9 +36,9 @@ export function CompanyUserSearch() {
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
     useState<ViewCompanyState>('loading');
-  const [locationStateFilter, setLocationStateFilter] = React.useState('');
-  const [nameSearchTerm, setNameSearchTerm] = React.useState('');
-  const [showPassword, setShowPassword] = React.useState(true);
+  const [locationStateFilter, setLocationStateFilter] = useState('');
+  const [nameSearchTerm, setNameSearchTerm] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 

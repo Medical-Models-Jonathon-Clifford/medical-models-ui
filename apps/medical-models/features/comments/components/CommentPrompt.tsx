@@ -1,8 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Avatar, Box, Typography } from '@mui/material';
 import { AddComment } from './AddComment';
 import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 import styles from './CommentPrompt.module.scss';

@@ -1,10 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../../../features/blocks/document-name/DocumentName';
-import Divider from '@mui/material/Divider';
 import { CommentPanel } from '../../../../../features/comments/components/CommentPanel';
 import { getDocument } from '../../../../../client/mm-document-client';
 import { ReadOnlyBody } from './ReadOnlyBody';
@@ -12,9 +10,7 @@ import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
 } from '../../../../../variables';
-import Box from '@mui/material/Box';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import Typography from '@mui/material/Typography';
+import { EditOutlined } from '@mui/icons-material';
 import { formatTimeSince } from '../../../../../utils/date-adapters';
 
 type Document = {
@@ -57,7 +53,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <Stack justifyContent={'flex-end'} direction={'row'} spacing={1}>
             <Button
               href={`/document/${params.id}/edit`}
-              startIcon={<EditOutlinedIcon />}
+              startIcon={<EditOutlined />}
               variant="outlined"
               sx={{
                 color: 'rgba(0, 0, 0, 0.87)',

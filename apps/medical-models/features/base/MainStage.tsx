@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import * as React from 'react';
+import { Box } from '@mui/material';
 import styles from './MainStage.module.scss';
 
 export default function MainStage({

@@ -1,8 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import {
   BarElement,
   CategoryScale,
@@ -17,7 +16,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
-import Paper from '@mui/material/Paper';
+import { Paper } from '@mui/material';
 import {
   getModelRankings,
   getTotalCommentMetrics,
@@ -26,7 +25,7 @@ import {
   getTotalUserMetrics,
 } from '../../../client/mm-support-client';
 import { Stack } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
 
 ChartJS.register(

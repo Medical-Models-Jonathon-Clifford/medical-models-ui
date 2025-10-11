@@ -1,10 +1,7 @@
 'use client';
 
-import Box from '@mui/material/Box';
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import { getUserDetails } from '../../../client/mm-user-client';
 
 export type ViewUserDetails = {

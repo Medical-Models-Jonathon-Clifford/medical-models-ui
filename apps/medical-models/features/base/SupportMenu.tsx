@@ -1,12 +1,12 @@
-import List from '@mui/material/List';
 import React from 'react';
+import { List, Stack, Divider } from '@mui/material';
+import {
+  DashboardOutlined as DashboardOutlinedIcon,
+  LocationCityOutlined as LocationCityOutlinedIcon,
+  PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
+} from '@mui/icons-material';
 import { NewDrawer } from '../../components/drawer/NewDrawer';
-import { Stack } from '@mui/material';
 import { DrawerLink } from './DrawerLink';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
-import Divider from '@mui/material/Divider';
 
 export default function SupportMenu({
   open,

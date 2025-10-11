@@ -1,7 +1,6 @@
-import * as React from 'react';
 import Title from '../../components/title/Title';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import { Grid } from '@mui/material';
+import { Paper } from '@mui/material';
 
 export default function Recent() {
   return (

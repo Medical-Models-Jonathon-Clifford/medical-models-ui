@@ -2,7 +2,26 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {
+  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
+  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
+  Delete as DeleteIcon,
+  EditOutlined as EditOutlinedIcon,
+  SaveOutlined as SaveOutlinedIcon,
+} from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -16,22 +35,9 @@ import {
   Tooltip as TooltipJs,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { getConcentrations, getTimePoints } from './half-life-service';
 import { halfLifeData, options } from './half-life-chart';
 import { Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
-import { IconButton, Stack } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 
 ChartJS.register(
   CategoryScale,

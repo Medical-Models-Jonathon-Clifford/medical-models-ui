@@ -18,6 +18,21 @@
               }
             ]
           }
+        ],
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@mui/material/*"],
+                "message": "Barrel import from @mui/material instead."
+              },
+              {
+                "group": ["@mui/icons-material/*"],
+                "message": "Barrel import from @mui/icons-material instead."
+              }
+            ]
+          }
         ]
       }
     },

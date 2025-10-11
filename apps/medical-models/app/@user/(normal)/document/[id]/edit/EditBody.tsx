@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { MouseEventHandler, useState } from 'react';
 import {
   BlockType,
@@ -19,9 +18,7 @@ import { DEFAULT_DOSE } from '../../../../../../features/blocks/drug-half-life/h
 import { EditText } from '../../../../../../features/blocks/text/Text';
 import { EditDielectric } from '../../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
 import { EditDrugHalfLife } from '../../../../../../features/blocks/drug-half-life/DrugHalfLife';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
+import { Box, Button, Paper } from '@mui/material';
 import { EditImage } from '../../../../../../features/blocks/image/Image';
 
 type EditBodyState = 'NoBody' | 'HasBody';

@@ -2,7 +2,26 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {
+  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
+  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
+  Delete as DeleteIcon,
+  EditOutlined as EditOutlinedIcon,
+  SaveOutlined as SaveOutlinedIcon,
+} from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -17,11 +36,6 @@ import {
   Tooltip as TooltipJS,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { IconButton, Stack } from '@mui/material';
 import { DEFAULT_TISSUE, Tissue, tissueFromName, TISSUES } from './tissues';
 import { getFrequencies, getProperties } from './dielectric';
 import {
@@ -29,14 +43,6 @@ import {
   chartOptions,
   chartPermittivityData,
 } from './dielectric-chart';
-import Paper from '@mui/material/Paper';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
 
 ChartJS.register(
   CategoryScale,

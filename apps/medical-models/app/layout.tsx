@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { redirect } from 'next/navigation';
+import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 import ThemeRegistry from '../features/base/ThemeRegistry';
 import Providers from './providers';
-import { Session } from 'next-auth';
 import { auth } from '../auth';
 import Base from '../features/base/Base';
-import { redirect } from 'next/navigation';
-import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Medical Models',

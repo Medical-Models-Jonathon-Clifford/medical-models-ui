@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import { Box, Divider, Typography } from '@mui/material';
+import { CommentOutlined as CommentOutlinedIcon } from '@mui/icons-material';
 import {
   deleteCommentById,
   editCommentById,

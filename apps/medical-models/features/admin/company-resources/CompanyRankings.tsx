@@ -1,8 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import {
   BarElement,
   CategoryScale,
@@ -16,9 +15,6 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import Paper from '@mui/material/Paper';
-import { Stack } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import { getStringFromBlockType } from '../../../utils/block-type-adapter';
 import {
   getCompanyModelRankings,

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import {
   BlockType,
   isDielectricBlockType,
@@ -5,13 +6,11 @@ import {
   isImageBlockType,
   isTextBlockType,
 } from '../../../../../types/block';
-import Typography from '@mui/material/Typography';
-import styles from './page.module.scss';
 import { ReadOnlyText } from '../../../../../features/blocks/text/Text';
 import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyDrugHalfLife } from '../../../../../features/blocks/drug-half-life/DrugHalfLife';
-import * as React from 'react';
 import { ReadOnlyImage } from '../../../../../features/blocks/image/Image';
+import styles from './page.module.scss';
 
 export function ReadOnlyBody({ body }: { body: string }) {
   const blocks: BlockType[] = JSON.parse(body);

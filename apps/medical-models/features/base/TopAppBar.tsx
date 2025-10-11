@@ -1,6 +1,5 @@
-import * as React from 'react';
+import { Box } from '@mui/material';
 import { NewAppBar } from '../../components/appbar/NewAppBar';
-import Box from '@mui/material/Box';
 import styles from './TopAppBar.module.scss';
 
 export default function TopAppBar() {

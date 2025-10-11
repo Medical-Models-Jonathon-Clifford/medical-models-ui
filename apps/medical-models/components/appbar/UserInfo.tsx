@@ -1,10 +1,7 @@
 'use client';
 
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { Avatar, Box, ListItemAvatar, Tooltip } from '@mui/material';
 import { ProfileIcon } from '../profile-icon/ProfileIcon';
-import Tooltip from '@mui/material/Tooltip';
 
 const READABLE_ROLES: Record<string, string> = {
   ROLE_ADMIN: 'Admin',

@@ -1,6 +1,5 @@
-import * as React from 'react';
+import { Typography } from '@mui/material';
 import { TotalResources } from '../../features/support/total-resources/TotalResources';
-import Typography from '@mui/material/Typography';
 
 export default async function SupportDashboardPage() {
   return (

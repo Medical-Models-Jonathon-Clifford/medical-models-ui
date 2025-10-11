@@ -68,3 +68,16 @@ nx run medical-models:dev
 | Auth.js           | Handles OAuth 2.0 authentication and authorization.                                                                                            | https://authjs.dev/getting-started |
 | Chart.js          | Simple Javascript charting library.                                                                                                            | https://www.chartjs.org/docs/latest/ |
 | Nx                | Creates a dependency graph between sub-components of a project. Keeps the build fast as a project grows by only rebuilding updated components. | https://nx.dev/getting-started/intro |
+
+## Optimizing Bundle Size
+
+The Material UI documentation states that Next.js 13.5 or later automatically optimises package imports for `@mui/material` and `@mui/icons-material`. The Next.js docs confirm this - https://nextjs.org/docs/app/api-reference/config/next-config-js/optimizePackageImports. There we should prefer the barrel import style in this project. This keeps the import section concise. i.e.
+
+```tsx
+// ✅ This
+import { Button, TextField } from '@mui/material';
+
+// ❌ Not this
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+```

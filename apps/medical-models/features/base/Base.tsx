@@ -1,6 +1,5 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
+import { Box, CssBaseline } from '@mui/material';
 import TopAppBar from './TopAppBar';
 import styles from './Base.module.scss';
 

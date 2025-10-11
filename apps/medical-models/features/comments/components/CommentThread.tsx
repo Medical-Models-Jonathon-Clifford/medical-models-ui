@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import { AddComment } from './AddComment';
+import { Box } from '@mui/material';
 import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
+import { AddComment } from './AddComment';
 import { Comment } from './Comment';
 import { CommentNode } from '../utils/comments';
 import styles from './CommentThread.module.scss';

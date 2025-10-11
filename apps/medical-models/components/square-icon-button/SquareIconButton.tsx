@@ -1,6 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import { IconButton, Tooltip } from '@mui/material';
 import styles from './SquareIconButton.module.scss';
 
 export const SquareIconButton = ({

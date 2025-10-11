@@ -1,15 +1,20 @@
-import { Stack, TextField } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
 import * as React from 'react';
-import { FormEventHandler, MouseEventHandler } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { FormEventHandler, MouseEventHandler, useState } from 'react';
+import {
+  Stack,
+  TextField,
+  FormControl,
+  Typography,
+  Button,
+} from '@mui/material';
+import {
+  EditOutlined as EditOutlinedIcon,
+  SaveOutlined as SaveOutlinedIcon,
+} from '@mui/icons-material';
 import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
 } from '../../../variables';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 
 type DocNameState = 'Editing' | 'Viewing';
 
@@ -28,9 +33,8 @@ export function EditDocumentName({
   documentName: string;
   saveChanges: (newName: string) => void;
 }) {
-  const [inputDocumentName, setInputDocumentName] =
-    React.useState(documentName);
-  const [docNameState, setDocNameState] = React.useState<DocNameState>(
+  const [inputDocumentName, setInputDocumentName] = useState(documentName);
+  const [docNameState, setDocNameState] = useState<DocNameState>(
     documentName ? 'Viewing' : 'Editing'
   );
 

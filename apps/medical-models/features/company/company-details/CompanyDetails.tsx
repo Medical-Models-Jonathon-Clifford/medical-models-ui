@@ -1,9 +1,6 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
-import styles from './CompanyDetails.module.scss';
 import Image from 'next/image';
+import { Box, Stack, Typography } from '@mui/material';
+import styles from './CompanyDetails.module.scss';
 
 export type ViewCompanyDetailsDto = {
   id: string;

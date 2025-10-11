@@ -1,17 +1,14 @@
 'use client';
 
 import React, { MouseEventHandler, useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import CircleIcon from '@mui/icons-material/Circle';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Typography } from '@mui/material';
+import { Add as AddIcon, Circle as CircleIcon } from '@mui/icons-material';
 import { useParams, useRouter } from 'next/navigation';
 import { newDocumentWithParent } from '../../client/mm-document-client';
-import styles from './NavTreeDocItem.module.scss';
 import { DocumentNode } from '../../types/document';
 import { SquareIconButton } from '../../components/square-icon-button/SquareIconButton';
 import { FolderIcon } from './FolderIcon';
+import styles from './NavTreeDocItem.module.scss';
 
 const INITIAL_BUTTON_PADDING = 8;
 const EXTRA_PADDING_PER_LEVEL = 15;

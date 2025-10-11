@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import React from 'react';
+import { Box } from '@mui/material';
 import styles from './NewDrawer.module.scss';
 
 export function NewDrawer({

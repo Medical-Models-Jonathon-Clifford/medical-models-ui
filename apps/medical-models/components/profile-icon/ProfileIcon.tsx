@@ -1,4 +1,4 @@
-import Avatar from '@mui/material/Avatar';
+import { Avatar } from '@mui/material';
 import styles from './ProfileIcon.module.scss';
 
 function stringToColor(string: string) {

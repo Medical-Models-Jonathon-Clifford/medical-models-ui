@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
+import { SaveOutlined } from '@mui/icons-material';
 import { EditDocumentName } from '../../../../../../features/blocks/document-name/DocumentName';
 import {
   getDocument,
@@ -14,8 +14,6 @@ import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
 } from '../../../../../../variables';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import Box from '@mui/material/Box';
 import { formatTimeSince } from '../../../../../../utils/date-adapters';
 
 type EditDocState = 'loading' | 'loaded';
@@ -69,7 +67,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <Stack justifyContent={'flex-end'} direction={'row'} spacing={1}>
             <Button
               href={`/document/${params.id}`}
-              startIcon={<SaveOutlinedIcon />}
+              startIcon={<SaveOutlined />}
               variant="outlined"
               sx={{
                 color: 'rgba(0, 0, 0, 0.87)',
