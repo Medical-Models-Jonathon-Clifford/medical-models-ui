@@ -15,13 +15,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import {
-  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
-  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
-  Delete as DeleteIcon,
-  EditOutlined as EditOutlinedIcon,
-  SaveOutlined as SaveOutlinedIcon,
-} from '@mui/icons-material';
+import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -43,6 +37,10 @@ import {
   chartOptions,
   chartPermittivityData,
 } from './dielectric-chart';
+import { MoveUp } from '../../../components/block-buttons/MoveUp';
+import { MoveDown } from '../../../components/block-buttons/MoveDown';
+import { EditBlock } from '../../../components/block-buttons/EditBlock';
+import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
 
 ChartJS.register(
   CategoryScale,
@@ -181,26 +179,10 @@ export function EditDielectric({
         >
           <Typography>{dielectricTitle(tissue)}</Typography>
           <Box>
-            <Tooltip title="Move up">
-              <IconButton aria-label="up" onClick={moveUp}>
-                <ArrowUpwardOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Move down">
-              <IconButton aria-label="down" onClick={moveDown}>
-                <ArrowDownwardOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Edit block">
-              <IconButton aria-label="edit" onClick={clickEditDielectric}>
-                <EditOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete block">
-              <IconButton aria-label="delete" onClick={deleteBlock}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            <MoveUp onClick={moveUp}></MoveUp>
+            <MoveDown onClick={moveDown}></MoveDown>
+            <EditBlock onClick={clickEditDielectric}></EditBlock>
+            <DeleteBlock onClick={deleteBlock}></DeleteBlock>
           </Box>
         </Stack>
         <PermittivityAndConductivityCharts

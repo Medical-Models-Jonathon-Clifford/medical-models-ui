@@ -9,17 +9,15 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import {
-  EditOutlined as EditOutlinedIcon,
-  Delete as DeleteIcon,
-  SaveOutlined as SaveOutlinedIcon,
-  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
-  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
-} from '@mui/icons-material';
+import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import { ViewImageProps } from '../../../types/block';
 import { MEDICAL_MODELS_SERVICE_BASE_URL } from '../../../app/constants';
 import { postImage } from '../../../client/mm-document-client';
+import { MoveUp } from '../../../components/block-buttons/MoveUp';
+import { MoveDown } from '../../../components/block-buttons/MoveDown';
+import { EditBlock } from '../../../components/block-buttons/EditBlock';
+import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
 
 type EditImageState = 'Loading' | 'Editing' | 'Viewing';
 
@@ -111,26 +109,10 @@ export function EditImage({
             </Box>
             <Box>
               <Stack flexDirection="row">
-                <Tooltip title="Move up">
-                  <IconButton aria-label="up" onClick={moveUp}>
-                    <ArrowUpwardOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Move down">
-                  <IconButton aria-label="down" onClick={moveDown}>
-                    <ArrowDownwardOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Edit block">
-                  <IconButton aria-label="edit" onClick={clickEditImageBlock}>
-                    <EditOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete block">
-                  <IconButton aria-label="delete" onClick={deleteBlock}>
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
+                <MoveUp onClick={moveUp}></MoveUp>
+                <MoveDown onClick={moveDown}></MoveDown>
+                <EditBlock onClick={clickEditImageBlock}></EditBlock>
+                <DeleteBlock onClick={deleteBlock}></DeleteBlock>
               </Stack>
             </Box>
           </Stack>

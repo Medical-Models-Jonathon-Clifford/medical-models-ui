@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { ListItemButton, ListItemIcon, Tooltip } from '@mui/material';
 import {
   borderColorLayoutLines,
@@ -9,7 +9,6 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
-import { useState } from 'react';
 
 export const EXPANDED_SIDE_BAR_WIDTH = 340;
 export const COLLAPSED_SIDE_BAR_WIDTH = 20;
@@ -17,7 +16,7 @@ export const TOGGLE_BUTTON_WIDTH = 24;
 
 export type SideBarState = 'expanded' | 'collapsed';
 
-export const createToggleButton = (icon: React.ReactNode) => {
+export const createToggleButton = (icon: ReactNode) => {
   return function ToggleButton({
     title,
     onClick,

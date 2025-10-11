@@ -11,14 +11,12 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import {
-  Delete as DeleteIcon,
-  EditOutlined as EditOutlinedIcon,
-  SaveOutlined as SaveOutlinedIcon,
-  ArrowDownwardOutlined as ArrowDownwardOutlinedIcon,
-  ArrowUpwardOutlined as ArrowUpwardOutlinedIcon,
-} from '@mui/icons-material';
+import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import { ViewTextProps } from '../../../types/block';
+import { MoveUp } from '../../../components/block-buttons/MoveUp';
+import { MoveDown } from '../../../components/block-buttons/MoveDown';
+import { EditBlock } from '../../../components/block-buttons/EditBlock';
+import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
 
 type EditTextState = 'Loading' | 'Editing' | 'Viewing';
 
@@ -73,26 +71,10 @@ export function EditText({
           <Stack gap={'8px'} flexDirection="row" justifyContent="space-between">
             <Typography variant="body1">{value}</Typography>
             <Box>
-              <Tooltip title="Move up">
-                <IconButton aria-label="up" onClick={moveUp}>
-                  <ArrowUpwardOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Move down">
-                <IconButton aria-label="down" onClick={moveDown}>
-                  <ArrowDownwardOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Edit block">
-                <IconButton aria-label="delete" onClick={clickEditTextBlock}>
-                  <EditOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete block">
-                <IconButton aria-label="delete" onClick={deleteBlock}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
+              <MoveUp onClick={moveUp}></MoveUp>
+              <MoveDown onClick={moveDown}></MoveDown>
+              <EditBlock onClick={clickEditTextBlock}></EditBlock>
+              <DeleteBlock onClick={deleteBlock}></DeleteBlock>
             </Box>
           </Stack>
         </Paper>

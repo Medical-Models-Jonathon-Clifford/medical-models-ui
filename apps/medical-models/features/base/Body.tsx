@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-import DrawerMenu from './DrawerMenu';
 import MainStage from './MainStage';
 import styles from './Body.module.scss';
 import {

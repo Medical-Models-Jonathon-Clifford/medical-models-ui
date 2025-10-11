@@ -6,8 +6,8 @@ import { Add as AddIcon, Circle as CircleIcon } from '@mui/icons-material';
 import { useParams, useRouter } from 'next/navigation';
 import { newDocumentWithParent } from '../../client/mm-document-client';
 import { DocumentNode } from '../../types/document';
-import { SquareIconButton } from '../../components/square-icon-button/SquareIconButton';
-import { FolderIcon } from './FolderIcon';
+import { SquareIconButton } from '../square-icon-button/SquareIconButton';
+import { FolderIcon } from '../folder-icon/FolderIcon';
 import styles from './NavTreeDocItem.module.scss';
 
 const INITIAL_BUTTON_PADDING = 8;

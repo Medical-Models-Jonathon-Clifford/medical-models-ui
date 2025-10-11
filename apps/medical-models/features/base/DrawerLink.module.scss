@@ -31,17 +31,6 @@
   gap: 8px;
 }
 
-.nav_tree_doc_item_leef_box {
-  border-radius: 4px;
-  width: 24px;
-  height: 24px;
-  font-size: 8px;
-  flex: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .nav_tree_doc_item_text_box {
   box-sizing: border-box;
   flex: auto;
@@ -60,17 +49,8 @@
   text-align: left;
 }
 
-.nav_tree_doc_item_options_box {
-  flex: none;
-}
-
 .nav_tree_doc_item_icon_box {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.nav_tree_doc_item_link {
-  text-decoration: none;
-  color: inherit;
 }

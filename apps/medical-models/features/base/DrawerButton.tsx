@@ -1,5 +1,3 @@
-'use client';
-
 import React, { MouseEventHandler } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import styles from './DrawerButton.module.scss';

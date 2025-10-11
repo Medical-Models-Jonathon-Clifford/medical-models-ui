@@ -8,8 +8,7 @@ import {
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { NavTreeDocItem } from './NavTreeDocItem';
-import { stubNavTreeDocs } from './stub-docs';
+import { NavTreeDocItem } from '../../components/nav-tree-doc-item/NavTreeDocItem';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
 import { Drawer } from '../../components/drawer/Drawer';
 import { DocumentNode } from '../../types/document';
@@ -28,8 +27,9 @@ export default function DrawerMenu({
 }) {
   const [drawerMenuState, setDrawerMenuState] =
     useState<DrawerMenuState>('loading');
-  const [navTreeDocs, setNavTreeDocs] =
-    useState<DocumentNode[]>(stubNavTreeDocs);
+  const [navTreeDocs, setNavTreeDocs] = useState<DocumentNode[] | undefined>(
+    undefined
+  );
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -108,6 +108,7 @@ export default function DrawerMenu({
             </Box>
           )}
           {drawerMenuState === 'ready' &&
+            navTreeDocs &&
             navTreeDocs.map((docInfo) => (
               <NavTreeDocItem
                 key={docInfo.id}

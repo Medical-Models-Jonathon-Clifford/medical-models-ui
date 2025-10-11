@@ -1,6 +1,4 @@
-'use client';
-
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import styles from './DrawerLink.module.scss';
 import { usePathname } from 'next/navigation';
@@ -11,12 +9,12 @@ export function DrawerLink({
   children,
 }: {
   href: string;
-  icon: React.ReactNode;
-  children?: React.ReactNode;
+  icon: ReactNode;
+  children?: ReactNode;
 }) {
   const pathname = usePathname();
 
-  const DocItemButton = ({ children }: { children: React.ReactNode }) => {
+  const DocItemButton = ({ children }: { children: ReactNode }) => {
     return (
       <Button
         className={styles.nav_tree_doc_item_button}
