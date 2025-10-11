@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { SelectChangeEvent } from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -29,43 +28,23 @@ type UserSearchResult = {
 };
 
 export function UserSearch() {
-  const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
+  const [totalUserMetrics, setTotalUserMetrics] = useState<
     UserSearchResult[] | undefined
   >(undefined);
   const [viewCompanyState, setViewCompanyState] =
     useState<ViewCompanyState>('loading');
-  const [locationStateFilter, setLocationStateFilter] = React.useState('');
   const [nameSearchTerm, setNameSearchTerm] = React.useState('');
-  const [showPassword, setShowPassword] = React.useState(true);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setLocationStateFilter(event.target.value);
-  };
-
-  async function fetchCompanyData() {
+  async function fetchUserData() {
     setViewCompanyState('loading');
     const userResponse = await searchUsers(nameSearchTerm);
-    setTotalCompanyMetrics(userResponse.data);
+    setTotalUserMetrics(userResponse.data);
     setViewCompanyState('loaded');
   }
 
   useEffect(() => {
-    fetchCompanyData();
-  }, [locationStateFilter, nameSearchTerm]);
+    fetchUserData();
+  }, [nameSearchTerm]);
 
   const handleNameChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -79,22 +58,14 @@ export function UserSearch() {
     <>
       <Typography variant="h3">User Search</Typography>
       <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-search">Name</InputLabel>
+        <InputLabel htmlFor="name-search-input">Name</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-search"
-          type={'text'}
+          id="name-search-input"
+          type="text"
           onChange={handleNameChange}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                aria-label={
-                  showPassword ? 'hide the password' : 'display the password'
-                }
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
-                edge="end"
-              >
+              <IconButton edge="end">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
@@ -105,7 +76,7 @@ export function UserSearch() {
       {viewCompanyState === 'loading' && <p>Loading...</p>}
       {viewCompanyState === 'loaded' && (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }} aria-label="User search results table">
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
@@ -113,7 +84,7 @@ export function UserSearch() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {totalCompanyMetrics?.map((row) => (
+              {totalUserMetrics?.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

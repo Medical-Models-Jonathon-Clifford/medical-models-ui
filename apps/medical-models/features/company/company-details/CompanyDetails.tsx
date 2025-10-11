@@ -1,10 +1,9 @@
-'use client';
-
-import Box from '@mui/material/Box';
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import styles from './CompanyDetails.module.scss';
+import Image from 'next/image';
 
 export type ViewCompanyDetailsDto = {
   id: string;
@@ -46,11 +45,12 @@ export function CompanyDetails({
                 borderStyle: 'solid',
               }}
             >
-              <img
+              <Image
                 width={198}
                 height={198}
                 src={`/images/${companyDetails?.logoFilename}`}
                 alt={'Company logo'}
+                priority
               />
             </Box>
           </Stack>
