@@ -76,9 +76,15 @@ export function AddComment({
 
   return (
     <Box className={styles.add_comment_box} sx={sx}>
-      <Avatar src={session?.user.picture}>
-        <ProfileIcon size={'100%'} />
-      </Avatar>
+      {session && (
+        <Avatar src={session.user.picture}>
+          <ProfileIcon
+            givenName={session.user.givenName}
+            familyName={session.user.familyName}
+            size={'100%'}
+          />
+        </Avatar>
+      )}
       <form
         className={styles.add_comment_form}
         onSubmit={handleSubmit(onSubmit)}

@@ -38,6 +38,8 @@ export async function NewAppBar() {
           {session && (
             <UserInfo
               name={session.user.fullName}
+              givenName={session.user.givenName}
+              familyName={session.user.familyName}
               roles={session.user.roles}
               picture={session.user.picture}
             />

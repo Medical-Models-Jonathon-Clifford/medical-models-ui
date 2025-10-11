@@ -18,10 +18,14 @@ const chooseReadableRole = (role: string): string => {
 
 export default function UserInfo({
   name,
+  givenName,
+  familyName,
   roles,
   picture,
 }: {
   name: string;
+  givenName: string;
+  familyName: string;
   roles: string[];
   picture: string | undefined;
 }) {
@@ -40,8 +44,12 @@ export default function UserInfo({
             minWidth: 'auto',
           }}
         >
-          <Avatar src={picture}>
-            <ProfileIcon size={'100%'} />
+          <Avatar src={undefined}>
+            <ProfileIcon
+              givenName={givenName}
+              familyName={familyName}
+              size={'100%'}
+            />
           </Avatar>
         </ListItemAvatar>
       </Box>

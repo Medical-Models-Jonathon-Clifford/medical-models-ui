@@ -21,21 +21,33 @@ function stringToColor(string: string) {
   return color;
 }
 
-function stringAvatar(name: string, size: number | string) {
+function stringAvatar(
+  givenName: string,
+  familyName: string,
+  size: number | string
+) {
   return {
     sx: {
-      bgcolor: stringToColor(name),
+      bgcolor: stringToColor(`${givenName} ${familyName}`),
       width: size,
       height: size,
     },
     children: (
-      <span className={styles.avatar_initials}>{`${name.split(' ')[0][0]}${
-        name.split(' ')[1][0]
-      }`}</span>
+      <span
+        className={styles.avatar_initials}
+      >{`${givenName[0]}${familyName[0]}`}</span>
     ),
   };
 }
 
-export function ProfileIcon({ size = 32 }: { size?: number | string }) {
-  return <Avatar {...stringAvatar('John Smith', size)}></Avatar>;
+export function ProfileIcon({
+  givenName,
+  familyName,
+  size = 32,
+}: {
+  givenName: string;
+  familyName: string;
+  size?: number | string;
+}) {
+  return <Avatar {...stringAvatar(givenName, familyName, size)}></Avatar>;
 }

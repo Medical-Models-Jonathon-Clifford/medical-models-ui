@@ -34,9 +34,15 @@ export function CommentPrompt({
       <Box className={styles.comment_prompt_box}>
         {commentPromptState === 'prompt' && (
           <>
-            <Avatar src={session?.user.picture}>
-              <ProfileIcon size={'100%'} />
-            </Avatar>
+            {session && (
+              <Avatar src={session?.user.picture}>
+                <ProfileIcon
+                  givenName={session.user.givenName}
+                  familyName={session.user.familyName}
+                  size={'100%'}
+                />
+              </Avatar>
+            )}
             <button
               className={styles.comment_prompt_button}
               onClick={() => setCommentPromptState('add-comment')}

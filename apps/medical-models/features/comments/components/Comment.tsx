@@ -6,6 +6,7 @@ import { CommentNode } from '../utils/comments';
 import { formatTimeSince } from '../../../utils/date-adapters';
 import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
 import styles from './Comment.module.scss';
+import { useSession } from 'next-auth/react';
 
 type CommentProps = {
   commentNode: CommentNode;
@@ -20,12 +21,20 @@ export function Comment({
   onEdit,
   onDelete,
 }: CommentProps) {
+  const { data: session } = useSession();
+
   return (
     <>
       <Box className={styles.comment_box}>
-        <Avatar src={commentNode.comment.profilePicturePath}>
-          <ProfileIcon size={'100%'} />
-        </Avatar>
+        {session && (
+          <Avatar src={commentNode.comment.profilePicturePath}>
+            <ProfileIcon
+              givenName={session.user.givenName}
+              familyName={session.user.familyName}
+              size={'100%'}
+            />
+          </Avatar>
+        )}
         <Box className={styles.comment_info_box}>
           <Box>
             <Typography variant="h4">{commentNode.comment.fullName}</Typography>
