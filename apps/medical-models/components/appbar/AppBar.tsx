@@ -5,15 +5,15 @@ import { Session } from 'next-auth';
 import SignInOut from '../user-button/SignInOut';
 import UserInfo from './UserInfo';
 import { auth } from '../../auth';
-import styles from './NewAppBar.module.scss';
+import styles from './AppBar.module.scss';
 
-export async function NewAppBar() {
+export async function AppBar() {
   const session: Session | null = await auth();
 
   return (
-    <Box className={styles.new_app_bar_box}>
+    <Box className={styles.app_bar_box}>
       <Link
-        className={styles.new_app_bar_link}
+        className={styles.app_bar_link}
         href={{
           pathname: '/',
         }}

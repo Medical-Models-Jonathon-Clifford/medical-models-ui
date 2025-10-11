@@ -20,7 +20,6 @@ import {
   getCompanyCommentMetrics,
   getCompanyDocumentMetrics,
 } from '../../../client/mm-admin-client';
-import styles from './CompanyTrends.module.scss';
 
 ChartJS.register(
   BarElement,
@@ -153,7 +152,7 @@ export function CompanyTrends() {
               >
                 <Typography>
                   Company Documents:{' '}
-                  <span className={styles.important_text}>
+                  <span className="important_text">
                     {totalDocumentMetrics?.total}
                   </span>
                 </Typography>
@@ -172,7 +171,7 @@ export function CompanyTrends() {
               >
                 <Typography>
                   Company Comments:{' '}
-                  <span className={styles.important_text}>
+                  <span className="important_text">
                     {totalCommentMetrics?.total}
                   </span>
                 </Typography>

@@ -1,6 +1,6 @@
 @use '../../variables.scss' as vars;
 
-.new_app_bar_box {
+.app_bar_box {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@
   z-index: 100;
 }
 
-.new_app_bar_link {
+.app_bar_link {
   display: flex;
   align-items: center;
   gap: 8px;

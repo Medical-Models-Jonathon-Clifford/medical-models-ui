@@ -5,7 +5,7 @@ import {
   LocationCityOutlined as LocationCityOutlinedIcon,
   PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
 } from '@mui/icons-material';
-import { NewDrawer } from '../../components/drawer/NewDrawer';
+import { Drawer } from '../../components/drawer/Drawer';
 import { DrawerLink } from './DrawerLink';
 
 export default function SupportMenu({
@@ -16,7 +16,7 @@ export default function SupportMenu({
   width: number;
 }) {
   return (
-    <NewDrawer width={width}>
+    <Drawer width={width}>
       {open && (
         <List component="nav">
           <Stack direction="column">
@@ -33,6 +33,6 @@ export default function SupportMenu({
           </Stack>
         </List>
       )}
-    </NewDrawer>
+    </Drawer>
   );
 }

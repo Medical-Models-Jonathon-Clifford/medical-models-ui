@@ -11,7 +11,7 @@ import { useSession } from 'next-auth/react';
 import { NavTreeDocItem } from './NavTreeDocItem';
 import { stubNavTreeDocs } from './stub-docs';
 import { getAllNavigation, newDocument } from '../../client/mm-document-client';
-import { NewDrawer } from '../../components/drawer/NewDrawer';
+import { Drawer } from '../../components/drawer/Drawer';
 import { DocumentNode } from '../../types/document';
 import { DrawerLink } from './DrawerLink';
 import { DrawerButton } from './DrawerButton';
@@ -55,7 +55,7 @@ export default function DrawerMenu({
   };
 
   return (
-    <NewDrawer width={width}>
+    <Drawer width={width}>
       {open && (
         <List component="nav">
           {session?.user?.roles.includes('ROLE_ADMIN') && (
@@ -119,6 +119,6 @@ export default function DrawerMenu({
           </DrawerButton>
         </List>
       )}
-    </NewDrawer>
+    </Drawer>
   );
 }

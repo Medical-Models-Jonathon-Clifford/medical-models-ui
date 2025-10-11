@@ -19,8 +19,6 @@ const Core = async ({
 }: {
   support: ReactNode;
   user: ReactNode;
-  admin: ReactNode;
-  children: ReactNode;
 }) => {
   const session: Session | null = await auth();
 
@@ -38,11 +36,9 @@ const Core = async ({
 export default async function RootLayout({
   user,
   support,
-  children,
 }: {
   user: ReactNode;
   support: ReactNode;
-  children: ReactNode;
 }) {
   return (
     <html lang="en">
@@ -57,9 +53,7 @@ export default async function RootLayout({
       <body>
         <ThemeRegistry options={{ key: 'css', prepend: true }}>
           <SessionProvider>
-            <Core support={support} admin={undefined} user={user}>
-              {children}
-            </Core>
+            <Core support={support} user={user}></Core>
           </SessionProvider>
         </ThemeRegistry>
       </body>
