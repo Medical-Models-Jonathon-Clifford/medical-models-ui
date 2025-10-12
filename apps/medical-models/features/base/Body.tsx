@@ -3,13 +3,13 @@
 import { ComponentType, ReactNode, useState } from 'react';
 import { Box } from '@mui/material';
 import MainStage from './MainStage';
-import styles from './Body.module.scss';
 import {
   COLLAPSED_SIDE_BAR_WIDTH,
   EXPANDED_SIDE_BAR_WIDTH,
   type SideBarState,
   SideBarToggleButton,
 } from './body-side-bar';
+import { appBarHeight } from '../../variables';
 
 export function Body({
   children,
@@ -32,7 +32,14 @@ export function Body({
   };
 
   return (
-    <Box className={styles.base_drawer_and_main_stage}>
+    <Box
+      sx={{
+        position: 'relative',
+        display: 'flex',
+        top: appBarHeight,
+        height: `calc(100vh - ${appBarHeight})`,
+      }}
+    >
       <Menu open={sideBarState === 'expanded'} width={drawerWidth}></Menu>
       <SideBarToggleButton
         drawerWidth={drawerWidth}

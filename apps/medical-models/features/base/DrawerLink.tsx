@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import styles from './DrawerLink.module.scss';

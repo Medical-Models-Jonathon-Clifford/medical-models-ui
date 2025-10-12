@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { Box } from '@mui/material';
-import styles from './MainStage.module.scss';
 
 export default function MainStage({
   children,
@@ -12,9 +11,12 @@ export default function MainStage({
   return (
     <Box
       component="main"
-      className={styles.main_stage_box}
       sx={{
         width: `calc(100vw - ${drawerWidth}px)`,
+        backgroundColor: '#fff',
+        overflowY: 'auto',
+        padding: '0 40px 20px 40px',
+        height: '100%',
       }}
     >
       {children}

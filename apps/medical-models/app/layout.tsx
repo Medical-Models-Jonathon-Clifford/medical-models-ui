@@ -7,6 +7,7 @@ import { auth } from '../auth';
 import Base from '../features/base/Base';
 import { LOGIN_URL } from './constants';
 import './global.css';
+import { ROLE_SUPPORT } from '../constants/roles';
 
 export const metadata = {
   title: 'Medical Models',
@@ -26,7 +27,7 @@ const Core = async ({
     redirect(LOGIN_URL);
   }
 
-  if (session && session.user?.roles.includes('ROLE_SUPPORT')) {
+  if (session && session.user?.roles.includes(ROLE_SUPPORT)) {
     return <Base>{support}</Base>;
   }
 
