@@ -1,7 +1,11 @@
-import { Box, styled } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 
-export const DashPlaceholder = styled(Box)({
-  width: '50%',
-  padding: '8px',
-  height: '300px',
-});
+export const DashPlaceholder = (props: BoxProps) => (
+  <Box
+    sx={{
+      width: '50%',
+      padding: '8px',
+      height: '300px',
+    }}
+  ></Box>
+);

@@ -36,7 +36,7 @@ export function BarChart({
   data,
 }: {
   options: ChartOptions<'bar'>;
-  data: ChartData<'bar'>;
+  data: ChartData<'bar', number[] | undefined>;
 }) {
   return <Bar options={options} data={data} />;
 }

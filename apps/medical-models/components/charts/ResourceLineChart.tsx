@@ -2,30 +2,13 @@ import {
   DailyResourceCount,
   TotalResourceMetrics,
 } from '../../types/dashboard';
-import {
-  CategoryScale,
-  Chart as ChartJS,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-} from 'chart.js';
+import { type ChartData } from 'chart.js';
 import { borderColourChart, colorBackgroundChart } from '../../variables';
 import { Box } from '@mui/material';
-import { Line } from 'react-chartjs-2';
 import { TotalCount } from './TotalCount';
 import { ChartPaper } from './ChartPaper';
 import { lineOptions } from './chart-options';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip
-);
+import { DatePoint, LineChart } from './LineChart';
 
 function dailyToPoint(dailyCount: DailyResourceCount) {
   return {
@@ -43,7 +26,7 @@ export function ResourceLineChart({
   label: string;
   metrics: TotalResourceMetrics | undefined;
 }) {
-  const lineData = {
+  const lineData: ChartData<'line', DatePoint[] | undefined> = {
     datasets: [
       {
         label: label,
@@ -58,7 +41,7 @@ export function ResourceLineChart({
     <ChartPaper>
       <TotalCount title={title} total={metrics?.total} />
       <Box sx={{ height: '300px' }}>
-        <Line options={lineOptions} data={lineData} />
+        <LineChart options={lineOptions} data={lineData} />
       </Box>
     </ChartPaper>
   );

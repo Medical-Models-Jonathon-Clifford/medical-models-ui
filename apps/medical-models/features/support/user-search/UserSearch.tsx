@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { searchUsers } from '../../../client/support-client';
-import { SimplePageState } from '../../../types/states';
+import { LOADED, loading, SimplePageState } from '../../../types/states';
 
 type UserSearchResult = {
   id: string;
@@ -28,19 +28,17 @@ type UserSearchResult = {
 };
 
 export function UserSearch() {
-  const [totalUserMetrics, setTotalUserMetrics] = useState<
-    UserSearchResult[] | undefined
-  >(undefined);
-  const [viewCompanyState, setViewCompanyState] =
-    useState<SimplePageState>('loading');
+  const [users, setUsers] = useState<UserSearchResult[] | undefined>(undefined);
+  const [viewResultsState, setViewResultsState] =
+    useState<SimplePageState>(loading);
   const [nameSearchTerm, setNameSearchTerm] = useState('');
 
   useEffect(() => {
     async function fetchUserData() {
-      setViewCompanyState('loading');
+      setViewResultsState(loading);
       const userResponse = await searchUsers(nameSearchTerm);
-      setTotalUserMetrics(userResponse.data);
-      setViewCompanyState('loaded');
+      setUsers(userResponse.data);
+      setViewResultsState(LOADED);
     }
     fetchUserData();
   }, [nameSearchTerm]);
@@ -49,7 +47,6 @@ export function UserSearch() {
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const value = event.target.value;
-    console.log('name change: %o', value);
     setNameSearchTerm(value);
   };
 
@@ -72,8 +69,8 @@ export function UserSearch() {
           label="Search"
         />
       </FormControl>
-      {viewCompanyState === 'loading' && <p>Loading...</p>}
-      {viewCompanyState === 'loaded' && (
+      {viewResultsState === loading && <p>Loading...</p>}
+      {viewResultsState === LOADED && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="User search results table">
             <TableHead>
@@ -83,7 +80,7 @@ export function UserSearch() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {totalUserMetrics?.map((row) => (
+              {users?.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -24,7 +24,7 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { searchCompanies } from '../../../client/support-client';
-import { SimplePageState } from '../../../types/states';
+import { LOADED, loading, SimplePageState } from '../../../types/states';
 
 type CompanySearchResult = {
   id: string;
@@ -33,44 +33,28 @@ type CompanySearchResult = {
 };
 
 export function CompanySearch() {
-  const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
-    CompanySearchResult[] | undefined
-  >(undefined);
+  const [companies, setCompanies] = useState<CompanySearchResult[] | undefined>(
+    undefined
+  );
   const [viewCompanyState, setViewCompanyState] =
-    useState<SimplePageState>('loading');
+    useState<SimplePageState>(loading);
   const [locationStateFilter, setLocationStateFilter] = useState('');
   const [nameSearchTerm, setNameSearchTerm] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setLocationStateFilter(event.target.value);
   };
 
-  async function fetchCompanyData() {
-    setViewCompanyState('loading');
-    const companyResponse = await searchCompanies(
-      locationStateFilter,
-      nameSearchTerm
-    );
-    setTotalCompanyMetrics(companyResponse.data);
-    setViewCompanyState('loaded');
-  }
-
   useEffect(() => {
+    async function fetchCompanyData() {
+      setViewCompanyState(loading);
+      const companyResponse = await searchCompanies(
+        locationStateFilter,
+        nameSearchTerm
+      );
+      setCompanies(companyResponse.data);
+      setViewCompanyState(LOADED);
+    }
     fetchCompanyData();
   }, [locationStateFilter, nameSearchTerm]);
 
@@ -78,7 +62,6 @@ export function CompanySearch() {
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const value = event.target.value;
-    console.log('name change: %o', value);
     setNameSearchTerm(value);
   };
 
@@ -86,22 +69,14 @@ export function CompanySearch() {
     <>
       <Typography variant="h3">Company Search</Typography>
       <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-search">Company</InputLabel>
+        <InputLabel htmlFor="company-name-search">Company</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-search"
+          id="company-name-search"
           type={'text'}
           onChange={handleNameChange}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                aria-label={
-                  showPassword ? 'hide the password' : 'display the password'
-                }
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
-                edge="end"
-              >
+              <IconButton edge="end">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
@@ -110,10 +85,10 @@ export function CompanySearch() {
         />
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">State</InputLabel>
+        <InputLabel id="location-state-select-input">State</InputLabel>
         <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
+          labelId="location-state-select-input"
+          id="location-state-select"
           value={locationStateFilter}
           label="State"
           onChange={handleChange}
@@ -121,21 +96,23 @@ export function CompanySearch() {
           <MenuItem value={''}>
             <em>None</em>
           </MenuItem>
-          <MenuItem value={'ACT'}>ACT</MenuItem>
-          <MenuItem value={'NSW'}>NSW</MenuItem>
-          <MenuItem value={'NT'}>NT</MenuItem>
-          <MenuItem value={'QLD'}>QLD</MenuItem>
-          <MenuItem value={'SA'}>SA</MenuItem>
-          <MenuItem value={'Tas'}>Tas</MenuItem>
-          <MenuItem value={'Vic'}>Vic</MenuItem>
-          <MenuItem value={'WA'}>WA</MenuItem>
+          {['ACT', 'NSW', 'NT', 'QLD', 'SA', 'Tas', 'Vic', 'WA'].map(
+            (state) => (
+              <MenuItem key={state} value={state}>
+                {state}
+              </MenuItem>
+            )
+          )}
         </Select>
         <FormHelperText>Filter by State of Australia</FormHelperText>
       </FormControl>
-      {viewCompanyState === 'loading' && <p>Loading...</p>}
-      {viewCompanyState === 'loaded' && (
+      {viewCompanyState === loading && <p>Loading...</p>}
+      {viewCompanyState === LOADED && (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table
+            sx={{ minWidth: 650 }}
+            aria-label="Company search result table"
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Company Name</TableCell>
@@ -143,7 +120,7 @@ export function CompanySearch() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {totalCompanyMetrics?.map((row) => (
+              {companies?.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

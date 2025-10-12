@@ -41,7 +41,7 @@ export function LineChart({
   data,
 }: {
   options: ChartOptions<'line'>;
-  data: ChartData<'line', DatePoint[]>;
+  data: ChartData<'line', DatePoint[] | undefined>;
 }) {
   return <Line options={options} data={data} />;
 }

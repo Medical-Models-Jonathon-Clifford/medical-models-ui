@@ -19,3 +19,24 @@ export const lineOptions: ChartOptions<'line'> = {
   },
   maintainAspectRatio: false,
 };
+
+export const createBarOptions = (chartTitle: string) => {
+  return {
+    indexAxis: 'y' as const,
+    elements: {
+      bar: {
+        borderWidth: 2,
+      },
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: chartTitle,
+      },
+    },
+  };
+};
