@@ -2,8 +2,8 @@
 
 import { LOADED, loading, SimplePageState } from '../../types/states';
 import { DrawerSkeleton } from './DrawerSkeleton';
-import { NavTreeDocItem } from '../../components/nav-tree-doc-item/NavTreeDocItem';
-import { DrawerButton } from './DrawerButton';
+import { NavTreeDocItem } from '../../components/drawer-buttons/NavTreeDocItem';
+import { DrawerButton } from '../../components/drawer-buttons/DrawerButton';
 import { Add as AddIcon } from '@mui/icons-material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { DocumentNode } from '../../types/document';

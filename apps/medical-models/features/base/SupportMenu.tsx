@@ -6,7 +6,7 @@ import {
   PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
 } from '@mui/icons-material';
 import { Drawer } from '../../components/drawer/Drawer';
-import { DrawerLink } from './DrawerLink';
+import { DrawerLink } from '../../components/drawer-buttons/DrawerLink';
 
 export default function SupportMenu({
   open,

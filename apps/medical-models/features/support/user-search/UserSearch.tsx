@@ -20,12 +20,7 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import { searchUsers } from '../../../client/support-client';
 import { LOADED, loading, SimplePageState } from '../../../types/states';
-
-type UserSearchResult = {
-  id: string;
-  name: string;
-  email: string;
-};
+import { UserSearchResult } from '../../../types/dashboard';
 
 export function UserSearch() {
   const [users, setUsers] = useState<UserSearchResult[] | undefined>(undefined);

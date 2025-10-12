@@ -18,3 +18,22 @@ export type NamedUserRanking = {
   name: string;
   frequency: number;
 };
+
+export type ViewCompanyDetailsDto = {
+  id: string;
+  name: string;
+  locationState: string;
+  logoFilename: string;
+};
+
+export type UserSearchResult = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type CompanySearchResult = {
+  id: string;
+  name: string;
+  locationState: string;
+};

@@ -1,11 +1,11 @@
-import { DrawerLink } from './DrawerLink';
+import React from 'react';
+import { Divider } from '@mui/material';
 import {
   AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
   DashboardOutlined as DashboardOutlinedIcon,
   PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
 } from '@mui/icons-material';
-import { Divider } from '@mui/material';
-import React from 'react';
+import { DrawerLink } from '../../components/drawer-buttons/DrawerLink';
 
 export function AdminItems() {
   return (

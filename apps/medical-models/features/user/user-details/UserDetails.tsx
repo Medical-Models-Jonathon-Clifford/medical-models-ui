@@ -10,8 +10,7 @@ export type ViewUserDetails = {
 };
 
 export async function UserDetails({ userId }: { userId: string }) {
-  const userDetailsResponse = await getUserDetails(userId);
-  const userDetails: ViewUserDetails = userDetailsResponse.data;
+  const userDetails: ViewUserDetails = (await getUserDetails(userId)).data;
 
   return (
     <Box>
@@ -30,7 +29,7 @@ export async function UserDetails({ userId }: { userId: string }) {
               </Typography>
             </Stack>
             <Box
-              style={{
+              sx={{
                 width: 200,
                 height: 200,
                 borderWidth: 1,

@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import { Box, Stack, Typography } from '@mui/material';
+import { ViewCompanyDetailsDto } from '../../../types/dashboard';
 import styles from './CompanyDetails.module.scss';
-
-type ViewCompanyDetailsDto = {
-  id: string;
-  name: string;
-  locationState: string;
-  logoFilename: string;
-};
 
 export function CompanyDetails({
   companyDetails,

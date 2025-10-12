@@ -1,11 +1,13 @@
 import { mmAxios } from './mm-axios';
+import { AxiosResponse } from 'axios';
+import { Document, DocumentNode } from '../types/document';
 
 export function updateDocument(
   id: string,
   title: string | null,
   body: string | null,
   state: string
-) {
+): Promise<AxiosResponse<Document>> {
   return mmAxios.put(`/documents/${id}`, {
     title: title,
     body: body,
@@ -13,7 +15,7 @@ export function updateDocument(
   });
 }
 
-export function getDocument(docId: string) {
+export function getDocument(docId: string): Promise<AxiosResponse<Document>> {
   return mmAxios.get(`/documents/${docId}`);
 }
 
@@ -25,7 +27,7 @@ export function newDocumentWithParent(parentId: string) {
   return mmAxios.post(`/documents/new?parentId=${parentId}`);
 }
 
-export function getAllNavigation() {
+export function getAllNavigation(): Promise<AxiosResponse<DocumentNode[]>> {
   return mmAxios.get(`/documents/all/navigation`);
 }
 

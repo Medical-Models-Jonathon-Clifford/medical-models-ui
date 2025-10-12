@@ -25,12 +25,7 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { searchCompanies } from '../../../client/support-client';
 import { LOADED, loading, SimplePageState } from '../../../types/states';
-
-type CompanySearchResult = {
-  id: string;
-  name: string;
-  locationState: string;
-};
+import { CompanySearchResult } from '../../../types/dashboard';
 
 export function CompanySearch() {
   const [companies, setCompanies] = useState<CompanySearchResult[] | undefined>(

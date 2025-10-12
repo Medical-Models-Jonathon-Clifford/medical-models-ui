@@ -1,11 +1,15 @@
 import { getSession } from 'next-auth/react';
 import { mmAxios } from './mm-axios';
+import { CommentNode } from '../features/comments/utils/comments';
+import { AxiosResponse } from 'axios';
 
 export function deleteCommentById(commentId: string) {
   return mmAxios.delete(`/comments/${commentId}`);
 }
 
-export function getCommentsForDocument(documentId: string) {
+export function getCommentsForDocument(
+  documentId: string
+): Promise<AxiosResponse<CommentNode[]>> {
   return mmAxios.get(`/comments/documents/${documentId}`);
 }
 

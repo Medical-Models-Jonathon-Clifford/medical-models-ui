@@ -1,5 +1,10 @@
 import { mmAxios } from './mm-axios';
-import { ModelRanking, TotalResourceMetrics } from '../types/dashboard';
+import {
+  CompanySearchResult,
+  ModelRanking,
+  TotalResourceMetrics,
+  UserSearchResult,
+} from '../types/dashboard';
 import { AxiosResponse } from 'axios';
 
 export function getTotalCompanyMetrics(): Promise<
@@ -33,14 +38,16 @@ export function getModelRankings(): Promise<AxiosResponse<ModelRanking[]>> {
 export function searchCompanies(
   locationStateFilter: string,
   nameSearchTerm: string
-) {
+): Promise<AxiosResponse<CompanySearchResult[]>> {
   return mmAxios.post('/support/companies/search', {
     locationStateFilter: locationStateFilter,
     nameSearchTerm: nameSearchTerm,
   });
 }
 
-export function searchUsers(nameSearchTerm: string) {
+export function searchUsers(
+  nameSearchTerm: string
+): Promise<AxiosResponse<UserSearchResult[]>> {
   return mmAxios.post('/support/users/search', {
     nameSearchTerm: nameSearchTerm,
   });

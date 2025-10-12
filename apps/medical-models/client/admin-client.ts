@@ -4,6 +4,8 @@ import {
   ModelRanking,
   NamedUserRanking,
   TotalResourceMetrics,
+  UserSearchResult,
+  ViewCompanyDetailsDto,
 } from '../types/dashboard';
 
 export function getUserRankingsForDocumentCreation(): Promise<
@@ -36,12 +38,16 @@ export function getCompanyCommentMetrics(): Promise<
   return mmAxios.get('/admin/company/comments/metrics');
 }
 
-export function searchCompanyUsers(nameSearchTerm: string) {
+export function searchCompanyUsers(
+  nameSearchTerm: string
+): Promise<AxiosResponse<UserSearchResult[]>> {
   return mmAxios.post('/admin/companies/users/search', {
     nameSearchTerm: nameSearchTerm,
   });
 }
 
-export function getCompanyDetails() {
+export function getCompanyDetails(): Promise<
+  AxiosResponse<ViewCompanyDetailsDto>
+> {
   return mmAxios.get('/admin/company/details');
 }

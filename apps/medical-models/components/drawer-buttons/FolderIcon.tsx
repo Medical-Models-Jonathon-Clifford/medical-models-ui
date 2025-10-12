@@ -3,7 +3,7 @@ import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowRight as KeyboardArrowRightIcon,
 } from '@mui/icons-material';
-import { SquareIconButton } from '../square-icon-button/SquareIconButton';
+import { SquareIconButton } from './SquareIconButton';
 
 export const FolderIcon = ({
   isOpen,

@@ -20,12 +20,7 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { searchCompanyUsers } from '../../../client/admin-client';
 import { SimplePageState } from '../../../types/states';
-
-type UserSearchResult = {
-  id: string;
-  name: string;
-  email: string;
-};
+import { UserSearchResult } from '../../../types/dashboard';
 
 export function CompanyUserSearch() {
   const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<

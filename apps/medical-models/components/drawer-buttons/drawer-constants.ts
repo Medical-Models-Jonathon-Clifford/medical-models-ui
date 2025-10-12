@@ -1,0 +1,3 @@
+export const INITIAL_BUTTON_PADDING = 8;
+export const EXTRA_PADDING_PER_LEVEL = 15;
+export const MAX_DOC_ITEM_TEXT_WIDTH = 204;

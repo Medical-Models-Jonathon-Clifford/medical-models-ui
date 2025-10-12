@@ -1,6 +1,5 @@
 import React, { MouseEventHandler } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
-import styles from './SquareIconButton.module.scss';
 
 export const SquareIconButton = ({
   title,
@@ -13,8 +12,12 @@ export const SquareIconButton = ({
 }) => {
   const iconButton = (
     <IconButton
-      className={styles.square_icon_button}
       sx={{
+        borderRadius: '4px',
+        width: '24px',
+        height: '24px',
+        fontSize: '8px',
+        flex: 'none',
         ':hover': {
           backgroundColor: 'rgba(202,202,202,0.4)',
         },
