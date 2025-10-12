@@ -8,7 +8,9 @@ export const appBarHeight = '56px';
 export const borderWidthLayoutLines = '1px';
 export const borderColorLayoutLines = 'rgba(0, 0, 0, 0.12)';
 export const borderColorLayoutLinesHover = 'rgba(0, 0, 0, 0.24)';
+export const borderColourChart = 'rgb(99,161,255)';
 
 // Colors
 export const colorPrimary = 'rgb(25, 118, 210)';
 export const colorBackground = 'white';
+export const colorBackgroundChart = 'rgba(99,154,255,0.5)';

@@ -16,12 +16,7 @@ import { MoveUp } from '../../../components/block-buttons/MoveUp';
 import { MoveDown } from '../../../components/block-buttons/MoveDown';
 import { EditBlock } from '../../../components/block-buttons/EditBlock';
 import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import {
-  EDITING,
-  LoadEditViewState,
-  LOADING,
-  VIEWING,
-} from '../../../types/states';
+import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
 
 export function EditText({
   value,

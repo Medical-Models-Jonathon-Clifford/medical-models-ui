@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { auth } from '../../../../auth';
 import { Forbidden } from '../../../../features/forbidden/Forbidden';
 import { Body } from '../../../../features/base/Body';
 import '../../../global.css';

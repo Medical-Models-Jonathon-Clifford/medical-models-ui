@@ -215,9 +215,9 @@ export async function CompanyRankings() {
               </div>
             </Paper>
             {/* Stack Placeholder */}
-            <Box style={{ width: '50%', padding: '8px' }}>
-              <div style={{ height: '300px' }}></div>
-            </Box>
+            <Box
+              style={{ width: '50%', padding: '8px', height: '300px' }}
+            ></Box>
           </Box>
         </Stack>
       </>

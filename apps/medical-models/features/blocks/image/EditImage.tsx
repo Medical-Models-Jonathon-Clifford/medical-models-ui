@@ -1,14 +1,7 @@
 'use client';
 
 import { FormEventHandler, MouseEventHandler, useState } from 'react';
-import {
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, IconButton, Paper, Stack, Tooltip } from '@mui/material';
 import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import { MEDICAL_MODELS_SERVICE_BASE_URL } from '../../../app/constants';
@@ -17,12 +10,7 @@ import { MoveUp } from '../../../components/block-buttons/MoveUp';
 import { MoveDown } from '../../../components/block-buttons/MoveDown';
 import { EditBlock } from '../../../components/block-buttons/EditBlock';
 import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import {
-  EDITING,
-  LoadEditViewState,
-  LOADING,
-  VIEWING,
-} from '../../../types/states';
+import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
 
 export function EditImage({
   filename,
