@@ -1,7 +1,6 @@
 'use client';
 
-import * as React from 'react';
-import { useState } from 'react';
+import { ComponentType, ReactNode, useState } from 'react';
 import { Box } from '@mui/material';
 import MainStage from './MainStage';
 import styles from './Body.module.scss';
@@ -16,8 +15,8 @@ export function Body({
   children,
   Menu,
 }: {
-  children: React.ReactNode;
-  Menu: React.ComponentType<{ open: boolean; width: number }>;
+  children: ReactNode;
+  Menu: ComponentType<{ open: boolean; width: number }>;
 }) {
   const [drawerWidth, setDrawerWidth] = useState(EXPANDED_SIDE_BAR_WIDTH);
   const [sideBarState, setSideBarState] = useState<SideBarState>('expanded');

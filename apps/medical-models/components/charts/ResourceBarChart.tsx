@@ -12,14 +12,12 @@ export function ResourceBarChart({
   label,
   labels,
   datasetData,
-  top,
 }: {
   title: string;
   chartTitle: string;
   label: string;
   labels: string[] | undefined;
   datasetData: number[] | undefined;
-  top: string | undefined;
 }) {
   const barData: ChartData<'bar', number[] | undefined> = {
     labels,
@@ -37,7 +35,7 @@ export function ResourceBarChart({
 
   return (
     <ChartPaper>
-      <TotalCount title={title} total={top} />
+      <TotalCount title={title} total={labels?.[0]} />
       <Box sx={{ height: '300px' }}>
         <BarChart options={barOptions} data={barData} />
       </Box>

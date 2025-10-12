@@ -2,16 +2,13 @@ import {
   getCompanyCommentMetrics,
   getCompanyDocumentMetrics,
 } from '../../../client/admin-client';
-import { TotalResourceMetrics } from '../../../types/dashboard';
 import { DashboardRow } from '../../../components/dashboard/DashboardRow';
 import { ResourceLineChart } from '../../../components/charts/ResourceLineChart';
 import { DashStack } from '../../../components/dashboard/DashStack';
 
 export async function CompanyTrends() {
-  const documentResponse = await getCompanyDocumentMetrics();
-  const totalDocumentMetrics: TotalResourceMetrics = documentResponse.data;
-  const commentResponse = await getCompanyCommentMetrics();
-  const totalCommentMetrics: TotalResourceMetrics = commentResponse.data;
+  const documentMetrics = (await getCompanyDocumentMetrics()).data;
+  const commentMetrics = (await getCompanyCommentMetrics()).data;
 
   return (
     <DashStack>
@@ -19,12 +16,12 @@ export async function CompanyTrends() {
         <ResourceLineChart
           title={'Company Documents'}
           label={'Documents'}
-          metrics={totalDocumentMetrics}
+          metrics={documentMetrics}
         ></ResourceLineChart>
         <ResourceLineChart
           title={'Company Comments'}
           label={'Comments'}
-          metrics={totalCommentMetrics}
+          metrics={commentMetrics}
         ></ResourceLineChart>
       </DashboardRow>
     </DashStack>

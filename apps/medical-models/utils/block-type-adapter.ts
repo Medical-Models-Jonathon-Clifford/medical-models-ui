@@ -5,6 +5,6 @@ const blockTypeToString: Record<string, string> = {
   image: 'Image',
 };
 
-export function getStringFromBlockType(blockType: string) {
+export function blockTypeToStr(blockType: string) {
   return blockTypeToString[blockType];
 }
