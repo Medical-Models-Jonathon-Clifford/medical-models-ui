@@ -14,7 +14,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mm/auth": ["libs/auth/src/index.ts"],
+      "@mm/clients": ["libs/clients/src/index.ts"],
+      "@mm/components": ["libs/components/src/index.ts"],
+      "@mm/components/server": ["libs/components/src/server.ts"],
+      "@mm/config": ["libs/config/src/index.ts"],
+      "@mm/theme": ["libs/theme/src/index.ts"],
+      "@mm/tokens": ["libs/tokens/src/index.ts"],
+      "@mm/types": ["libs/types/src/index.ts"],
+      "@mm/utils": ["libs/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

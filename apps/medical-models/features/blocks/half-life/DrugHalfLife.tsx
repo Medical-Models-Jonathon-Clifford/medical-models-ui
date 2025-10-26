@@ -5,17 +5,13 @@ import { ReactNode, useState } from 'react';
 import {
   Box,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
   Stack,
-  Tooltip,
   Typography,
 } from '@mui/material';
-import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -31,11 +27,15 @@ import { Line } from 'react-chartjs-2';
 import { getConcentrations, getTimePoints } from './half-life-service';
 import { halfLifeData, options } from './half-life-chart';
 import { Drug, DRUG_HALF_LIVES, drugFromName } from './drugs';
-import { MoveUp } from '../../../components/block-buttons/MoveUp';
-import { MoveDown } from '../../../components/block-buttons/MoveDown';
-import { EditBlock } from '../../../components/block-buttons/EditBlock';
-import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
+import {
+  BlockPaper,
+  DeleteBlock,
+  EditBlock,
+  MoveDown,
+  MoveUp,
+} from '@mm/components/server';
+import { EDITING, LoadEditViewState, VIEWING } from '@mm/types';
+import { SaveBlock } from '@mm/components/server';
 
 ChartJS.register(
   CategoryScale,
@@ -54,9 +54,9 @@ function halfLifeTitle(drug: Drug) {
 
 function HalfLifeBox({ children }: { children: ReactNode }) {
   return (
-    <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+    <BlockPaper>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</Box>
-    </Paper>
+    </BlockPaper>
   );
 }
 
@@ -161,11 +161,7 @@ export function EditHalfLife({
             width="100%"
           >
             <Typography variant="body1">{halfLifeTitle(drug)}</Typography>
-            <Tooltip title="Save block">
-              <IconButton aria-label="save" onClick={clickSaveHalfLife}>
-                <SaveOutlinedIcon />
-              </IconButton>
-            </Tooltip>
+            <SaveBlock onClick={clickSaveHalfLife} />
           </Stack>
           <Stack direction="row">
             <FormControl>

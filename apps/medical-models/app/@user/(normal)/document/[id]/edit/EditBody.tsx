@@ -5,7 +5,7 @@ import {
   isHalfLifeBlockType,
   isImageBlockType,
   isTextBlockType,
-} from '../../../../../../types/block';
+} from '@mm/types';
 import {
   DEFAULT_TISSUE,
   Tissue,

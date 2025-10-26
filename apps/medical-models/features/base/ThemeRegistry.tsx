@@ -5,7 +5,7 @@ import { useServerInsertedHTML } from 'next/navigation';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { lightTheme } from '../../theme/light-theme';
+import { lightTheme } from '@mm/theme';
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902

@@ -1,13 +1,12 @@
 'use client';
 
-import { LOADED, loading, SimplePageState } from '../../types/states';
+import { DocumentNode, LOADED, loading, SimplePageState } from '@mm/types';
 import { DrawerSkeleton } from './DrawerSkeleton';
-import { NavTreeDocItem } from '../../components/drawer-buttons/NavTreeDocItem';
-import { DrawerButton } from '../../components/drawer-buttons/DrawerButton';
+import { NavTreeDocItem } from '@mm/components';
+import { DrawerButton } from '@mm/components/server';
 import { Add as AddIcon } from '@mui/icons-material';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
-import { DocumentNode } from '../../types/document';
-import { getAllNavigation, newDocument } from '../../client/document-client';
+import { getAllNavigation, newDocument } from '@mm/clients';
 import { useRouter } from 'next/navigation';
 
 export function DocumentTree() {

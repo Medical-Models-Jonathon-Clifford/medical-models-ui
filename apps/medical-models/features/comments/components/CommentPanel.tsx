@@ -9,14 +9,14 @@ import {
   getCommentsForDocument,
   saveNewComment,
   saveNewReplyComment,
-} from '../../../client/comment-client';
+} from '@mm/clients';
 import {
-  CommentNode,
   compareComments,
   countComments,
   EMPTY_COMMENT,
   WholeCommentState,
 } from '../utils/comments';
+import { CommentNode } from '@mm/types';
 import { CommentThread } from './CommentThread';
 import { CommentPrompt } from './CommentPrompt';
 import styles from './CommentPanel.module.scss';

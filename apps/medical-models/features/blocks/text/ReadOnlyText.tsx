@@ -1,13 +1,13 @@
-import { ViewTextProps } from '../../../types/block';
-import { Box, Paper, Typography } from '@mui/material';
-import * as React from 'react';
+import { ViewTextProps } from '@mm/types';
+import { Box, Typography } from '@mui/material';
+import { BlockPaper } from '@mm/components/server';
 
 export function ReadOnlyText({ text }: ViewTextProps) {
   return (
-    <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+    <BlockPaper>
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <Typography variant="body1">{text}</Typography>
       </Box>
-    </Paper>
+    </BlockPaper>
   );
 }

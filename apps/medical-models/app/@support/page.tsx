@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { TotalResources } from '../../features/support/total-resources/TotalResources';
+import { TotalResources } from '../../features/support/TotalResources';
 
 export default function SupportDashboardPage() {
   return (

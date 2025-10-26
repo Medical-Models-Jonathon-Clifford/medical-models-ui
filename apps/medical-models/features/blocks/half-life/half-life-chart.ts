@@ -1,5 +1,5 @@
 import { Drug } from './drugs';
-import { zipToPoint } from '../../../utils/chart-adapters';
+import { zipToPoint } from '@mm/utils';
 import type { ChartOptions } from 'chart.js';
 
 export function options(halfLife: number): ChartOptions<'line'> {

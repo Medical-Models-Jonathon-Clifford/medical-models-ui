@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
 import { AddComment } from './AddComment';
-import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
+import { ProfileIcon } from '@mm/components/server';
 import styles from './CommentPrompt.module.scss';
 
 type CommentPromptState = 'prompt' | 'add-comment';

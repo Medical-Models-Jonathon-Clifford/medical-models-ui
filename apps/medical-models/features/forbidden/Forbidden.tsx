@@ -5,7 +5,7 @@ import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
   colorPrimary,
-} from '../../variables';
+} from '@mm/tokens';
 
 export function Forbidden() {
   return (

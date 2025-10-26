@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { Drawer } from '../../components/drawer/Drawer';
+import { Drawer } from '@mm/components/server';
 import { AdminItems } from './AdminItems';
 import { ROLE_ADMIN } from '../../constants/roles';
 import { DocumentTree } from './DocumentTree';

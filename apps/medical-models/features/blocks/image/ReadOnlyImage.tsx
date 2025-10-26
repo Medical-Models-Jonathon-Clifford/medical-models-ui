@@ -1,10 +1,11 @@
-import { ViewImageProps } from '../../../types/block';
-import { Box, Paper } from '@mui/material';
+import { ViewImageProps } from '@mm/types';
+import { Box } from '@mui/material';
 import Image from 'next/image';
+import { BlockPaper } from '@mm/components/server';
 
 export function ReadOnlyImage({ filename }: ViewImageProps) {
   return (
-    <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+    <BlockPaper>
       <Box
         sx={{
           display: 'flex',
@@ -22,6 +23,6 @@ export function ReadOnlyImage({ filename }: ViewImageProps) {
           alt={`Image of ${filename}`}
         />
       </Box>
-    </Paper>
+    </BlockPaper>
   );
 }

@@ -1,0 +1,96 @@
+'use client';
+
+import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
+import { Search as SearchIcon } from '@mui/icons-material';
+import Link from 'next/link';
+import { searchCompanyUsers } from '@mm/clients';
+import { SimplePageState, UserSearchResult } from '@mm/types';
+
+export function CompanyUserSearch() {
+  const [totalCompanyMetrics, setTotalCompanyMetrics] = useState<
+    UserSearchResult[] | undefined
+  >(undefined);
+  const [viewCompanyState, setViewCompanyState] =
+    useState<SimplePageState>('loading');
+  const [nameSearchTerm, setNameSearchTerm] = useState('');
+
+  useEffect(() => {
+    async function fetchCompanyData() {
+      setViewCompanyState('loading');
+      const userResponse = await searchCompanyUsers(nameSearchTerm);
+      setTotalCompanyMetrics(userResponse.data);
+      setViewCompanyState('loaded');
+    }
+    fetchCompanyData();
+  }, [nameSearchTerm]);
+
+  const handleNameChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const value = event.target.value;
+    setNameSearchTerm(value);
+  };
+
+  return (
+    <>
+      <Typography variant="h3">User Search</Typography>
+      <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
+        <InputLabel htmlFor="user-search-input">Name</InputLabel>
+        <OutlinedInput
+          id="user-search-input"
+          type="text"
+          onChange={handleNameChange}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton aria-label="search icon" edge="end">
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Search"
+        />
+      </FormControl>
+      {viewCompanyState === 'loading' && <p>Loading...</p>}
+      {viewCompanyState === 'loaded' && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {totalCompanyMetrics?.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Link href={`/admin/users/${row.id}`}>{row.name}</Link>
+                  </TableCell>
+                  <TableCell>{row.email}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
+  );
+}

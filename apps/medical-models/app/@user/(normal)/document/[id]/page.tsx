@@ -1,14 +1,14 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { ReadOnlyDocumentName } from '../../../../../features/blocks/document-name/DocumentName';
 import { CommentPanel } from '../../../../../features/comments/components/CommentPanel';
-import { getDocument } from '../../../../../client/document-client';
+import { getDocument } from '@mm/clients';
 import { ReadOnlyBody } from './ReadOnlyBody';
 import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
-} from '../../../../../variables';
+} from '@mm/tokens';
 import { EditOutlined } from '@mui/icons-material';
-import { formatTimeSince } from '../../../../../utils/date-adapters';
+import { formatTimeSince } from '@mm/utils';
 
 type Document = {
   id: string;

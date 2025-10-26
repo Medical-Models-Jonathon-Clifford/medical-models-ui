@@ -1,4 +1,4 @@
-import { CommentNode } from '../features/comments/utils/comments';
+import { CommentNode } from '@mm/types';
 import { addMinutes } from 'date-fns';
 
 export const newTestCommentNode = (

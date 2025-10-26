@@ -4,18 +4,14 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import { SaveOutlined } from '@mui/icons-material';
 import { EditDocumentName } from '../../../../../../features/blocks/document-name/DocumentName';
-import {
-  getDocument,
-  updateDocument,
-} from '../../../../../../client/document-client';
-import { Document } from '../../../../../../types/document';
+import { getDocument, updateDocument } from '@mm/clients';
+import { Document, SimplePageState } from '@mm/types';
 import { EditBody } from './EditBody';
 import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
-} from '../../../../../../variables';
-import { formatTimeSince } from '../../../../../../utils/date-adapters';
-import { SimplePageState } from '../../../../../../types/states';
+} from '@mm/tokens';
+import { formatTimeSince } from '@mm/utils';
 
 export default function Page({ params }: { params: { id: string } }) {
   const [data, setData] = useState<Document | undefined>(undefined);

@@ -5,17 +5,13 @@ import { useState } from 'react';
 import {
   Box,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
   Stack,
-  Tooltip,
   Typography,
 } from '@mui/material';
-import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -36,11 +32,15 @@ import {
   chartOptions,
   chartPermittivityData,
 } from './dielectric-chart';
-import { MoveUp } from '../../../components/block-buttons/MoveUp';
-import { MoveDown } from '../../../components/block-buttons/MoveDown';
-import { EditBlock } from '../../../components/block-buttons/EditBlock';
-import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
+import {
+  BlockPaper,
+  DeleteBlock,
+  EditBlock,
+  MoveDown,
+  MoveUp,
+  SaveBlock,
+} from '@mm/components/server';
+import { EDITING, LoadEditViewState, VIEWING } from '@mm/types';
 
 ChartJS.register(
   CategoryScale,
@@ -87,7 +87,7 @@ function PermittivityAndConductivityCharts({ tissue }: { tissue: Tissue }) {
 
 function DielectricBox({ children }: { children: React.ReactNode }) {
   return (
-    <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+    <BlockPaper>
       <Box
         sx={{
           display: 'flex',
@@ -97,7 +97,7 @@ function DielectricBox({ children }: { children: React.ReactNode }) {
       >
         {children}
       </Box>
-    </Paper>
+    </BlockPaper>
   );
 }
 
@@ -177,11 +177,7 @@ export function EditDielectric({
           <Typography variant="body1">
             {dielectricTitle(tissueOrDefault)}
           </Typography>
-          <Tooltip title="Save block">
-            <IconButton aria-label="save" onClick={clickSaveDielectric}>
-              <SaveOutlinedIcon />
-            </IconButton>
-          </Tooltip>
+          <SaveBlock onClick={clickSaveDielectric} />
         </Stack>
         <FormControl>
           <InputLabel id="tissue-select-label">Tissue</InputLabel>

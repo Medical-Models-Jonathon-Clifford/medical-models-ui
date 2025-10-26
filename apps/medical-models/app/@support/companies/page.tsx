@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { CompanySearch } from '../../../features/support/company-search/CompanySearch';
+import { CompanySearch } from '../../../features/support/CompanySearch';
 
 export default function SupportUsersPage() {
   return (

@@ -4,7 +4,7 @@ import { SxProps } from '@mui/system/styleFunctionSx/styleFunctionSx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
+import { ProfileIcon } from '@mm/components/server';
 import styles from './AddComment.module.scss';
 
 type AddCommentProps = {

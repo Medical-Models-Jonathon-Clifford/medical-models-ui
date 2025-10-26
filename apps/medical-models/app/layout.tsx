@@ -3,9 +3,9 @@ import { redirect } from 'next/navigation';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import ThemeRegistry from '../features/base/ThemeRegistry';
-import { auth } from '../auth';
+import { auth } from '@mm/auth';
 import Base from '../features/base/Base';
-import { LOGIN_URL } from './constants';
+import { LOGIN_URL } from '@mm/config';
 import './global.css';
 import { ROLE_SUPPORT } from '../constants/roles';
 

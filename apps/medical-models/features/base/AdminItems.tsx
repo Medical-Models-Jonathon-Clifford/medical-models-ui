@@ -5,7 +5,7 @@ import {
   DashboardOutlined as DashboardOutlinedIcon,
   PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
 } from '@mui/icons-material';
-import { DrawerLink } from '../../components/drawer-buttons/DrawerLink';
+import { DrawerLink } from '@mm/components';
 
 export function AdminItems() {
   return (

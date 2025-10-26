@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
-import { CompanyRankings } from '../../../../features/admin/company-resources/CompanyRankings';
-import { CompanyTrends } from '../../../../features/admin/company-resources/CompanyTrends';
+import { CompanyRankings } from '../../../../features/admin/CompanyRankings';
+import { CompanyTrends } from '../../../../features/admin/CompanyTrends';
 
 export default function AdminPage() {
   return (

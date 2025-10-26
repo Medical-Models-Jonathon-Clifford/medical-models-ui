@@ -5,8 +5,8 @@ import {
   LocationCityOutlined as LocationCityOutlinedIcon,
   PeopleOutlineOutlined as PeopleOutlineOutlinedIcon,
 } from '@mui/icons-material';
-import { Drawer } from '../../components/drawer/Drawer';
-import { DrawerLink } from '../../components/drawer-buttons/DrawerLink';
+import { Drawer } from '@mm/components/server';
+import { DrawerLink } from '@mm/components';
 
 export default function SupportMenu({
   open,

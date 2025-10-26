@@ -5,7 +5,7 @@ import {
   isHalfLifeBlockType,
   isImageBlockType,
   isTextBlockType,
-} from '../../../../../types/block';
+} from '@mm/types';
 import { ReadOnlyText } from '../../../../../features/blocks/text/ReadOnlyText';
 import { ReadOnlyDielectric } from '../../../../../features/blocks/dielectric/DielectricPropsBodyTissues';
 import { ReadOnlyHalfLife } from '../../../../../features/blocks/half-life/DrugHalfLife';

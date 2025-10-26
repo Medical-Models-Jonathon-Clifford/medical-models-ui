@@ -16,7 +16,7 @@ import {
 import {
   borderColorLayoutLines,
   borderColorLayoutLinesHover,
-} from '../../../variables';
+} from '@mm/tokens';
 
 type DocNameState = 'Editing' | 'Viewing';
 
@@ -62,7 +62,7 @@ export function EditDocumentName({
     <Stack direction="row">
       {docNameState === 'Editing' && (
         <form onSubmit={onDocNameSubmit}>
-          <Stack flexDirection="column" alignItems="flex-start" rowGap={'8px'}>
+          <Stack flexDirection="column" alignItems="flex-start" rowGap="8px">
             <FormControl>
               <TextField
                 id="outlined-basic"

@@ -8,7 +8,6 @@ const { composePlugins, withNx } = require('@nx/next');
  **/
 const nextConfig = {
   output: 'standalone',
-  // output: 'export', output: export compiles the next js app into static files that can run on a simple web server.
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr

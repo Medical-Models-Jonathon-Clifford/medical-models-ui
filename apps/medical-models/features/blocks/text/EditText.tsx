@@ -2,21 +2,16 @@
 
 import * as React from 'react';
 import { MouseEventHandler, useState } from 'react';
+import { Box, Stack, TextField, Typography } from '@mui/material';
 import {
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@mui/material';
-import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
-import { MoveUp } from '../../../components/block-buttons/MoveUp';
-import { MoveDown } from '../../../components/block-buttons/MoveDown';
-import { EditBlock } from '../../../components/block-buttons/EditBlock';
-import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
+  BlockPaper,
+  DeleteBlock,
+  EditBlock,
+  MoveDown,
+  MoveUp,
+  SaveBlock,
+} from '@mm/components/server';
+import { EDITING, LoadEditViewState, VIEWING } from '@mm/types';
 
 export function EditText({
   value,
@@ -48,8 +43,8 @@ export function EditText({
   return (
     <>
       {state === VIEWING && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <Stack gap={'8px'} flexDirection="row" justifyContent="space-between">
+        <BlockPaper>
+          <Stack gap="8px" flexDirection="row" justifyContent="space-between">
             <Typography variant="body1">{value}</Typography>
             <Box>
               <MoveUp onClick={moveUp}></MoveUp>
@@ -58,11 +53,11 @@ export function EditText({
               <DeleteBlock onClick={deleteBlock}></DeleteBlock>
             </Box>
           </Stack>
-        </Paper>
+        </BlockPaper>
       )}
       {state === EDITING && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
-          <Stack gap={'8px'} flexDirection="row" justifyContent="space-between">
+        <BlockPaper>
+          <Stack gap="8px" flexDirection="row" justifyContent="space-between">
             <TextField
               sx={{ width: '100%' }}
               id="outlined-multiline-flexible"
@@ -73,13 +68,9 @@ export function EditText({
                 setInputText(event.target.value);
               }}
             />
-            <Tooltip title="Save block">
-              <IconButton aria-label="save" onClick={clickSaveTextBlock}>
-                <SaveOutlinedIcon />
-              </IconButton>
-            </Tooltip>
+            <SaveBlock onClick={clickSaveTextBlock} />
           </Stack>
-        </Paper>
+        </BlockPaper>
       )}
     </>
   );

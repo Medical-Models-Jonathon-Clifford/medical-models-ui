@@ -1,0 +1,33 @@
+@use '../../../../libs/tokens/src/lib/variables' as vars;
+
+.app_bar_box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: vars.$app-bar-height;
+  padding: 16px;
+  border-bottom-color: vars.$border-color-layout-lines;
+  border-bottom-width: vars.$border-width-layout-lines;
+  border-style: none none solid none;
+  background-color: white;
+  z-index: 100;
+}
+
+.app_bar_link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  text-decoration: none;
+  color: rgb(80, 82, 88);
+
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.08);
+    border-radius: 4px;
+  }
+}

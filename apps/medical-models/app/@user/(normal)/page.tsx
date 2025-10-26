@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { AxiosResponse } from 'axios';
-import { DocumentNode } from '../../../types/document';
-import { getAllNavigation } from '../../../client/document-client';
+import { DocumentNode } from '@mm/types';
+import { getAllNavigation } from '@mm/clients';
 
 export default async function UserRoot() {
   const documents: AxiosResponse<DocumentNode[]> = await getAllNavigation();

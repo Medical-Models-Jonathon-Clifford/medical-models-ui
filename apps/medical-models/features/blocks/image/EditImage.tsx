@@ -1,16 +1,19 @@
 'use client';
 
 import { FormEventHandler, MouseEventHandler, useState } from 'react';
-import { Box, IconButton, Paper, Stack, Tooltip } from '@mui/material';
-import { SaveOutlined as SaveOutlinedIcon } from '@mui/icons-material';
+import { Box, Stack } from '@mui/material';
 import Image from 'next/image';
-import { MEDICAL_MODELS_SERVICE_BASE_URL } from '../../../app/constants';
-import { postImage } from '../../../client/document-client';
-import { MoveUp } from '../../../components/block-buttons/MoveUp';
-import { MoveDown } from '../../../components/block-buttons/MoveDown';
-import { EditBlock } from '../../../components/block-buttons/EditBlock';
-import { DeleteBlock } from '../../../components/block-buttons/DeleteBlock';
-import { EDITING, LoadEditViewState, VIEWING } from '../../../types/states';
+import { MEDICAL_MODELS_SERVICE_BASE_URL } from '@mm/config';
+import { postImage } from '@mm/clients';
+import {
+  BlockPaper,
+  DeleteBlock,
+  EditBlock,
+  MoveDown,
+  MoveUp,
+  SaveBlock,
+} from '@mm/components/server';
+import { EDITING, LoadEditViewState, VIEWING } from '@mm/types';
 
 export function EditImage({
   filename,
@@ -48,7 +51,7 @@ export function EditImage({
   return (
     <>
       {state === VIEWING && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+        <BlockPaper>
           <Stack flexDirection="row" align-items="flex-start">
             <Box
               sx={{
@@ -63,7 +66,6 @@ export function EditImage({
               <Image
                 fill={true}
                 style={{ objectFit: 'contain' }}
-                // objectFit={'contain'}
                 src={`/images/${imgFilename}`}
                 alt={`Image of ${filename}`}
               />
@@ -77,10 +79,10 @@ export function EditImage({
               </Stack>
             </Box>
           </Stack>
-        </Paper>
+        </BlockPaper>
       )}
       {state === EDITING && (
-        <Paper elevation={3} variant="outlined" sx={{ padding: '8px' }}>
+        <BlockPaper>
           <Box sx={{ display: 'flex', gap: '8px' }}>
             <form
               onSubmit={handleSubmitImage}
@@ -95,15 +97,11 @@ export function EditImage({
                 sx={{ width: '100%' }}
               >
                 <input type="file" name="file" accept="image/*" />
-                <Tooltip title="Save block">
-                  <IconButton type="submit" aria-label="save">
-                    <SaveOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
+                <SaveBlock type="submit" />
               </Stack>
             </form>
           </Box>
-        </Paper>
+        </BlockPaper>
       )}
     </>
   );

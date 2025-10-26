@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { Session } from 'next-auth';
-import { auth } from './auth';
+import { auth } from '@mm/auth';
 import {
   AUTHORIZATION_SERVER_URL,
   LOGIN_URL,
   MEDICAL_MODELS_SERVICE_BASE_URL,
-} from './app/constants';
+} from '@mm/config';
 
 // List of public routes that don't require authentication
 const publicRoutes = [LOGIN_URL];

@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { CompanyUserSearch } from '../../../../../features/admin/company-user-search/CompanyUserSearch';
+import { CompanyUserSearch } from '../../../../../features/admin/CompanyUserSearch';
 
 export default function AdminUsersPage() {
   return (

@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { CommentNode } from '../utils/comments';
-import { formatTimeSince } from '../../../utils/date-adapters';
-import { ProfileIcon } from '../../../components/profile-icon/ProfileIcon';
+import { CommentNode } from '@mm/types';
+import { formatTimeSince } from '@mm/utils';
+import { ProfileIcon } from '@mm/components/server';
 import styles from './Comment.module.scss';
 
 type CommentProps = {

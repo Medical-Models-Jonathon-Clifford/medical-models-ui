@@ -1,5 +1,5 @@
-import { getCompanyDetails } from '../../../../../client/admin-client';
-import { CompanyDetails } from '../../../../../features/company/company-details/CompanyDetails';
+import { getCompanyDetails } from '@mm/clients';
+import { CompanyDetails } from '../../../../../features/company/CompanyDetails';
 
 export default async function AdminOrganisationDetailsPage() {
   const companyDetails = (await getCompanyDetails()).data;

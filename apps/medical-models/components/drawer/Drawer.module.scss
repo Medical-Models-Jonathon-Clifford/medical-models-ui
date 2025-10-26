@@ -1,8 +1,0 @@
-@use '../../variables.scss' as vars;
-
-.drawer_box {
-  border-style: none solid none none;
-  border-width: vars.$border-width-layout-lines;
-  border-color: vars.$border-color-layout-lines;
-  overflow-y: auto;
-}

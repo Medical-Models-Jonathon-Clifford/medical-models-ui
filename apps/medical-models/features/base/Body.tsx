@@ -6,10 +6,10 @@ import MainStage from './MainStage';
 import {
   COLLAPSED_SIDE_BAR_WIDTH,
   EXPANDED_SIDE_BAR_WIDTH,
-  type SideBarState,
   SideBarToggleButton,
-} from './body-side-bar';
-import { appBarHeight } from '../../variables';
+} from './SideBarToggleButton';
+import { appBarHeight } from '@mm/tokens';
+import { COLLAPSED, EXPANDED, SideBarState } from '@mm/types';
 
 export function Body({
   children,
@@ -19,15 +19,15 @@ export function Body({
   Menu: ComponentType<{ open: boolean; width: number }>;
 }) {
   const [drawerWidth, setDrawerWidth] = useState(EXPANDED_SIDE_BAR_WIDTH);
-  const [sideBarState, setSideBarState] = useState<SideBarState>('expanded');
+  const [sideBarState, setSideBarState] = useState<SideBarState>(EXPANDED);
 
   const handleClickCollapse = () => {
-    setSideBarState('collapsed');
+    setSideBarState(COLLAPSED);
     setDrawerWidth(COLLAPSED_SIDE_BAR_WIDTH);
   };
 
   const handleClickExpand = () => {
-    setSideBarState('expanded');
+    setSideBarState(EXPANDED);
     setDrawerWidth(EXPANDED_SIDE_BAR_WIDTH);
   };
 
@@ -40,7 +40,7 @@ export function Body({
         height: `calc(100vh - ${appBarHeight})`,
       }}
     >
-      <Menu open={sideBarState === 'expanded'} width={drawerWidth}></Menu>
+      <Menu open={sideBarState === EXPANDED} width={drawerWidth}></Menu>
       <SideBarToggleButton
         drawerWidth={drawerWidth}
         sideBarState={sideBarState}
