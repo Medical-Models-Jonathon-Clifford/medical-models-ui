@@ -1,3 +1,5 @@
+import { ValidBlocks } from './block';
+
 export type DailyResourceCount = {
   date: string;
   newResources: number;
@@ -10,7 +12,7 @@ export type TotalResourceMetrics = {
 };
 
 export type ModelRanking = {
-  type: string;
+  type: ValidBlocks;
   frequency: number;
 };
 

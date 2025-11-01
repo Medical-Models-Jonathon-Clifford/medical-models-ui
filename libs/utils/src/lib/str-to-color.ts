@@ -1,4 +1,11 @@
-export function stringToColor(string: string) {
+export const DEFAULT_COLOR = '#149bf1';
+
+export function stringToColor(string?: string | null) {
+  if (!string) {
+    console.warn('Parameter `string` was null or undefined. Will default the return color.')
+    return DEFAULT_COLOR;
+  }
+
   let hash = 0;
 
   /* eslint-disable no-bitwise */

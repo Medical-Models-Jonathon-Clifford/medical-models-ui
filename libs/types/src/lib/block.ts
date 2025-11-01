@@ -1,4 +1,4 @@
-type ValidBlocks = 'text' | 'dielectric' | 'half-life' | 'image';
+export type ValidBlocks = 'text' | 'dielectric' | 'half-life' | 'image';
 
 type ValidTypes<T extends ValidBlocks> = {
   type: T;
