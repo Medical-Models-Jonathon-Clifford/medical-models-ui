@@ -4,3 +4,4 @@ export * from './lib/dashboard';
 export * from './lib/document';
 export * from './lib/states';
 export * from './lib/user';
+export { AuthUser } from './lib/auth';

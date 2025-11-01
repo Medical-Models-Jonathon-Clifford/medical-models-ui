@@ -1,30 +1,15 @@
 import NextAuth from 'next-auth';
 import 'next-auth/jwt';
-import crypto from 'crypto';
-
 import { createStorage } from 'unstorage';
 import memoryDriver from 'unstorage/drivers/memory';
 import { UnstorageAdapter } from '@auth/unstorage-adapter';
-
-const AUTHORIZATION_SERVER_URL = process.env.AUTHORIZATION_SERVER_URL;
-
-function hashString(input: string): string {
-  return crypto.createHash('sha256').update(input).digest('hex');
-}
+import { AUTHORIZATION_SERVER_URL } from '@mm/config';
+import { decodeIdToken, hashString } from './auth-utils';
+import { AuthUser } from '@mm/types';
 
 const storage = createStorage({
   driver: memoryDriver(),
 });
-
-function decodeIdToken(idToken: string) {
-  try {
-    const base64Payload = idToken.split('.')[1]; // Get the payload section
-    return JSON.parse(atob(base64Payload));
-  } catch (error) {
-    console.error('Error decoding ID token:', error);
-    return null;
-  }
-}
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   debug: !!process.env.AUTH_DEBUG,
@@ -140,20 +125,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
   experimental: { enableWebAuthn: true },
 });
-
-type AuthUser = {
-  name: string;
-  userId: string;
-  companyId: string;
-  honorific: string;
-  givenName: string;
-  familyName: string;
-  fullName: string;
-  email: string;
-  middle_name: string;
-  picture: string;
-  roles: string[];
-};
 
 declare module 'next-auth' {
   interface Session {
